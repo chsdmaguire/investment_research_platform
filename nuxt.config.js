@@ -1,4 +1,5 @@
 require('dotenv').config()
+const axios = require('axios');
 const API_HOST = process.env.NODE_ENV === 'dev' ? 'http://localhost:3000' : 'https://api.flibyrd.com'
 
 export default {
