@@ -19,9 +19,8 @@
   </div>
 </template>
 
-<script>
+<script> 
 import $ from 'jquery'
-import { WOW } from 'wowjs'
 
 export default {
   data () {
@@ -54,7 +53,7 @@ export default {
     })
 
       // WOW
-    const wow = new WOW()
+    const wow = new this.$wow()
     wow.init()
   }
 }
