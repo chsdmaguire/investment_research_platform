@@ -1,233 +1,180 @@
 <template>
   <v-container fluid>
-      <v-layout row wrap justify-center>
-          <v-flex lg3  class="px-4">
-<div id="nasdaq-chart" class="chart"> </div>
-          </v-flex>
-          <v-flex lg3 class="px-4">
-           <div id="sp500-chart" class="chart"> </div>
-          </v-flex>
-          <v-flex lg3  class="px-4">
-            <div id="dowJones-chart" class="chart"> </div>
-          </v-flex>
-          <v-flex lg3  class="px-4">
-           <div id="vix-chart" class="chart"> </div>
-          </v-flex>
-      </v-layout>
-      <!-- <v-row justify-content="center" align-content="center">
-          
-      </v-row >
-       <v-row justify-content="center" align-content="center">
 
+  <v-item-group>
+    <v-container>
+      <v-row>
+        <v-col
+          v-for="n in indices"
+          :key="n"
+          cols="12"
+          md="2"
+          sm="2"
+        >
+          <v-item >
+            <v-card
+              class="d-flex align-center"
+              outlined
+              height="80"
+              flat
+              rounded
+              max-width="200"
+            >
+            <v-container>
+            <v-layout row wrap>
+                <v-flex md6>
+                    <div class="font-weight-black">
+                       {{ n.name }} 
+                    </div>
+                    
+                </v-flex>
+                <v-flex md6>
+                     <span v-if="n.actual_change > 0"> <v-icon color="#46bdc6">mdi-arrow-up-box</v-icon> </span> 
+                      <span v-else>  <v-icon color="#ff6d01">mdi-arrow-down-box</v-icon> </span>
+                </v-flex>
+            </v-layout>
+            <v-layout row wrap>
+                <v-flex md12>
+                    {{ abbreviate(n.value) }}
+                </v-flex>
+            </v-layout>
+            <v-layout row wrap>
+                <v-flex md6>
+                    <span v-if="n.actual_change > 0" style="color: green"> {{ abbreviate(n.actual_change) }} </span>
+                    <span v-else style="color: red"> {{ abbreviate(n.actual_change) }} </span>
+                </v-flex>
+                <v-flex md6>
+                     <span v-if="n.percent_change > 0" style="color: green">{{ percentify(n.percent_change) }} </span>
+                    <span v-else style="color: red"> {{  percentify(n.percent_change) }} </span>
+                </v-flex>
+            </v-layout>
+            </v-container>
+            </v-card>
+          </v-item>
+        </v-col>
       </v-row>
-       <v-row justify-content="center" align-content="center">
-
-      </v-row>
-       <v-row justify-content="center" align-content="center">
-
-      </v-row> -->
+    </v-container>
+  </v-item-group>
+              <!-- <trading-vue :data="sAnP" title-txt="S&P 500"
+              :toolbar="true"></trading-vue> -->
 
   </v-container>
 </template>
 
 <script>
-import { createChart, CrosshairMode, PriceScaleMode } from 'lightweight-charts';
+const numeral = require('numeral');
 // list of index symbols: SP500, VIXCLS (cboe volatility index), 
 // DJIA, WILL5000INDFC (wilshire 5000), NASDAQCOM
 
 // ADD 4 MORE CHARTS (VIX, SMALL CAP (TOTAL GROWTH VALUE) MIDD, & LARGE)
-// CHANGE PULL SETTINGS SO REQUESTS GO BACK TO 2015
-// change colors for lines
-// add that gradient area coloring below lines for charts with 1
-
 export default {
 data() {
     return {
-        SP500: [],
-        dowJones: [],
-        nasDaq: [],
-        vix: [],
+        indices: []
+        }
+    },
 
-        nasChart: null,
-        spChart: null,
-        djChart: null,
-        vixChart: null,
-
-        SPLineSeries: null,
-        NasLineSeries: null,
-        DJLineSeries: null,
-        vixLineSeries: null,
-    }
+    mounted() {
+        this.makeIndice()
     },
 
     methods: {
-       async showNasData() {
-             const nasResponse = await this.$axios.get('/api/fred/db/index/NASDAQCOM');
-            this.nasDaq = nasResponse.data
-            this.nasChart = createChart(document.getElementById('nasdaq-chart'), { width: 300, height: 150 });
-            this.NasLineSeries = this.nasChart.addAreaSeries({
-                title: 'Nasdaq',
-                visible: true,
-                color: '#2296f3'
-            });
-            this.NasLineSeries.setData(this.nasDaq)
-            this.nasChart.applyOptions({
-                    layout: {
-                    backgroundColor: '#ffffff',
-                    textColor: '191a19',
-                },
-                drawTicks: true,
-                grid: {
-                    vertLines: {
-                    color: '#334158',
-                    visible: false,
-                    },
-                    horzLines: {
-                    color: '#334158',
-                    visible: false,
-                    },
-                },  
-                watermark: {
-                        color: '#191a19',
-                        visible: true,
-                        text: 'Nasdaq Composite',
-                        fontFamily: 'Roboto',
-                        fontSize: 14,
-                        horzAlign: 'right',
-                        vertAlign: 'top',
-                    },
-            })
-       },
-    
-        async showSPData() {
-            const spResponse = await this.$axios.get('/api/fred/db/index/SP500');
-            this.SP500 = spResponse.data
-            this.spChart = createChart(document.getElementById('sp500-chart'), { width: 300, height: 150 });
-            this.SPLineSeries = this.spChart.addAreaSeries({
-              title: 'S&P 500',
-              visible: true,
-              color: '#2296f3'
-            });
-            this.SPLineSeries.setData(this.SP500)
-            this.spChart.applyOptions({
-                    layout: {
-                    backgroundColor: '#ffffff',
-                    textColor: '191a19',
-                },
-                drawTicks: true,
-                grid: {
-                    vertLines: {
-                    color: '#334158',
-                    visible: false,
-                    },
-                    horzLines: {
-                    color: '#334158',
-                    visible: false,
-                    },
-                },
-                watermark: {
-                        color: '#191a19',
-                        visible: true,
-                        text: 'S&P 500 Index',
-                        fontFamily: 'Roboto',
-                        fontSize: 14,
-                        horzAlign: 'right',
-                        vertAlign: 'top',
-                    },      
-            })
+        abbreviate(num) {
+        return numeral(num).format('0,0.00');
         },
-
-        async showDJData() {
-            const DjResponse = await this.$axios.get('/api/fred/db/index/DJIA');
-            this.dowJones = DjResponse.data
-            this.djChart = createChart(document.getElementById('dowJones-chart'), { width: 300, height: 150 });
-            this.DJLineSeries = this.djChart.addAreaSeries({
-                title: 'Dow Jones',
-                visible: true,
-                color: '#2296f3'
+        percentify(num) {
+        return numeral(num).format('0.00%');
+        },
+        async makeIndice() {
+            const indiceData = await this.$axios.get('/api/indice/card/data');
+            indiceData.data.forEach(item => {
+                if (item.series_id == 'SP500') {
+                    const newPrice = item.value;
+                    const newDate = item.time;
+                    const oldValue = indiceData.data.find(element => element.series_id == 'SP500' && element.time < newDate)
+                    if(oldValue != null) {
+                        this.indices.push({
+                            name: 'S&P 500',
+                            value: newPrice,
+                            actual_change: (newPrice - oldValue.value),
+                            percent_change: (newPrice - oldValue.value) / oldValue.value
+                        })
+                    }
+                }
+                else if (item.series_id == 'DJIA') {
+                    const newPrice = item.value;
+                    const newDate = item.time;
+                    const oldValue = indiceData.data.find(element => element.series_id == 'DJIA' && element.time < newDate)
+                    if(oldValue != null) {
+                        this.indices.push({
+                            name: 'Dow Jones',
+                            value: newPrice,
+                            actual_change: (newPrice - oldValue.value),
+                            percent_change: (newPrice - oldValue.value) / oldValue.value
+                        })
+                    }
+                }
+                else if (item.series_id == 'NASDAQCOM') {
+                    const newPrice = item.value;
+                    const newDate = item.time;
+                    const oldValue = indiceData.data.find(element => element.series_id == 'NASDAQCOM' && element.time < newDate)
+                    if(oldValue != null) {
+                        this.indices.push({
+                            name: 'Nasdaq',
+                            value: newPrice,
+                            actual_change: (newPrice - oldValue.value),
+                            percent_change: (newPrice - oldValue.value) / oldValue.value
+                        })
+                    }
+                }
+                else if (item.series_id == 'VIXCLS') {
+                    const newPrice = item.value;
+                    const newDate = item.time;
+                    const oldValue = indiceData.data.find(element => element.series_id == 'VIXCLS' && element.time < newDate)
+                    if(oldValue != null) {
+                        this.indices.push({
+                            name: 'Vix',
+                            value: newPrice,
+                            actual_change: (newPrice - oldValue.value),
+                            percent_change: (newPrice - oldValue.value) / oldValue.value
+                        })
+                    }
+                }
+                else if (item.series_id == 'WILLSMLCAP') {
+                    const newPrice = item.value;
+                    const newDate = item.time;
+                    const oldValue = indiceData.data.find(element => element.series_id == 'WILLSMLCAP' && element.time < newDate)
+                    if(oldValue != null) {
+                        this.indices.push({
+                            name: 'Small Cap',
+                            value: newPrice,
+                            actual_change: (newPrice - oldValue.value),
+                            percent_change: (newPrice - oldValue.value) / oldValue.value
+                        })
+                    }
+                }
+                else if (item.series_id == 'WILLMIDCAPPR') {
+                    const newPrice = item.value;
+                    const newDate = item.time;
+                    const oldValue = indiceData.data.find(element => element.series_id == 'WILLMIDCAPPR' && element.time < newDate)
+                    if(oldValue != null) {
+                        this.indices.push({
+                            name: 'Mid Cap',
+                            value: newPrice,
+                            actual_change: (newPrice - oldValue.value),
+                            percent_change: (newPrice - oldValue.value) / oldValue.value
+                        })
+                    }
+                }
             });
-            this.DJLineSeries.setData(this.dowJones)
-            this.djChart.applyOptions({
-                    layout: {
-                    backgroundColor: '#ffffff',
-                    textColor: '191a19',
-                },
-                drawTicks: true,
-                grid: {
-                    vertLines: {
-                    color: '#334158',
-                    visible: false,
-                    },
-                    horzLines: {
-                    color: '#334158',
-                    visible: false,
-                    },
-                },
-                watermark: {
-                        color: '#191a19',
-                        visible: true,
-                        text: 'Dow Jones Industrial Average',
-                        fontFamily: 'Roboto',
-                        fontSize: 14,
-                        horzAlign: 'right',
-                        vertAlign: 'top',
-                    },
-            })
-    },
-
-        async showVixData() {
-        const vixResponse = await this.$axios.get('/api/fred/db/index/VIXCLS');
-        this.vix = vixResponse.data
-        this.vixChart = createChart(document.getElementById('vix-chart'), { width: 300, height: 150 });
-        this.vixLineSeries = this.vixChart.addAreaSeries({
-            title: 'VIX',
-            visible: true,
-            color: '#2296f3'
-        });
-        this.vixLineSeries.setData(this.vix)
-        this.vixChart.applyOptions({
-                    layout: {
-                    backgroundColor: '#ffffff',
-                    textColor: '191a19',
-                },
-                drawTicks: true,
-                grid: {
-                    vertLines: {
-                    color: '#334158',
-                    visible: false,
-                    },
-                    horzLines: {
-                    color: '#334158',
-                    visible: false,
-                    },
-                },
-            watermark: {
-                    color: '#191a19',
-                    visible: true,
-                    text: 'CBOE Volatility Index',
-                    fontFamily: 'Roboto',
-                    fontSize: 14,
-                    horzAlign: 'right',
-                    vertAlign: 'top',
-                },
-        })
-    },
-
-},
-
-    mounted() {
-        this.showSPData();
-        this.showNasData();
-        this.showDJData();
-        this.showVixData();
+            console.log(this.indices)
+        }
     }
 }
 </script>
 
 <style scoped>
-/* .chart {
-    margin-top: 10%;
-    margin-bottom: 5%;
-} */
-
+.indice-value {
+    font-size: 10px;
+}
 </style>

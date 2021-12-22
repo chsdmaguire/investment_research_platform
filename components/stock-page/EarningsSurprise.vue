@@ -33,6 +33,7 @@ export default {
        async renderMix() {
             const ticker = this.$route.params.ticker.toUpperCase()
             const earnSurpise = await this.$axios.get(`/api/earnings/surpises/${ticker}`);
+            if (earnSurpise.data.length > 0) {
             this.allEarnings = earnSurpise.data;
             const estimateData = [];
             const actualData = [];
@@ -140,7 +141,9 @@ export default {
                         animationDuration: 3 
                     },
                     responsiveAnimationDuration: 3
-                    }
+                    }                
+            }
+
        
         },
      updateChart() {

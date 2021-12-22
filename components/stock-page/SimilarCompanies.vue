@@ -1,12 +1,5 @@
 <template>
   <v-container fluid>
-      <!-- <v-layout row wrap justify-center class="mt-5">
-          <v-flex lg10>
-              <h4>
-                  Similar Companies
-              </h4>
-          </v-flex>
-      </v-layout> -->
       <v-layout row wrap justify-center>
             <h4>
                   Similar Companies
@@ -58,7 +51,6 @@ export default {
                 const ticker = this.$route.params.ticker.toUpperCase();
                 const trendStocks = await this.$axios.get(`/api/similar/companies/${ticker}`);
                 trendStocks.data.forEach(element => {
-                    console.log(element)
                     this.topStocks.push({
                         
                         ticker: element.ticker,

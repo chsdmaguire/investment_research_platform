@@ -11,15 +11,15 @@
                     align="center"
                     class="mx-0"
                   >
-                  <div>{{ slide.headline }} </div>
+                  <div class="subtitle-2">{{ slide.headline }} </div>
                   </v-row>
                   <v-row>
                     <v-col>
                       <div>{{ slide.source }}</div>
                     </v-col>
                     <v-col>
-                      {{ (new Date(slide.datetime * 1000)).getDate() + '/' + 
-                      ((new Date(slide.datetime * 1000)).getMonth() +1) + '/' + 
+                      {{ ((new Date(slide.datetime * 1000)).getMonth() +1) + '/' + 
+                        (new Date(slide.datetime * 1000)).getDate() + '/' +                       
                       (new Date(slide.datetime * 1000)).getFullYear()  }}
                     </v-col>
                   </v-row>

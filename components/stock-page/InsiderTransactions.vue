@@ -187,6 +187,7 @@ export default {
         async getInsideTransactions() {
             const ticker = this.$route.params.ticker.toUpperCase()
             this.totalTransactions = await this.$axios.$get(`/api/insider/transactions/${ticker}`);
+            if (this.totalTransactions.length > 0) {
             this.totalTransactions.forEach(transaction => {
               const date = transaction.filing_date.split('T')[0];
               const transactAmount = Number(transaction.change) * Number(transaction.transaction_price)
@@ -247,7 +248,10 @@ export default {
                   }
                 }]
               }          
-          }
+          }              
+            }
+
+
         }
 
     },

@@ -46,7 +46,7 @@ export default {
     async getAnalystRecs() {
       const ticker = this.$route.params.ticker.toUpperCase()
       const analystRecs = await this.$axios.$get(`/api/analyst/recs/${ticker}`);
-
+      if(analystRecs.length > 0 ) {
       analystRecs.forEach(rec => {
         this.xAxis.push(rec.period.split('T')[0])
         this.strongbuyRecs.push(rec.strong_buy);
@@ -55,6 +55,8 @@ export default {
         this.sellRecs.push(rec.sell);
         this.strongsellRecs.push(rec.strong_sell);        
       });
+
+      }
 
       this.BarData = {
         labels: this.xAxis,

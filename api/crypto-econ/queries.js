@@ -11,6 +11,8 @@ const econMetricList =  'SELECT distinct series_id, name FROM econ.metrics_info 
 const dbIndex = "SELECT distinct time, value FROM econ.indice_data where series_id = $1 and time > '2015/01/01' ORDER BY time asc";
 const econNotes = "SELECT * FROM econ.metrics_info where series_id = $1";
 
+const indiceCard = "select distinct * from econ.indice_data group by series_id, time, value order by time desc limit 28"
+
 module.exports = {
     cryptoListings,
     cryptoCandleStick,
@@ -18,5 +20,6 @@ module.exports = {
     econData,
     econMetricList,
     dbIndex,
-    econNotes
+    econNotes,
+    indiceCard
 }

@@ -16,7 +16,7 @@ router.get('/fred/db/index/:series_id', controller.dbIndex)
 router.get('/econ/metric/list', controller.econMetricList)
 router.get('/econ/graph/metric/:symbol', controller.econData)
 router.get('/econ/metric/notes/:symbol', controller.econNotes)
-
+router.get('/indice/card/data', controller.indiceCard)
 
 
 module.exports = router;

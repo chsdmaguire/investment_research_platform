@@ -701,6 +701,7 @@ export default {
             const ticker = this.$route.params.ticker.toUpperCase();
             const dcfResonse =  await this.$axios.get(`/api/dcf/inputs/${ticker}`);
             const histRev = await this.$axios.get(`/api/dcf/rev/${ticker}`);
+            if (histRev.data.length > 0 && dcfResonse.data.length > 0) {
             const revValues = histRev.data
             const sumall = revValues.map(item => item.value).reduce((prev, curr) => prev + curr, 0);
             this.revenue = sumall;
@@ -718,7 +719,9 @@ export default {
               this.slider += Number((input.rev_growth_rate * 100).toFixed(2))
               this.WACC += Number((input.wacc * 100).toFixed(2)) 
               this.ltGrowth += Number(((input.wacc) * (1- (input.payoutratio_ttm / 100)) * 100).toFixed(2))
-            }) 
+            })               
+            }
+
         },
 
         resetAssump() {

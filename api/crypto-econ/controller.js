@@ -57,6 +57,12 @@ const econNotes = async (req, res) => {
     })
 }
 
+const indiceCard = async (req, res) => {
+    pool.query(queries.indiceCard, (error, results) => {
+        if(error) throw error
+        return res.status(200).json(results.rows)
+        });
+}
 
 
 module.exports = {
@@ -67,4 +73,5 @@ module.exports = {
     econMetricList,
     econData,
     econNotes,
+    indiceCard
 }

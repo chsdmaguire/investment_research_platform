@@ -66,8 +66,11 @@
                 </v-flex>
            
                 <v-flex sm10 md4 lg4 class="pt-3">
-                        <div class="candle">
-                           <div id="ticker-chart"> </div> 
+                        <!-- <div class="candle">
+                           <CandleChartBase :chart-data="candleData" :options="candleOptions"/>
+                        </div> -->
+                        <div>
+                           <div id="ticker-chart"> </div>  
                         </div>
                     <p id="summary" class="company-description" width="600"></p>                   
                 </v-flex>                
@@ -77,10 +80,12 @@
 </template>
 
 <script>
+import TradingVue from 'trading-vue-js'
 import { createChart } from 'lightweight-charts';
 const numeral = require('numeral');
 
 export default {
+    components: {TradingVue},
     data () {
         return {
             basicInfo: [],
@@ -93,14 +98,28 @@ export default {
             ipoDate: null,
             summary: null,
             marketStats: [],
-            stockChart: null,
-            stockData: [],
-            volumeData: [],
-
-            allData: [],
-            
+            appleChart: {
+            ohlcv: [
+                [ 1550966400000, 38.5375, 38.785, 37.925,  38.48, 136575592],
+                [ 1551132000000, 13.7, 30, 6.6,  30,  206 ],
+                [ 1551135600000, 29.9, 33, 21.3, 21.8, 74 ],
+                [ 1551139200000, 21.7, 25.9, 18, 24,  140 ],
+                [ 1551142800000, 24.1, 24.1, 24, 24.1, 29 ],
+            ],                
+            },
             candlestickSeries: null,
             volumeSeries: null,
+            candleData: null,
+            candleOptions: null,
+            stockChart: null,
+            stockData: [],
+            candleDates: [],
+            candleSeries: [],
+            volumeData: [],
+
+
+            allData: [],
+        
             newsArticles: []  
         }
     },
@@ -111,20 +130,22 @@ export default {
             const ticker = this.$route.params.ticker.toUpperCase()
             const basic_response = await this.$axios.get(`/api/stock/basic/info/${ticker}`)
             this.basicInfo = basic_response.data[0];
+            if (this.basicInfo.length > 0) {
             this.symbol = document.getElementById('tradeSymbol').innerHTML = this.basicInfo.ticker;
             this.name = document.getElementById('compName').innerHTML = this.basicInfo.name;
             this.Industry = document.getElementById('Industry').innerHTML = this.basicInfo.sector;
             this.compExchange = document.getElementById('Exchange').innerHTML = this.basicInfo.exchange.replace(/ .*/,'');
             this.compUrl = document.getElementById('compUrl').innerHTML = this.basicInfo.weburl;
             this.ipoDate = document.getElementById('ipoDate').innerHTML = 'IPO Date: ' + this.basicInfo.ipo.toString().split('T')[0];
-            this.summary = document.getElementById('summary').innerHTML = this.basicInfo.description;
-            
+            this.summary = document.getElementById('summary').innerHTML = this.basicInfo.description;                           
+            }
         },
 
 
         async getKeyMetric() {
             const ticker = this.$route.params.ticker.toUpperCase()
             const basic_response = await this.$axios.get(`/api/stock/key/metrics/${ticker}`);
+            if (basic_response.data.length > 0) {
             basic_response.data.forEach(element => {     
                 if(element.metric == '52WeekHigh') {
                     element.metric = '52 Week High'
@@ -175,14 +196,17 @@ export default {
                 }
                 
             })   
+                        
+            }
+
         },
 
-        async getPriceData() {
+         async getPriceData() {
             const ticker = this.$route.params.ticker.toUpperCase();
             const candleResponse =  await this.$axios.get(`/api/stock/candlestick/chart/${ticker}`);
-            candleResponse.data.forEach(bar => {
+            if(candleResponse.data.length > 0) {
+                 candleResponse.data.forEach(bar => {
                 const newDate = bar.date.split('T')[0];
-                console.log(bar.open)
                 this.stockData.push({
                     time: newDate,
                     open: Number(bar.open),
@@ -195,7 +219,9 @@ export default {
                     value: bar.volume
                 })
             });
-            console.log(this.stockData)
+   
+            }
+        
             this.stockChart = createChart(document.getElementById('ticker-chart'), { width: 500, height:400 });
             
             this.candlestickSeries = this.stockChart.addCandlestickSeries({
@@ -203,7 +229,6 @@ export default {
                 visible: true,
                 color: '#2296f3'
             });
-
             this.volumeSeries = this.stockChart.addHistogramSeries({
                     visible: true,
                     color: '#429ef5',
@@ -216,10 +241,8 @@ export default {
                         bottom: 0,
                     },
                 });
-
             this.candlestickSeries.setData(this.stockData)
             this.volumeSeries.setData(this.volumeData)
-
             this.stockChart.applyOptions({
                 layout: {
                 backgroundColor: '#253248',
@@ -241,7 +264,6 @@ export default {
                 vertAlign: 'top',
                 color: '#fcfcfc',
                 },
-
         })
         },
         async getNews() {

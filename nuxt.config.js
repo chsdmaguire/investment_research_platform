@@ -3,7 +3,7 @@ const axios = require('axios');
 const API_HOST = process.env.NODE_ENV === 'dev' ? 'http://localhost:3000' : 'https://api.flibyrd.com'
 
 export default {
-  target: 'static',
+  target: 'server',
   ssr: false,
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
@@ -48,7 +48,7 @@ export default {
 
   robots: {
     UserAgent: '*',
-    Disallow: '/api',
+    // Disallow: '/api',
   },
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
@@ -70,8 +70,12 @@ export default {
       return axios.get(API_HOST)
       .then(( { data } ) => {
         return data.posts.map(( { ticker }) => `/companies/${ticker}`)
-      })
-    }
+      }).catch((err) => {
+        console.log('Error returned', err)
+      });
+  
+    },
+    fallback: true,
   },
 
   vuetify: {
@@ -81,8 +85,8 @@ export default {
   axios: {
     // host: 'localhost',
     //  port: 3000,
-    host: process.env.LOCAL_HOST,
-    port: process.env.LOCAL_PORT
+    // host: process.env.LOCAL_HOST,
+    // port: process.env.LOCAL_PORT
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build

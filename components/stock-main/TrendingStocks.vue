@@ -54,7 +54,6 @@ export default {
             async getTrending() {
                 const trendStocks = await this.$axios.get('/api/top/trending');
                 trendStocks.data.forEach(element => {
-                    console.log(element)
                     this.topStocks.push({
                         
                         ticker: element.ticker,

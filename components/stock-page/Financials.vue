@@ -534,20 +534,24 @@ export default {
         async initialData() {
             const ticker = this.$route.params.ticker.toUpperCase();
             const getDate = await this.$axios.get(`/api/historical/financials/dates/${ticker}`);
-            let DateData = getDate.data
+            const DateData = getDate.data
+            if(DateData.length > 0) {
             for (let i = 0; i < DateData.length; i++) {
                 const newTime = DateData[i].date.split('T')[0];
                 this.dates.push(newTime);
                 const updateHead = JSON.parse(`{"text": "${newTime}", "value": "${newTime}"}`)
                 if( DateData[i].fp == 'annual') {
                 this.headers.push(updateHead)                  
-                } else {
+                } else if(DateData[i].fp == 'quarter') {
                     this.QuarterHeaders.push(updateHead)  
                 }
-            };
+            };                
+            }
+
            
             const annualFinancials = await this.$axios.get(`/api/financials/values/${ticker}`);
             this.allFinancials = annualFinancials.data
+            if (this.allFinancials.length > 0) {
             this.allFinancials.forEach(line => {
                 const date = line.date.split('T')[0];
                 if(line.fp == 'annual' && line.stmt == 'IS') {
@@ -663,14 +667,6 @@ export default {
                         this.AnnDivPreferr[date] = this.abbreviate(line.value)
                     } else if(line.fsli == 'dividendPayoutCommonStock') {
                         this.AnnDivCommon[date] = this.abbreviate(line.value)
-                    } else if(line.fsli == 'dividendPayout') {
-                        this.AnnTotDiv[date] = this.abbreviate(line.value)
-                    } else if(line.fsli == 'paymentsForRepurchaseOfCommonStock') {
-                        this.AnnPayRepurchCommon[date] = this.abbreviate(line.value)
-                    } else if(line.fsli == 'paymentsForRepurchaseOfEquity') {
-                        this.AnnPayRepurchEquity[date] = this.abbreviate(line.value)
-                    } else if(line.fsli == 'paymentsForRepurchaseOfPreferredStock') {
-                        this.AnnPayPreferredPurch[date] = this.abbreviate(line.value)
                     } else if(line.fsli == 'proceedsFromIssuanceOfLongTermDebtAndCapitalSecuritiesNet') {
                         this.AnnProceIssLtDebt[date] = this.abbreviate(line.value)
                     }  else if(line.fsli == 'proceedsFromIssuanceOfPreferredStock') {
@@ -800,14 +796,6 @@ export default {
                         this.QuartDivPreferr[date] = this.abbreviate(line.value)
                     } else if(line.fsli == 'dividendPayoutCommonStock') {
                         this.QuartDivCommon[date] = this.abbreviate(line.value)
-                    } else if(line.fsli == 'dividendPayout') {
-                        this.QuartTotDiv[date] = this.abbreviate(line.value)
-                    } else if(line.fsli == 'paymentsForRepurchaseOfCommonStock') {
-                        this.QuartPayRepurchCommon[date] = this.abbreviate(line.value)
-                    } else if(line.fsli == 'paymentsForRepurchaseOfEquity') {
-                        this.QuartPayRepurchEquity[date] = this.abbreviate(line.value)
-                    } else if(line.fsli == 'paymentsForRepurchaseOfPreferredStock') {
-                        this.QuartPayPreferredPurch[date] = this.abbreviate(line.value)
                     } else if(line.fsli == 'proceedsFromIssuanceOfLongTermDebtAndCapitalSecuritiesNet') {
                         this.QuartProceIssLtDebt[date] = this.abbreviate(line.value)
                     }  else if(line.fsli == 'proceedsFromIssuanceOfPreferredStock') {
@@ -848,8 +836,7 @@ annBsArr.forEach(item => {
 
 const annCashFlowArray = [this.AnnNetInc, this.AnnDepDeplAmort, this.AnnChangeAr, this.AnnChangeInv, this.AnnChangeOperAss,
 this.AnnChangeOperLiab, this.AnnPayOperAct, this.AnnProceedsOperAct, this.AnnCashFromOper, this.AnnCapex, this.AnnCashInv,
-this.AnnIssCommStock, this.AnnDivPreferr, this.AnnDivCommon, this.AnnTotDiv, this.AnnPayRepurchCommon, this.AnnPayRepurchEquity, 
-this.AnnPayPreferredPurch, this.AnnProceIssLtDebt, this.AnnProcPreferrIssuance,
+this.AnnIssCommStock, this.AnnDivPreferr, this.AnnDivCommon, this.AnnProceIssLtDebt, this.AnnProcPreferrIssuance,
 this.AnnRepayShortDebt, this.AnnRepurchEquityProceed, this.AnnSaleTreasury, this.AnnCashFinancing, this.AnnChangeCashBal];
 annCashFlowArray.forEach(item => {
     if (Object.keys(item).length > 1) {
@@ -879,14 +866,15 @@ this.QuartTotLiab, this.QuartLtDebt,this.QuartNonCurrLiab, this.QuartTotalNonCur
 
 const quartCfArray = [this.QuartNetInc, this.QuartDepDeplAmort, this.QuartChangeAr, this.QuartChangeInv, this.QuartChangeOperAss,
 this.QuartChangeOperLiab, this.QuartPayOperAct, this.QuartProceedsOperAct, this.QuartCashFromOper, this.QuartCapex, this.QuartCashInv,
-this.QuartIssCommStock, this.QuartDivPreferr, this.QuartDivCommon, this.QuartTotDiv, this.QuartPayRepurchCommon, this.QuartPayRepurchEquity, 
-this.QuartPayPreferredPurch, this.QuartProceIssLtDebt, this.QuartProcPreferrIssuance,
+this.QuartIssCommStock, this.QuartDivPreferr, this.QuartDivCommon, this.QuartProceIssLtDebt, this.QuartProcPreferrIssuance,
 this.QuartRepayShortDebt, this.QuartRepurchEquityProceed, this.QuartSaleTreasury, this.QuartCashFinancing, this.QuartChangeCashBal]
     quartCfArray.forEach(item => {
     if (Object.keys(item).length > 1) {
         this.quarterCashFlow.push(item)
     }
 })
+
+            }
 
    }
 },

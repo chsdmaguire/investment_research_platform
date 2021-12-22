@@ -3,7 +3,7 @@
     <NavBar />
     <v-container  fluid align-items="center" class="mt-16 pt-10">
         <v-layout row wrap justify-center>
-            <v-flex lg8>
+            <v-flex lg12 md12 sm12>
                  <IndexChart />
             </v-flex>
             <v-flex lg8 class="my-8">
@@ -42,7 +42,7 @@ import News from '~/components/stock-main/News'
 import IpoCal from '~/components/stock-main/IpoCal'
 import TrendingStocks from '~/components/stock-main/TrendingStocks'
 export default {
-    components: {StockSearch, IndexChart, News, IpoCal, EarnCal, TrendingStocks },
+    components: {StockSearch, News, IpoCal, EarnCal, TrendingStocks, IndexChart },
     data() {
         return {
         }

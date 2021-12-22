@@ -47,11 +47,15 @@ export default {
   methods: {
     async updateQuarterChart() {
       const ticker = this.$route.params.ticker.toUpperCase()
-      const fsliList = await this.$axios.get(`/api/stock/quarter/metrics/chart/${ticker}`)
+      const fsliList = await this.$axios.get(`/api/stock/quarter/metrics/chart/${ticker}`);
+      if (fsliList.data.length > 0) {
       const fsliData = fsliList.data
-      fsliData.forEach(element => this.quarterFslis.push(element));
+      fsliData.forEach(element => this.quarterFslis.push(element));        
+      }
+
       const initial_met = 'Revenue Growth Rate';
       const quartResponse = await this.$axios.get(`/api/stock/quarter/metrics/chart/${ticker}/${initial_met}`);
+      if (quartResponse.data.length > 0) {
       const revData = quartResponse.data;
       revData.forEach(val => {
         this.chartValues.push(val.num_value);
@@ -102,6 +106,7 @@ export default {
           }]
           },
           responsive: true
+      }        
       }
       },
       
@@ -111,7 +116,6 @@ export default {
          this.chartValues.length = 0;
          this.chartKeys.length = 0;        
          this.$axios.get(`/api/stock/quarter/metrics/chart/${ticker}/${this.chosenMetric}`).then(response => {
-           console.log(response.data)
            response.data.forEach(elem => {
              this.chartValues.push(elem.num_value);
              this.chartKeys.push(elem.date.split('T')[0]);
@@ -128,15 +132,16 @@ export default {
             ]
           };
           // this.chartOptions.scales.yAxes.callback = 
-          if (this.chosenMetric.includes('Margin') || this.chosenMetric.includes('to') 
-          || this.chosenMetric.includes('Growth')) {
+          if (this.chosenMetric.includes('Margin') || this.chosenMetric.includes('to') || this.chosenMetric.includes('Growth')) {
             this.chartOptions = {
           scales: {
             yAxes: [
               {
                 position: 'right',
                 gridLines: {
-                  display: false,
+                display: false,
+                min: Math.min(this.chartValues),
+                max: Math.max(this.chartValues),
                 },
               ticks: {
               beginAtZero: false,
@@ -173,6 +178,8 @@ export default {
                 gridLines: {
                   display: false,
                 },
+                min: Math.min(this.chartValues),
+                max: Math.max(this.chartValues),
               ticks: {
               beginAtZero: false,
               callback: function (value) {

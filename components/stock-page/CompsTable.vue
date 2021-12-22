@@ -205,7 +205,7 @@ export default {
         const companyComps = await this.$axios.$get(`/api/stock/market/allcomps/${ticker}`);
         this.allMetrics = companyComps;
         this.competitorList = await this.$axios.$get(`/api/stock/competitors/${ticker}`);
-
+        if (this.allMetrics.length > 0) {
         for(const company in this.allMetrics){
 
           for(var i = 0; i < this.competitorList.length; i++) {
@@ -226,12 +226,16 @@ export default {
            this.allCompanies.push(this.allMetrics[company].ticker);
                         } 
                       }
-                    };
+                    };          
+        }
+          if (this.initialCompetitors.length > 0) {
             for(var i = 0; i < this.initialCompetitors.length; i++) {
               this.index++
               this.allCompanies.push(this.initialCompetitors[i]);
 
             };
+
+          }
 
             this.PEavg = this.PEratio.reduce((a, b) => a + b) / this.PEratio.length;
             this.EVEBITDAavg = this.EVebitda.reduce((a, b) => a + b) / this.EVebitda.length;
@@ -270,6 +274,7 @@ export default {
       async getcompanyComps() {
           const ticker = this.$route.params.ticker.toUpperCase();
           const tickComps = await this.$axios.$get(`/api/comps/${ticker}`);
+          if (tickComps.length > 0) {
           this.tickerComps = tickComps;
           this.netInc = tickComps[0].net_income;
           this.numOfShares = tickComps[0].numshares;
@@ -279,7 +284,9 @@ export default {
           this.bvPerShare = tickComps[0].bv_share_annual;
           this.operInc = tickComps[0].ebit;
           this.markCap = tickComps[0].market_capitalization;
-          this.priceFcf = tickComps[0].p_fcf_annual
+          this.priceFcf = tickComps[0].p_fcf_annual            
+          }
+
         },   
         remove (item) {
         const index = this.initialCompetitors.indexOf(item)
