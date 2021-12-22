@@ -66,9 +66,6 @@
                 </v-flex>
            
                 <v-flex sm10 md4 lg4 class="pt-3">
-                        <!-- <div class="candle">
-                           <CandleChartBase :chart-data="candleData" :options="candleOptions"/>
-                        </div> -->
                         <div>
                            <div id="ticker-chart"> </div>  
                         </div>
@@ -80,12 +77,10 @@
 </template>
 
 <script>
-import TradingVue from 'trading-vue-js'
 import { createChart } from 'lightweight-charts';
 const numeral = require('numeral');
 
 export default {
-    components: {TradingVue},
     data () {
         return {
             basicInfo: [],
@@ -98,15 +93,6 @@ export default {
             ipoDate: null,
             summary: null,
             marketStats: [],
-            appleChart: {
-            ohlcv: [
-                [ 1550966400000, 38.5375, 38.785, 37.925,  38.48, 136575592],
-                [ 1551132000000, 13.7, 30, 6.6,  30,  206 ],
-                [ 1551135600000, 29.9, 33, 21.3, 21.8, 74 ],
-                [ 1551139200000, 21.7, 25.9, 18, 24,  140 ],
-                [ 1551142800000, 24.1, 24.1, 24, 24.1, 29 ],
-            ],                
-            },
             candlestickSeries: null,
             volumeSeries: null,
             candleData: null,

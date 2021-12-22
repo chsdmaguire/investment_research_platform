@@ -94,33 +94,24 @@
 </template>
 
 <script>
-import Financials from '~/components/stock-page/Financials'
-import EarningsSurprise from '~/components/stock-page/EarningsSurprise'
 import SearchBar from '~/components/stock-page/SearchBar'
-import CompsTable from '~/components/stock-page/CompsTable'
-import MetricsGraphQuarter from '~/components/stock-page/MetricsGraphQuarter'
-import MetricsGraphAnnual from '~/components/stock-page/MetricsGraphAnnual'
-import DiscountCashFlow from '~/components/stock-page/DiscountCashFlow'
 import BasicInfo from '~/components/stock-page/BasicInfo'
-import AnalystRecs from '~/components/stock-page/AnalystRecs'
-import SentimentAnalysis from '~/components/stock-page/SentimentAnalysis'
-import InsiderTransactions from '~/components/stock-page/InsiderTransactions'
 import SimilarCompanies from '~/components/stock-page/SimilarCompanies'
+import Financials from '~/components/stock-page/Financials'
+import DiscountCashFlow from '~/components/stock-page/DiscountCashFlow'
+import MetricsGraphAnnual from '~/components/stock-page/MetricsGraphAnnual'
+import MetricsGraphQuarter from '~/components/stock-page/MetricsGraphQuarter'
+import CompsTable from '~/components/stock-page/CompsTable'
+import EarningsSurprise from '~/components/stock-page/EarningsSurprise'
+import AnalystRecs from '~/components/stock-page/AnalystRecs'
+import InsiderTransactions from '~/components/stock-page/InsiderTransactions'
+import SentimentAnalysis from '~/components/stock-page/SentimentAnalysis'
 import MessageApp from '~/components/stock-page/MessageApp'
 
 export default {
-    components: {EarningsSurprise, SearchBar, CompsTable, MetricsGraphQuarter, MetricsGraphAnnual, 
-    DiscountCashFlow, BasicInfo, AnalystRecs, SentimentAnalysis, InsiderTransactions, Financials, SimilarCompanies, MessageApp},
-     data() {
-         return {
-         }
-     },
-     head() {
-         return {
-             title: this.$route.params.ticker.toUpperCase()
-         }
-     }
-
+    components: {SearchBar, BasicInfo, SimilarCompanies, Financials, DiscountCashFlow, MetricsGraphAnnual,
+    MetricsGraphQuarter, CompsTable, EarningsSurprise, AnalystRecs, InsiderTransactions, SentimentAnalysis, 
+    MessageApp}
 }
 </script>
 

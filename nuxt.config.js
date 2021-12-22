@@ -29,7 +29,7 @@ export default {
   css: [
   ],
 
-  transpile: ['lightweight-charts'],
+  transpile: ['lightweight-charts', 'wowjs'],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [ 
@@ -48,7 +48,7 @@ export default {
 
   robots: {
     UserAgent: '*',
-    // Disallow: '/api',
+    Disallow: '/api',
   },
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
@@ -64,19 +64,19 @@ export default {
     '@nuxtjs/robots'
   ],
 
-  generate: {
-    routes() {
-      // const API_HOST = 'http://localhost:3000';
-      return axios.get(API_HOST)
-      .then(( { data } ) => {
-        return data.posts.map(( { ticker }) => `/companies/${ticker}`)
-      }).catch((err) => {
-        console.log('Error returned', err)
-      });
+  // generate: {
+  //   routes() {
+  //     // const API_HOST = 'http://localhost:3000';
+  //     return axios.get(API_HOST)
+  //     .then(( { data } ) => {
+  //       return data.posts.map(( { ticker }) => `/companies/${ticker}`)
+  //     }).catch((err) => {
+  //       console.log('Error returned', err)
+  //     });
   
-    },
-    fallback: true,
-  },
+  //   },
+  //   fallback: true,
+  // },
 
   vuetify: {
 
@@ -91,6 +91,6 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
-    vendor: ['hchs-vue-charts']
+    vendor: ['hchs-vue-charts'],
   }
 }

@@ -718,7 +718,11 @@ export default {
               this.netDebt += Number((input.net_debt).toFixed(2))
               this.slider += Number((input.rev_growth_rate * 100).toFixed(2))
               this.WACC += Number((input.wacc * 100).toFixed(2)) 
-              this.ltGrowth += Number(((input.wacc) * (1- (input.payoutratio_ttm / 100)) * 100).toFixed(2))
+              if (input.payoutratio_ttm == 0) {
+                this.ltGrowth += 5
+              } else {
+                this.ltGrowth += Number(((input.wacc) * (1- (input.payoutratio_ttm / 100)) * 100).toFixed(2))
+              }              
             })               
             }
 
@@ -737,18 +741,22 @@ export default {
           this.WACC = 0;
           this.ltGrowth = 0;
             this.allInputs.forEach(input => {
-              this.CAPEX +=  Number((input.capex_margin * 100).toFixed(2)) 
-              this.NWC +=  Number((input.change_nwc_margin * 100).toFixed(2)) 
-              this.COGS +=  Number((input.gross_margin * 100).toFixed(2))
-              this.opEx +=  Number((input.operating_margin * 100).toFixed(2))
-              this.DAexp +=  Number((input.da_margin * 100).toFixed(2))
-              this.TAX +=  Number((input.taxexp * 100).toFixed(2)) 
-              this.SBC +=  Number((input.sbc_margin * 100).toFixed(2))
-              this.NumShares += Number(input.numshares)
-              this.netDebt += Number((input.net_debt).toFixed(2))
-              this.slider += Number((input.rev_growth_rate * 100).toFixed(2))
-              this.WACC += Number((input.wacc * 100).toFixed(2)) 
-              this.ltGrowth += Number(((input.wacc) * (1- (input.payoutratio_ttm / 100)) * 100).toFixed(2))
+              this.CAPEX =  Number((input.capex_margin * 100).toFixed(2)) 
+              this.NWC =  Number((input.change_nwc_margin * 100).toFixed(2)) 
+              this.COGS =  Number((input.gross_margin * 100).toFixed(2))
+              this.opEx =  Number((input.operating_margin * 100).toFixed(2))
+              this.DAexp =  Number((input.da_margin * 100).toFixed(2))
+              this.TAX =  Number((input.taxexp * 100).toFixed(2)) 
+              this.SBC =  Number((input.sbc_margin * 100).toFixed(2))
+              this.NumShares = Number(input.numshares)
+              this.netDebt = Number((input.net_debt).toFixed(2))
+              this.slider = Number((input.rev_growth_rate * 100).toFixed(2))
+              this.WACC = Number((input.wacc * 100).toFixed(2)) 
+              if (input.payoutratio_ttm == 0) {
+                this.ltGrowth = 5
+              } else {
+                this.ltGrowth = Number(((input.wacc) * (1- (input.payoutratio_ttm / 100)) * 100).toFixed(2))
+              } 
             }) 
         },
     },

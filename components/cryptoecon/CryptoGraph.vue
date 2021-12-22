@@ -1,6 +1,6 @@
 <template>
 <div class="cryp-graph">
-    <!-- <v-autocomplete
+    <v-autocomplete
     id="cryptoShow" 
     :items="currencies"
     v-model="selectedCurrency"
@@ -25,7 +25,7 @@
             <v-list-item-subtitle v-text="item.cmc_rank"></v-list-item-subtitle>
             </v-list-item-content>
         </template>
-    </v-autocomplete> -->
+    </v-autocomplete>
     <div>
         <div id="crypto-chart" >
     </div>     
@@ -34,7 +34,7 @@
 </template>
 
 <script>
-// import { createChart, CrosshairMode, PriceScaleMode } from 'lightweight-charts';
+import { createChart, CrosshairMode, PriceScaleMode } from 'lightweight-charts';
 
 export default {
     data () {
@@ -48,52 +48,52 @@ export default {
         }
     },
 
-    // methods: {
-    //     async fillCandleChart() {
-    //         const cryptoList = await this.$axios.get('/api/crypto/ticker/list');
-    //         this.currencies = cryptoList.data;
-    //         const ticker = 'BTC'
-    //         const candleResponse = await this.$axios.get(`/api/crypto/candlestick/${ticker}`);
-    //         this.allData = candleResponse.data;
-    //         for(let i = 0; i <this.allData.length; i++) {
-    //            const newDate = this.allData[i].date.split('T')[0];
-    //             this.chartData.push({time: newDate,
-    //             open: this.allData[i].open,
-    //             high: this.allData[i].high,
-    //             low: this.allData[i].low, 
-    //             close: this.allData[i].close,
-    //             }) };
-    //         this.cryptoChart = createChart(document.getElementById('crypto-chart'), { width: 900, height: 300 });
-    //         this.chartSeries = this.cryptoChart.addCandlestickSeries();
-    //         this.chartSeries.setData(this.chartData);
+    methods: {
+        async fillCandleChart() {
+            const cryptoList = await this.$axios.get('/api/crypto/ticker/list');
+            this.currencies = cryptoList.data;
+            const ticker = 'BTC'
+            const candleResponse = await this.$axios.get(`/api/crypto/candlestick/${ticker}`);
+            this.allData = candleResponse.data;
+            for(let i = 0; i <this.allData.length; i++) {
+               const newDate = this.allData[i].date.split('T')[0];
+                this.chartData.push({time: newDate,
+                open: this.allData[i].open,
+                high: this.allData[i].high,
+                low: this.allData[i].low, 
+                close: this.allData[i].close,
+                }) };
+            this.cryptoChart = createChart(document.getElementById('crypto-chart'), { width: 900, height: 300 });
+            this.chartSeries = this.cryptoChart.addCandlestickSeries();
+            this.chartSeries.setData(this.chartData);
 
-    //     },
-    //      changeChart() {
-    //         this.chartData.length = 0;
-    //         this.cryptoChart.removeSeries(this.chartSeries)          
-    //         this.chartSeries = null;
-    //         this.$axios.get(`/api/crypto/candlestick/${this.selectedCurrency}`).then( response =>  {
-    //              const toLoop = response.data;
-    //         for(let i = 0; i < toLoop.length; i++) {
-    //            const newDate = toLoop[i].date.split('T')[0];
-    //             this.chartData.push({time: newDate,
-    //             open: toLoop[i].open,
-    //             high: toLoop[i].high,
-    //             low: toLoop[i].low, 
-    //             close: toLoop[i].close,
-    //             }) };
+        },
+         changeChart() {
+            this.chartData.length = 0;
+            this.cryptoChart.removeSeries(this.chartSeries)          
+            this.chartSeries = null;
+            this.$axios.get(`/api/crypto/candlestick/${this.selectedCurrency}`).then( response =>  {
+                 const toLoop = response.data;
+            for(let i = 0; i < toLoop.length; i++) {
+               const newDate = toLoop[i].date.split('T')[0];
+                this.chartData.push({time: newDate,
+                open: toLoop[i].open,
+                high: toLoop[i].high,
+                low: toLoop[i].low, 
+                close: toLoop[i].close,
+                }) };
 
-    //             this.chartSeries = this.cryptoChart.addCandlestickSeries(); 
-    //             this.chartSeries.setData(this.chartData)                       
-    //         })
+                this.chartSeries = this.cryptoChart.addCandlestickSeries(); 
+                this.chartSeries.setData(this.chartData)                       
+            })
 
-    //     }
-    // },
+        }
+    },
 
-    // mounted() {
-    //     this.fillCandleChart();
+    mounted() {
+        this.fillCandleChart();
 
-    // }
+    }
 }
 </script>
 
