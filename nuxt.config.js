@@ -4,7 +4,7 @@ const API_HOST = process.env.NODE_ENV === 'dev' ? 'http://localhost:3000' : 'htt
 
 export default {
   target: 'server',
-  ssr: true,
+  ssr: false,
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     title: 'Flibyrd',
