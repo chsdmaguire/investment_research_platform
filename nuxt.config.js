@@ -4,7 +4,7 @@ const API_HOST = process.env.NODE_ENV === 'dev' ? 'http://localhost:3000' : 'htt
 
 export default {
   target: 'server',
-  ssr: false,
+  ssr: true,
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     title: 'Flibyrd',
@@ -29,10 +29,11 @@ export default {
   css: [
   ],
 
-  transpile: ['lightweight-charts'],
+  transpile: ['lightweight-charts', 'wowjs'],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [ 
+    {src: '~/plugins/vue-wowjs.client', mode: 'client'}
   ],
 
   // Server Middlware
