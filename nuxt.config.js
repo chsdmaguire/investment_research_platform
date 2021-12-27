@@ -1,11 +1,11 @@
 require('dotenv').config()
 const axios = require('axios');
-const API_HOST = process.env.NODE_ENV === 'dev' ? 'localhost' : '51.222.87.240';
+const API_HOST = process.env.NODE_ENV === 'dev' ? 'http://localhost' : 'https://flibyrd.com';
 const API_PORT = 3000
 
 export default {
   target: 'server',
-  ssr: false,
+  ssr: true,
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     title: 'Flibyrd',
@@ -87,8 +87,7 @@ export default {
   axios: {
     // host: 'localhost',
     //  port: 3000,
-    host: API_HOST,
-    port: API_PORT
+    baseURL: `${API_HOST}:${API_PORT}`
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
