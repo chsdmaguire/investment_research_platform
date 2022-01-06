@@ -31,20 +31,6 @@
               </p>
             </div>
           </v-col>
-          <!-- <v-col cols="2">
-            <div class="copyright copyright-content d-sm-flex justify-content-between">
-              <a class="text" style=" width: 100%; text-align: center" href="\">
-                Privacy Policy
-              </a>
-            </div>
-          </v-col> -->
-          <v-col cols="2">
-            <div class="copyright copyright-content d-sm-flex justify-content-between">
-              <a class="text" style=" width: 100%; text-align: center" href="/disclosures">
-                 Privacy Policy  & Terms of Use
-              </a>
-            </div>
-          </v-col>
           <v-col cols="2">
             <div class="copyright copyright-content d-sm-flex justify-content-between">
               <a class="text" style=" width: 100%; text-align: center" href="/about">
@@ -56,6 +42,19 @@
             <div class="copyright copyright-content d-sm-flex justify-content-between">
               <a class="text" style=" width: 100%; text-align: center" href="/contact">
                 Contact Us
+              </a>
+            </div> 
+          </v-col>
+          <v-col cols="2">
+            <div class="copyright copyright-content d-sm-flex justify-content-between">
+              <a class="text" style=" width: 100%; text-align: center" href="/terms">
+                Terms & Conditions
+              </a>
+            </div> 
+          </v-col><v-col cols="2">
+            <div class="copyright copyright-content d-sm-flex justify-content-between">
+              <a class="text" style=" width: 100%; text-align: center" href="/privacy">
+                Privacy Policy
               </a>
             </div> 
           </v-col>

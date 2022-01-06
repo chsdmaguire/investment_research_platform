@@ -12,6 +12,9 @@
    <TheAbout />
  
 </div>
+<div>
+  <Cookies />
+</div>
   <Footer />
 </v-app>
 </template>
@@ -23,10 +26,12 @@ import TheLanding from '~/components/landingpage/TheLanding'
 import TheAbout from '~/components/landingpage/TheAbout'
 import TheSpinner from '~/components/landingpage/TheSpinner'
 import TheFeatures from '~/components/landingpage/TheFeatures'
+import Cookies from '~/components/landingpage/Cookies'
+
 import 'animate.css'
 export default {
   components: {
-    TheAbout, TheSpinner, Footer, TheNavbar, TheLanding, TheFeatures
+    TheAbout, TheSpinner, Footer, TheNavbar, TheLanding, TheFeatures, Cookies
     },
 computed: {
       height () {
