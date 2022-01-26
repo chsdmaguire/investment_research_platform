@@ -252,6 +252,13 @@ const similarCompanies = async(req, res) => {
 });
 }
 
+const bigMovers = async(req, res) => {
+    pool.query(queries.bigMovers, (error, results) => {
+        if (error) throw error;
+        res.status(200).json(results.rows);
+});
+}
+
 module.exports = {
     basicSearch,
     topNews,
@@ -278,5 +285,6 @@ module.exports = {
     dcfInputs,
     revDcf,
     topTrending,
-    similarCompanies
+    similarCompanies,
+    bigMovers
 }

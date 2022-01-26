@@ -2,60 +2,30 @@
 const express = require('express');
 const app = express();
 const PORT = process.env.LCOAL_PORT || 3000;
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }))
-const nodemailer = require("nodemailer");
-require('dotenv').config();
+
+app.use(express.json())
+app.use(express.urlencoded({
+  extended: false
+}))
 //cors
 var corsOptions = {
-    origin: PORT
+    origin: PORT,
   };
-  // Enable CORS
-  // const corsOptions = {
-  //   origin: (origin, cb) => {
-  //     if ((origin === undefined && process.env.NODE_ENV === 'dev') || origin.includes('localhost') || origin.includes('fervent-raman-64e85a.netlify.app') || origin.includes('flibyrd.com')) {
-  //       cb(null, true)
-  //       return
-  //     }
-  //     cb(new Error('Not allowed'))
-  //   },
-  //   methods: ['GET', 'PUT'],
-  //   credentials: true
-  // }
-
-  const host = {
-    host: 'smtp.gmail.com',
-    port: '587',
-    auth: {
-      user: process.env.CONTACT_EMAIL,
-      pass: process.env.CONTACT_PASSWORD
-    }
-  }
-
-app.post('/flibyrd/contact',  async(req, res) => {
-  const mailOptions = {
-    from: req.body.email,
-    subject: req.body.subject, 
-    text: req.body.text,
-    to: process.env.CONTACT_EMAIL
-  }
-const transporter = nodemailer.createTransport(host);
-
-transporter.sendMail(mailOptions, function(error, info){
-  if (error) {
-    console.log(error);
-  } else {
-    console.log('Email sent: ' + info.response);
-  }
-});
-})
-  
-
-
 const cors = require('cors');
 app.use(cors(corsOptions));
+// app.use((req, res, next) => {
+//   res.header('Access-Control-Allow-Origin', '*')
+//   res.header('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE, OPTIONS')
+//   res.header('Access-Control-Allow-Headers', 'Content-Type, Content-Length, x-access-token')
+//   if (req.method === 'OPTIONS') {
+//     res.sendStatus(200)
+//   }
+//   else {
+//     next()
+//   }
+// })
 
-// helmet
+//helmet
 const helmet = require('helmet');
 app.use(helmet());
 
@@ -71,6 +41,11 @@ app.use(cryptoRoutes)
 // contact page
 const contact = require('./contact/routes')
 app.use(contact)
+
+// Google authentication
+const accounts = require('./accounts/routes')
+app.use(accounts)
+
 
 export default {
     path: '/api',

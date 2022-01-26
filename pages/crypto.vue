@@ -1,6 +1,5 @@
 <template>
 <div>
-    <NavBar />
     <div class="graph">
         <CryptoGraph /> 
     </div>

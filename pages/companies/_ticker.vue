@@ -1,14 +1,6 @@
 <template>
 <v-app>
     <v-container fluid>
-        <v-layout row wrap justify-space-between  class="mt-6 mx-1" id="top">
-            <v-flex lg1 md1 sm2> <v-btn text href="/">Home</v-btn> </v-flex>
-            <v-flex lg1 md1 sm2> <v-btn text href="/stocks" >Equities</v-btn></v-flex>
-            <v-flex lg1 md1 sm2> <v-btn text href="/economic">Economy</v-btn></v-flex>            
-            <v-flex lg1 md1 sm2> <v-btn text href="/crypto">Crypto</v-btn></v-flex>
-            <v-flex lg1 md1 sm2> <v-btn text href="/education">Education</v-btn></v-flex>
-            <v-flex sm10 md4 lg5> <SearchBar /> </v-flex>
-        </v-layout>
 
         <v-layout row wrap justify-space-around class="mt-6">
             <v-flex lg8> <BasicInfo id="basic"/> </v-flex>
@@ -52,7 +44,7 @@
 
         <!-- <MessageApp /> -->
         </v-container>
-        <v-footer dark padless fixed inset height="50" width="auto">
+        <!-- <v-footer dark padless fixed inset height="50" width="auto">
             <v-slide-group>
                  <v-slide-item>
                     <v-btn depressed rounded @click="$vuetify.goTo('#top')">Back to Top</v-btn>
@@ -88,7 +80,7 @@
                     <v-btn depressed rounded @click="$vuetify.goTo('#sentiment')">Sentiment Analysis</v-btn>
                 </v-slide-item>
             </v-slide-group>
-        </v-footer>        
+        </v-footer>         -->
     </v-app>
     
 </template>

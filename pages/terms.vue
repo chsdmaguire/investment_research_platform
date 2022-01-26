@@ -1,7 +1,5 @@
 <template>
-  <v-app>
       <v-container fluid class="splash mx-12 my-12 mr-12">
-       <NavBar />
        <div class="splash-centered">
               <h1>
                   Terms & Conditions
@@ -162,7 +160,6 @@
             </div>
 
       </v-container>
-  </v-app>
 </template>
 
 <script>

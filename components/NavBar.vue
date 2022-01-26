@@ -8,7 +8,7 @@
                     <v-row align-content="center" justify="space-between">
                         <v-col >
                     <v-btn text href="/">Flibyrd</v-btn>
-                    <v-btn text href="/stocks" >Equities</v-btn>
+                    <v-btn text href="/equities" >Equities</v-btn>
                     <v-btn text href="/economic">Economy</v-btn>
                     <v-btn text href="/crypto">Cryptocurrency</v-btn>
                     <v-btn text href="/education">Education</v-btn>                            

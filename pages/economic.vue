@@ -1,6 +1,5 @@
 <template>
 <div>
-    <NavBar />
     <div class="graph">
         <EconGraph />
    </div>

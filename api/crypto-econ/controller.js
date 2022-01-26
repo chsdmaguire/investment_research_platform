@@ -43,7 +43,8 @@ const econMetricList = async (req, res) => {
 
 const dbIndex = async (req, res) => {
     const series_id = req.params.series_id;
-    pool.query(queries.dbIndex, [series_id], (error, results) => {
+    const time = req.params.time;
+    pool.query(queries.dbIndex, [series_id, time], (error, results) => {
         if (error) throw error;
         return res.status(200).json(results.rows)
     })
@@ -64,6 +65,13 @@ const indiceCard = async (req, res) => {
         });
 }
 
+const allIndices = async (req, res) => {
+    pool.query(queries.allIndices, (err, results) => {
+        if (err) throw err
+        return res.status(200).json(results.rows)
+    })
+}
+
 
 module.exports = {
     getListing,
@@ -73,5 +81,6 @@ module.exports = {
     econMetricList,
     econData,
     econNotes,
-    indiceCard
+    indiceCard,
+    allIndices
 }

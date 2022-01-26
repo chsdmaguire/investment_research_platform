@@ -57,8 +57,21 @@ const histFinancial = "select distinct fp, stmt, date, fsli, value from equities
 const dcfInputs = "select wacc, gross_margin, net_debt, taxexp, rev_growth_rate, operating_margin, capex_margin, da_margin, change_nwc_margin, operating_margin, sbc_margin, numshares, payoutratio_ttm, beta from equities.dcf_comps where ticker = $1"
 const revDcf = "select fsli, value from equities.normalized_financials where ticker = $1 and value is not null and fsli = 'totalRevenue' and fp = 'quarter' order by date desc limit 4"
 
-const topTrending = "with top_stocks as (select distinct * from equities.social_sentiment order by date desc, total_mentions desc, total_score desc limit 6) select a.ticker, a.date, a.open, a.close, b.name from equities.candlestick_data a, equities.basic_info b where a.ticker in (select ticker from top_stocks) and a.ticker = b.ticker group by a.ticker, b.ticker, b.name, date, open, close order by date desc limit 6";
+// TOP TRENDING/MOST ACTIVE
+const topTrending = "with top_stocks as (select distinct * from equities.social_sentiment order by date desc, total_mentions desc, " +
+ "total_score desc limit 6) select a.ticker, a.date, a.open, a.close, b.name from equities.candlestick_data a, equities.basic_info b " +
+  "where a.ticker in (select ticker from top_stocks) and a.ticker = b.ticker group by a.ticker, b.ticker, b.name, date, open, " +
+  "close order by date desc limit 6";
 
+const bigMovers = "with top as (select distinct ticker, open, close, date, volume " +
+    "from equities.candlestick_data where close > 20 group by date, " +
+    "ticker, open, close, volume order by date desc limit 4896), " +
+    "name as (select distinct ticker, name from equities.basic_info) " +
+    "select top.ticker, top.open, top.close, top.date, top.volume, " +
+    "name.name from top, name where top.ticker = name.ticker " +
+    "order by top.ticker asc, date asc"
+
+// SIMILAR COMPANIES
 const similarCompanies = "with similar_companies as (select * from equities.peers where ticker = $1)  select a.ticker, a.date, a.open, a.close, b.name from  equities.candlestick_data a, equities.basic_info b  where a.ticker in (select peers from similar_companies) and a.ticker = b.ticker group by a.ticker, b.ticker, b.name, date, open, close order by date desc limit 6"
 
 module.exports = {
@@ -87,5 +100,6 @@ module.exports = {
     dcfInputs,
     revDcf,
     topTrending,
-    similarCompanies
+    similarCompanies,
+    bigMovers
 }

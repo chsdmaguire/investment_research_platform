@@ -1,6 +1,5 @@
 <template>
 <v-app>
-  <NavBar />
      <v-container fluid class="splash">
 
     <v-container class="splash-centered mx-auto my-auto">      

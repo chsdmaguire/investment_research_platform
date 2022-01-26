@@ -1,7 +1,6 @@
 <template>
   <v-app>
       <v-container fluid class="splash mx-12 my-12 mr-12">
-       <NavBar />
        <div class="splash-centered">
               <h1 style="padding-bottom:5vh">
                   Privacy Policy for Flibyrd

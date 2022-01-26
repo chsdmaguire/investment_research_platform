@@ -1,6 +1,5 @@
 <template>
 <v-app>
-  <NavBar />  
 <v-container fluid class="splash mt-12">
 
 <v-row class="justify-center">

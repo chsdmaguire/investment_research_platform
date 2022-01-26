@@ -1,6 +1,6 @@
 <template>
 <div class='cookie-banner' id="cookie-popup">
-<p class="statement">
+<p class="statement" style="color: #23272e">
     By using our website, you agree to our 
     <a href='/privacy' target="_blank">cookie policy</a>
   </p>

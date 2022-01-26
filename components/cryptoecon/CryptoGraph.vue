@@ -52,8 +52,8 @@ export default {
         async fillCandleChart() {
             const cryptoList = await this.$axios.get('/api/crypto/ticker/list');
             this.currencies = cryptoList.data;
-            const ticker = 'BTC'
-            const candleResponse = await this.$axios.get(`/api/crypto/candlestick/${ticker}`);
+            this.selectedCurrency = 'BTC'
+            const candleResponse = await this.$axios.get(`/api/crypto/candlestick/${this.selectedCurrency}`);
             this.allData = candleResponse.data;
             for(let i = 0; i <this.allData.length; i++) {
                const newDate = this.allData[i].date.split('T')[0];
@@ -66,6 +66,28 @@ export default {
             this.cryptoChart = createChart(document.getElementById('crypto-chart'), { width: 900, height: 300 });
             this.chartSeries = this.cryptoChart.addCandlestickSeries();
             this.chartSeries.setData(this.chartData);
+            this.cryptoChart.applyOptions({
+                layout: {
+                backgroundColor: '#253248',
+                textColor: 'rgba(255, 255, 255, 0.9)',
+            },
+            grid: {
+                vertLines: {
+                color: '#334158',
+                },
+                horzLines: {
+                color: '#334158',
+                },
+            },
+            watermark: {
+                visible: true,
+                text:  '     ' + '1D' + '     ' + 'O:' + ' ' + this.chartData.slice(-1)[0].open + '  ' + 'L:' + 'H:' + ' ' + this.chartData.slice(-1)[0].high + '  ' + 'L:' + ' ' + this.chartData.slice(-1)[0].low + '  ' + 'C:' + ' ' + this.chartData.slice(-1)[0].close,
+                fontSize: '14',
+                horzAlign: 'left',
+                vertAlign: 'top',
+                color: '#fcfcfc',
+                },
+        })
 
         },
          changeChart() {
@@ -84,8 +106,9 @@ export default {
                 }) };
 
                 this.chartSeries = this.cryptoChart.addCandlestickSeries(); 
-                this.chartSeries.setData(this.chartData)                       
-            })
+                this.chartSeries.setData(this.chartData);
+                                       
+            });
 
         }
     },

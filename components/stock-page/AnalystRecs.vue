@@ -85,6 +85,13 @@ export default {
             display: true,
             text: 'Analyst Recommendations'
           },
+          legend: {
+            display: true,
+             color: '#ffffff',
+            labels: {
+              color: '#ffffff'
+            }
+            }
         },
         responsive: true,
         scales: {

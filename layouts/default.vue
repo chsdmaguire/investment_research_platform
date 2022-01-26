@@ -1,7 +1,7 @@
 <template>
 
-  <div>
-    <head>
+   <div>
+     <head>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2719099872585013"
      crossorigin="anonymous"></script>       
 <script>
@@ -10,33 +10,314 @@
   analytics.page();
   }}();
 </script>
+    </head> 
+      <v-app dark>
+    <v-navigation-drawer
+      v-model="drawer"
+      :mini-variant="miniVariant"
+      :clipped="clipped"
+      fixed
+      app
+    >
+      <v-list>
+        <v-list-item
+          v-for="(item, i) in items"
+          :key="i"
+          :to="item.to"
+          router
+          exact
+        >
+          <v-list-item-action>
+            <v-icon>{{ item.icon }}</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title v-text="item.title" />
+          </v-list-item-content>
+        </v-list-item>
+      </v-list>
+
+      <v-divider></v-divider>
+            <template v-if="!user && this.$vuetify.breakpoint.name === 'xs'">
+              <v-list>
+                <v-list-item>
+                  <v-card
+                    class="pa-1 rounded-pill text-center mr-2 logButton"
+                    outlined
+                    tile
+                    width="125"
+                    style="background: linear-gradient(to bottom right, #FC0441, #F52DA8)"
+                    >
+                      <a class="user-btn-text" href="login">
+                        Log In   
+                      </a>                
+                  </v-card>
+                </v-list-item>
+                <v-list-item>
+                  <v-card
+                      class="pa-1 rounded-pill text-center mr-2"
+                      outlined
+                      tile
+                      width="125"
+                      style="background: linear-gradient(to bottom right, #FC0441, #F52DA8)"
+                      >
+                        <a class="user-btn-text" href="/register">
+                        Sign-Up
+                        </a>
+                    </v-card>
+                </v-list-item>
+              </v-list>       
+        
+      </template>
+
+    </v-navigation-drawer>
+    <v-app-bar
+      :clipped-left="clipped"
+      fixed
+      app
+    >
+
+      <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
+      <v-toolbar-title v-text="title" />
+      <v-img src="icon.png" max-width="35px" class="ml-4"></v-img>
+
+    <v-col md="6" class="ml-12 pl-12">
+       <StockSearch />
+    </v-col>
+      <v-spacer />
+      <template v-if="!user && this.$vuetify.breakpoint.name !== 'xs'">
+        <v-card
+          class="pa-1 rounded-pill text-center mr-2 logButton"
+          outlined
+          tile
+          width="125"
+          style="background: linear-gradient(to bottom right, #FC0441, #F52DA8)"
+          >
+            <a class="user-btn-text" href="login">
+              Log In   
+            </a>                
+        </v-card>
+        <v-card
+          class="pa-1 rounded-pill text-center mr-2"
+          outlined
+          tile
+          width="125"
+          style="background: linear-gradient(to bottom right, #FC0441, #F52DA8)"
+          >
+            <a class="user-btn-text" href="/register">
+            Sign-Up
+            </a>
+        </v-card>
+      </template>
+      <template v-if="user">
+          <div class="text-center">
+            <v-menu offset-y>
+              <template v-slot:activator="{ on, attrs }">
+                <v-btn
+                  color="primary"
+                  
+                  flat
+                  v-bind="attrs"
+                  v-on="on"
+                >
+                  {{ user.firstName }}
+                  <v-icon right color="white">
+                    mdi-wrench
+                  </v-icon>
+                </v-btn>
+              </template>
+              <v-list>
+                <v-list-item>
+                  <v-btn color="secondary" text  @click="logOut">Log Out</v-btn>
+                </v-list-item>
+                <v-list-item>
+                  <v-dialog v-model="showDelete">
+                    <template v-slot:activator="{ on, attrs }">
+                     <v-btn color="error" text v-bind="attrs"
+                      v-on="on">Delete Account</v-btn>
+                    </template>
+                    <v-card class="px-4">
+                        <v-card-text>
+                          <v-card-title>Delete My Account</v-card-title>
+                            <v-form ref="loginForm" v-model="valid" lazy-validation>
+                                
+                                <v-alert v-if="alert" :type="alert.type">
+                                    {{alert.message}}</v-alert>
+                                <v-row>
+                                    <v-col cols="12">
+                                        <v-text-field v-model="deleteEmail" :rules="loginEmailRules" label="E-mail" required></v-text-field>
+                                    </v-col>
+                                    <v-col cols="12">
+                                        <v-text-field v-model="deletePassword" :append-icon="show1?'eye':'eye-off'" 
+                                        :rules="[rules.required, rules.min]" :type="show1 ? 'text' : 'password'" 
+                                        name="input-10-1" label="Password" hint="At least 8 characters" 
+                                        counter @click:append="show1 = !show1"></v-text-field>
+                                    </v-col>
+                                        <v-col class="d-flex" cols="12" sm="3" xsm="12" align-center>
+                                          <v-btn color="primary" x-large block @click="showDelete = false">Cancel</v-btn>
+                                        </v-col>
+                                        <v-col class="d-flex" cols="12" sm="3" xsm="12" align-center>
+                                          <v-spacer></v-spacer>
+                                            <v-btn color="error" x-large block :disabled="loading" @click="deleteAccount"> 
+                                                Delete My Account
+                                            </v-btn>
+                                        </v-col>                 
+                                </v-row>
+                            </v-form>
+                        </v-card-text>
+                    </v-card>
+                  </v-dialog>
+                 
+                </v-list-item>
+              </v-list>
+            </v-menu>
+          </div> 
+      </template>
+        
+    </v-app-bar>
+    <v-main>
+      <v-container>
+        <Nuxt />
+        <BacktoTopButton />
+        <Cookies />
  
-    </head>
-
-
-
-    <Nuxt />
-
+      </v-container>
+    </v-main>
+  </v-app>
   </div>
 </template>
 
 <script>
-import BackToTopButton from '~/components/navigation/BackToTopButton'
+import StockSearch from '~/components/stock-main/StockSearch'
 
 export default {
-    components: { BackToTopButton },
+  components: {StockSearch},
   data () {
     return {
+        showDelete: false,
+        valid: true,
+        loading: false,
+        show1: false,
+        deletePassword: "",
+        deleteEmail: "",
+        alert: null,
+        loginEmailRules: [
+        v => !!v || "Required",
+        v => /.+@.+\..+/.test(v) || "E-mail must be valid"
+        ],
+        rules: {
+        required: value => !!value || "Required.",
+        min: v => (v && v.length >= 6) || "Min 8 characters"
+        },
+
+      clipped: false,
+      drawer: false,
+      fixed: false,
+      items: [
+        {
+          icon: 'mdi-apps',
+          title: 'Home',
+          to: '/'
+        },
+        {
+          icon: 'mdi-chart-bubble',
+          title: 'Equities',
+          to: '/equities'
+        },
+        {
+          icon: 'mdi-chart-bubble',
+          title: 'Crypto',
+          to: '/crypto'
+        },
+        {
+          icon: 'mdi-chart-bubble',
+          title: 'Economics',
+          to: '/economic'
+        },
+        {
+          icon: 'mdi-chart-bubble',
+          title: 'Education',
+          to: '/education'
+        },
+        {
+          icon: 'mdi-chart-bubble',
+          title: 'About Flibyrd',
+          to: '/about'
+        },
+        {
+          icon: 'mdi-chart-bubble',
+          title: 'My Account',
+          to: '/admin'
+        },
+        {
+          icon: 'mdi-chart-bubble',
+          title: 'Privacy Policy',
+          to: '/privacy'
+        },
+        {
+          icon: 'mdi-chart-bubble',
+          title: 'Terms of Use',
+          to: '/terms'
+        },
+        {
+          icon: 'mdi-chart-bubble',
+          title: 'Contact Us',
+          to: '/contact'
+        },
+      ],
+      miniVariant: false,
+      right: true,
+      rightDrawer: false,
+      title: 'Flibyrd'
     }
   },
+  computed: {
+      user () {
+          { return this.$store.state.account ? this.$store.state.account.user : null }
+      }
+  },
 
+  methods: {
+    logOut() {
+          this.$store.dispatch('account/reset').then(() => {
+            this.$router.push('/')
+          })
+        }
+    },
+    showDeleteCard () {
+      this.showDelete = true;
+    },
+    deleteAccount() {
+        this.$store.dispatch('account/delete', {
+          email: this.deleteEmail,
+          password: this.deletePassword}).then(resp => {
+           this.alert = {type: 'success', message: resp.data.message};
+               this.loading = false;
+              this.$router.push('/');
+          }).catch(err => {
+               this.alert = {type: 'error', message: err || err.resp.status}
+                }) 
+      }
 
 }
 </script>
 
 <style scoped>
-/* @import url("https://fonts.googleapis.com/css?family=Poppins:400,700|Lato:300,400,700&display=swap"); */
-@import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
+.user-btn-text {
+    font-size: 150%;
+    color: #fff;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+}
+
+@media screen and (max-width: 640px ) {
+  .user-btn-text {
+    font-size: 90%;
+  } 
+}
+
+
+/* @import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
 .primary-text {
   color: #007bff;
 }
@@ -56,7 +337,7 @@ body {
   box-sizing: border-box; }
 
 /* img {
-  max-width: 100%; } */
+  max-width: 100%; }
 
 a:focus,
 input:focus,
@@ -122,6 +403,6 @@ p {
   font-weight: 400;
   line-height: 26px;
   color: #6A6972;
-  margin: 0px; }
+  margin: 0px; } */
 
 </style>

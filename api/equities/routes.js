@@ -59,8 +59,11 @@ router.get('/financials/values/:ticker', controller.histFinancial)
 router.get('/dcf/inputs/:ticker', controller.dcfInputs)
 router.get('/dcf/rev/:ticker', controller.revDcf)
 
+// TOP TRENDING
 router.get('/top/trending', controller.topTrending)
+router.get('/stocks/movers', controller.bigMovers)
 
+// MOST SIMILAR
 router.get('/similar/companies/:ticker', controller.similarCompanies)
 
 module.exports = router;

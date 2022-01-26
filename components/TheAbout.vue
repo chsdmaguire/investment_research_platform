@@ -45,7 +45,7 @@
                   Knowledge is Power
                 </h3> 
                 <p class="text"> 
-                  We believe in empowering the people. Understanding the underlying economic trends is critical to investing. Check out our economics page to learn more.
+                  We believe in empowering people. Understanding the underlying economic trends is critical to investing. Check out our economics page to learn more.
                 </p>
             <a href="/economic" class="started-btn">Economics</a>
           </div>
@@ -65,7 +65,7 @@
                 <p class="text"> 
                   Individual investors deserve the same access to quality investment insights as the large institutions. We aim to empower these individuals.
                 </p>
-            <a href="/stocks" class="started-btn">Get Started</a>
+            <a href="/equities" class="started-btn">Get Started</a>
           </div>
         </div>              
         </v-col>
@@ -102,7 +102,7 @@ export default {
   /* font-family: "Roboto", sans-serif; */
   position: relative;
   z-index: 5;
-  padding-top: 70px; }
+  padding-top: 20px; }
 
 .title {
   font-family: "Montserrat", sans-serif;
@@ -122,8 +122,8 @@ export default {
       display: none; } }
 
 .about-content {
-  max-width: 480px;
-  margin-top: 50px }
+  /* max-width: 480px; */
+  margin-top: 10px }
 .text {
     margin-top: 15px; }
   .started-btn {
@@ -150,18 +150,18 @@ export default {
   background: linear-gradient(#fe8464 0%, #fe6e9a 100%);
   width: 150px;
   float: center;
-  margin-left: 30%;
+  margin-left: 40%;
   height: 5px;
   margin-bottom: 10px !important; }
 
 .section-title .title {
   font-family: "Montserrat", sans-serif;
-  font-size: 38px;
-  font-weight: 700;
+  font-size: 80px;
+  font-weight: 900;
   line-height: 42px; }
   @media (max-width: 767px) {
     .section-title .title {
-      font-size: 20px; } }
+      font-size: 50px; } }
   @media only screen and (min-width: 576px) and (max-width: 767px) {
     .section-title .title {
       font-size: 30px; } }
