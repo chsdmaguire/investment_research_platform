@@ -78,7 +78,7 @@
 
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
       <v-toolbar-title v-text="title" />
-      <v-img src="icon.png" max-width="35px" class="ml-4"></v-img>
+      <v-img src="icon.png" max-width="35px" class="ml-4" link="/"></v-img>
 
     <v-col md="6" class="ml-12 pl-12">
        <StockSearch />
@@ -177,8 +177,8 @@
     <v-main>
       <v-container>
         <Nuxt />
-        <BacktoTopButton />
-        <Cookies />
+
+        <!-- <Cookies /> -->
  
       </v-container>
     </v-main>
@@ -188,6 +188,7 @@
 
 <script>
 import StockSearch from '~/components/stock-main/StockSearch'
+//import BacktoTopButton from '~/components/BacktoTopButton'
 
 export default {
   components: {StockSearch},

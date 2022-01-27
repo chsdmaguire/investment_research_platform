@@ -29,13 +29,14 @@
 </template>        
 
 <script>
-import Indices from '~/components/stock-main/Indices'
-import NewsTable from '~/components/stock-main/NewsTable'
-import EarnCal from '~/components/stock-main/EarnCal'
-import IpoCal from '~/components/stock-main/IpoCal'
-import TrendingStocks from '~/components/stock-main/TrendingStocks'
+import Indices from '~/components/stock-main/Indices';
+import NewsTable from '~/components/stock-main/NewsTable';
+import EarnCal from '~/components/stock-main/EarnCal';
+import IpoCal from '~/components/stock-main/IpoCal';
+import TrendingStocks from '~/components/stock-main/TrendingStocks';
+import TradeVue from '~/components/TradeVue';
 export default {
-    components: {IpoCal, EarnCal, TrendingStocks, NewsTable, Indices },
+    components: {IpoCal, EarnCal, TrendingStocks, NewsTable, Indices, TradeVue },
     data() {
         return {
         }
