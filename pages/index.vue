@@ -34,9 +34,8 @@ import NewsTable from '~/components/stock-main/NewsTable';
 import EarnCal from '~/components/stock-main/EarnCal';
 import IpoCal from '~/components/stock-main/IpoCal';
 import TrendingStocks from '~/components/stock-main/TrendingStocks';
-import TradeVue from '~/components/TradeVue';
 export default {
-    components: {IpoCal, EarnCal, TrendingStocks, NewsTable, Indices, TradeVue },
+    components: {IpoCal, EarnCal, TrendingStocks, NewsTable, Indices },
     data() {
         return {
         }

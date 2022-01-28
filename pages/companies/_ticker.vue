@@ -1,9 +1,9 @@
 <template>
 <v-app>
     <v-container fluid>
-
-        <v-layout row wrap justify-space-around class="mt-6">
-            <v-flex lg8> <BasicInfo id="basic"/> </v-flex>
+ <AdvancedChart id="basic"/>
+        <!-- <v-layout row wrap justify-space-around class="mt-6">
+            <v-flex lg8> </v-flex>
             <v-flex lg3> <SimilarCompanies /> </v-flex>
         </v-layout>
         <v-layout row wrap justify-left class="mt-4 pt-0">
@@ -40,7 +40,7 @@
 
         <v-layout row wrap justify-left class="my-6" >
             <v-flex lg10><SentimentAnalysis id="sentiment" /> </v-flex>       
-        </v-layout> 
+        </v-layout>  -->
 
         <!-- <MessageApp /> -->
         </v-container>
@@ -87,7 +87,7 @@
 
 <script>
 import SearchBar from '~/components/stock-page/SearchBar'
-import BasicInfo from '~/components/stock-page/BasicInfo'
+import AdvancedChart from '~/components/stock-page/AdvancedChart'
 import SimilarCompanies from '~/components/stock-page/SimilarCompanies'
 import Financials from '~/components/stock-page/Financials'
 import DiscountCashFlow from '~/components/stock-page/DiscountCashFlow'
@@ -101,7 +101,7 @@ import SentimentAnalysis from '~/components/stock-page/SentimentAnalysis'
 import MessageApp from '~/components/stock-page/MessageApp'
 
 export default {
-    components: {SearchBar, BasicInfo, SimilarCompanies, Financials, DiscountCashFlow, MetricsGraphAnnual,
+    components: {SearchBar, AdvancedChart, SimilarCompanies, Financials, DiscountCashFlow, MetricsGraphAnnual,
     MetricsGraphQuarter, CompsTable, EarningsSurprise, AnalystRecs, InsiderTransactions, SentimentAnalysis, 
     MessageApp}
 }

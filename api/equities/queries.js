@@ -28,6 +28,7 @@ const earningsSurprise = 'select DISTINCT * from equities.earnings_estimate wher
 
 // STOCK CANDLESTICK CHART API
 const stockCandleStick = 'select distinct * from equities.candlestick_data where ticker = $1 and date in (select date from (select ticker, date, count(*) from equities.candlestick_data where ticker = $1 group by ticker, date having count(*) = 1) as foo) ORDER BY date asc';
+const charting = 'select distinct * from equities.technicals where ticker = $1 and frequency = $2 order by date asc limit 1000';
 
 // STOCK BASIC INFO API
 const basicInfo = 'select * from equities.basic_info where ticker = $1';
@@ -101,5 +102,6 @@ module.exports = {
     revDcf,
     topTrending,
     similarCompanies,
-    bigMovers
+    bigMovers,
+    charting
 }

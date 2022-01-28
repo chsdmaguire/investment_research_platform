@@ -99,6 +99,15 @@ const stockCandleStick = async (req, res) => {
         })
 }
 
+const charting = async (req, res) => {
+    ticker = req.params.ticker;
+    frequency = req.params.frequency;
+    pool.query(queries.charting, [ticker, frequency],  (error, results) => {
+        if(error) throw error;
+        return res.status(200).json(results.rows);
+        })
+}
+
 // STOCK BASIC INFO
 const basicInfo = async (req, res) => {
     ticker = req.params.ticker;
@@ -286,5 +295,6 @@ module.exports = {
     revDcf,
     topTrending,
     similarCompanies,
-    bigMovers
+    bigMovers,
+    charting
 }
