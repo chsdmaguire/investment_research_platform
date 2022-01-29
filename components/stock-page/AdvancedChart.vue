@@ -8,7 +8,7 @@
               <div>
                   <v-row>
                       <v-col cols="3">
-                  <v-overflow-btn
+                  <!-- <v-overflow-btn
                     :items="frequencyList"
                     v-model="frequency"
                     v-on:change="newFrequency"
@@ -16,9 +16,94 @@
                     dense
                     item-value="text"
                     width="100"
-                    >
+                    > 
                     
-                    </v-overflow-btn>
+                    </v-overflow-btn>-->
+                    <v-dialog
+      v-model="dialog"
+      width="500"
+    >
+      <template v-slot:activator="{ on, attrs }">
+        <v-btn
+          color="red lighten-2"
+          dark
+          v-bind="attrs"
+          v-on="on"
+        >
+          Technical Indicators
+        </v-btn>
+      </template>
+
+      <v-card>
+          <v-container>
+        <v-tabs>
+            <v-tab>Trends</v-tab>
+            <v-tab>Oscillators</v-tab>
+            <v-tab>Volatility</v-tab>
+        </v-tabs>
+        <v-tab-item>
+           <v-card
+    class="mx-auto"
+    max-width="500"
+  >
+    <v-list shaped>
+      <v-list-item-group
+        v-model="trendModel"
+        multiple
+      >
+        <template v-for="(item, i) in trendItems">
+          <v-divider
+            v-if="!item"
+            :key="`divider-${i}`"
+          ></v-divider>
+
+          <v-list-item
+            v-else
+            :key="`item-${i}`"
+            :value="item"
+            active-class="deep-purple--text text--accent-4"
+          >
+            <template v-slot:default="{ active }">
+              <v-list-item-content>
+                <v-list-item-title v-text="item"></v-list-item-title>
+              </v-list-item-content>
+
+              <v-list-item-action>
+                <v-checkbox
+                  :input-value="active"
+                  color="deep-purple accent-4"
+                ></v-checkbox>
+              </v-list-item-action>
+            </template>
+          </v-list-item>
+        </template>
+      </v-list-item-group>
+    </v-list>
+  </v-card>
+        </v-tab-item>
+        <v-tab-item>
+            <v-card class="mx-auto"
+            max-width="500">
+            </v-card></v-tab-item>
+            <v-tab-item>
+            <v-card class="mx-auto"
+            max-width="500">
+            </v-card></v-tab-item>
+    </v-container>
+        <v-divider></v-divider>
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn
+            color="primary"
+            text
+            @click="dialog = false"
+          >
+            I accept
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
                       </v-col>
                   </v-row>
                   <div id="ticker-chart"></div>
@@ -34,7 +119,10 @@ const technicals = require('technicalindicators');
 export default {
     data() {
         return {
+            dialog: false,
+            trendModel: [],
             stockData: [],
+            trendItems: ['Moving Average', 'ADX'],
             stockChart: null,
             candlestickSeries: null,
             frequency: '1M',
