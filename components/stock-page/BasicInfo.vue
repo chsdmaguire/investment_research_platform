@@ -41,15 +41,15 @@
               </tr>
               <tr>
                   <td>IPO Date</td>
-                  <td>{{ basicInfo.ipo }}</td>
+                  <td>{{ formatDate(basicInfo.ipo) }}</td>
               </tr>
               <tr>
                   <td>Market Cap</td>
-                  <td>{{ basicInfo.market_cap }}</td>
+                  <td>{{ formatMarketCap(basicInfo.market_cap) }}</td>
               </tr>
               <tr>
                   <td>Shares Outst.</td>
-                  <td>{{ basicInfo.shares_outstanding }}</td>
+                  <td>{{ formatMarketCap(basicInfo.shares_outstanding) }}</td>
               </tr>
               <tr>
                   <td>Site</td>
@@ -142,7 +142,14 @@ export default {
                 else if(item.metric == 'beta'){this.keyMetrics.push({name: 'Beta', value: Number(item.value)})}
                 else if(item.metric == 'revenueGrowth3Y'){this.keyMetrics.push({name:'3Y Revenue Growth', value: Number(item.value)})}
             });
-            console.log(this.keyMetrics)
+        },
+
+        formatMarketCap(val) {
+          return numeral(val * 1000000).format('0.0a')
+        },
+
+        formatDate(val) {
+          return new Date(val).toLocaleDateString('en-US');
         }
     },
 

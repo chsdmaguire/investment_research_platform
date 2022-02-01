@@ -15,7 +15,7 @@
     </v-row>
     
     <v-container>
-        <v-tabs>
+        <v-tabs center-active>
             <v-tab>Price History</v-tab>
             <v-tab>Financials</v-tab>
             <v-tab>Fundamental Analysis</v-tab>

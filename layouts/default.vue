@@ -220,47 +220,42 @@ export default {
           to: '/'
         },
         {
-          icon: 'mdi-chart-bubble',
-          title: 'Equities',
-          to: '/equities'
-        },
-        {
-          icon: 'mdi-chart-bubble',
+          icon: 'mdi-currency-btc',
           title: 'Crypto',
           to: '/crypto'
         },
         {
-          icon: 'mdi-chart-bubble',
+          icon: 'mdi-podium-silver',
           title: 'Economics',
           to: '/economic'
         },
         {
-          icon: 'mdi-chart-bubble',
+          icon: 'mdi-school-outline',
           title: 'Education',
           to: '/education'
         },
         {
-          icon: 'mdi-chart-bubble',
+          icon: 'mdi-information-outline',
           title: 'About Flibyrd',
           to: '/about'
         },
         {
-          icon: 'mdi-chart-bubble',
+          icon: 'mdi-account',
           title: 'My Account',
           to: '/admin'
         },
         {
-          icon: 'mdi-chart-bubble',
+          icon: 'mdi-form-select',
           title: 'Privacy Policy',
           to: '/privacy'
         },
         {
-          icon: 'mdi-chart-bubble',
+          icon: 'mdi-file-settings',
           title: 'Terms of Use',
           to: '/terms'
         },
         {
-          icon: 'mdi-chart-bubble',
+          icon: 'mdi-keyboard-settings-outline',
           title: 'Contact Us',
           to: '/contact'
         },

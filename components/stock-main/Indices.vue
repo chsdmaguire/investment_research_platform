@@ -22,7 +22,7 @@
          
      
           <v-col cols="12">
-          <IndiceChartBase :chart-data="chartData" :options="chartOptions"
+          <IndiceChartBase :chart-data="chartData" :chart-options="chartOptions"
           v-on:change="updateChart" v-model="selected" />
           </v-col>
          </v-row>
