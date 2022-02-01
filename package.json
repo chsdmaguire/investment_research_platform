@@ -39,8 +39,10 @@
     "slick-carousel": "^1.8.1",
     "ta.js": "^1.6.0",
     "technicalindicators": "^3.1.0",
+    "trading-vue-js": "^1.0.2",
     "vue-beautiful-chat": "^2.5.0",
     "vue-chartjs": "^3.5.1",
+    "vue-chartjs-financial": "^1.0.1",
     "webpack": "^4.46.0",
     "wowjs": "^1.1.3"
   },

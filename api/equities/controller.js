@@ -93,16 +93,8 @@ const earningsSurprise = async (req, res) => {
 // STOCK CANDLESTICK CHART API
 const stockCandleStick = async (req, res) => {
     ticker = req.params.ticker;
-    pool.query(queries.stockCandleStick, [ticker],  (error, results) => {
-        if(error) throw error;
-        return res.status(200).json(results.rows);
-        })
-}
-
-const charting = async (req, res) => {
-    ticker = req.params.ticker;
-    frequency = req.params.frequency;
-    pool.query(queries.charting, [ticker, frequency],  (error, results) => {
+    date = req.params.date;
+    pool.query(queries.stockCandleStick, [ticker, date],  (error, results) => {
         if(error) throw error;
         return res.status(200).json(results.rows);
         })
@@ -296,5 +288,4 @@ module.exports = {
     topTrending,
     similarCompanies,
     bigMovers,
-    charting
 }

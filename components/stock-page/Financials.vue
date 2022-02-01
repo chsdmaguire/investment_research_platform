@@ -1,6 +1,6 @@
 <template>
 <v-container> 
-    <v-card class="mx-auto justify-center" >
+    <v-card class="mx-auto justify-center" flat >
         <template v-if="periodType == 'annual'">
             <v-row align="center" justify="center"> 
                 <v-container>      

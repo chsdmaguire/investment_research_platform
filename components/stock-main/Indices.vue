@@ -518,7 +518,7 @@ export default {
            startDate.setDate(startDate.getDate() - 5);
             switch(this.timeFrame) {
                 case 0:
-                    startDate.setDate(startDate.getDate() - 5);
+                    startDate.setDate(startDate.getDate() - 10);
                     break;
                 case 1:
                     startDate.setDate(startDate.getMonth() - 1);

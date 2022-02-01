@@ -1,19 +1,16 @@
 <template>
-  <v-container class="myapp">
-    <v-layout row wrap justify-space-between>
-      <v-flex lg10>
-        <h1>Analyst Recommendations</h1>
-      </v-flex>
-      <v-flex lg5 class="my-6 mx-1"> 
-          <!-- <div id="analyst-line-chart" class="analyst-line"></div> -->
-          <AnalystRecsBase :chart-data="BarData" :options="chartOptions"/>
-      </v-flex>
-      <v-flex lg5 class="my-6 mx-1">
-          <div class="analyst-doughnut">
-            <ChartDoughnutBase :chart-data="PieData" />
-          </div>
-      </v-flex>
-    </v-layout>
+  <v-container>
+    <v-row justify="center" align="center">
+       <h3>Analyst Recommendations</h3>
+    </v-row>
+    <v-row justify="center" align="center">
+      <v-col md="6" sm="10">
+        <AnalystRecsBase :chart-data="BarData" :options="chartOptions"/>
+      </v-col>
+      <v-col md="6" sm="10">
+         <ChartDoughnutBase :chart-data="PieData" />
+      </v-col>
+    </v-row>
   </v-container>
 </template>
 

@@ -1,109 +1,118 @@
 <template>
-<v-app>
-    <v-container fluid>
- <AdvancedChart id="basic"/>
-        <!-- <v-layout row wrap justify-space-around class="mt-6">
-            <v-flex lg8> </v-flex>
-            <v-flex lg3> <SimilarCompanies /> </v-flex>
-        </v-layout>
-        <v-layout row wrap justify-left class="mt-4 pt-0">
-            <v-flex lg10 md10 class="mx-1"><Financials id="financ" />
-              </v-flex>        
-        </v-layout>
-
-        <v-layout row wrap justify-left class="mt-4 pt-0">
-            <v-flex lg10 md10 class="mx-1">
-             <DiscountCashFlow id="dcf" /> 
-             </v-flex>        
-        </v-layout>
-        <v-layout row wrap justify-left class="mt-4 pt-0">
-            <v-flex lg4 md10 class="mx-12 my-6"><MetricsGraphAnnual id="annualMetric" />  </v-flex>
-            <v-flex lg4 md10 class="mx-12 my-6"><MetricsGraphQuarter id="quarterMetric"/></v-flex>   
-        </v-layout>
-        
-
-        <v-layout row wrap justify-left class="mt-6">
-            <v-flex lg10><CompsTable id="comp" /></v-flex>      
-        </v-layout>
-
-        <v-layout row wrap justify-left class="mt-6">
-            <v-flex lg10><EarningsSurprise id="earnings" /> </v-flex>      
-        </v-layout> 
-
-        <v-layout row wrap justify-left class="mt-6">
-            <v-flex lg10><AnalystRecs id="analysts" /> </v-flex>      
-        </v-layout> 
-
-        <v-layout row wrap justify-left class="mt-6">
-            <v-flex lg10><InsiderTransactions id="insiders" /> </v-flex>       
-        </v-layout> 
-
-        <v-layout row wrap justify-left class="my-6" >
-            <v-flex lg10><SentimentAnalysis id="sentiment" /> </v-flex>       
-        </v-layout>  -->
-
-        <!-- <MessageApp /> -->
-        </v-container>
-        <!-- <v-footer dark padless fixed inset height="50" width="auto">
-            <v-slide-group>
-                 <v-slide-item>
-                    <v-btn depressed rounded @click="$vuetify.goTo('#top')">Back to Top</v-btn>
-                </v-slide-item>
-                 <v-slide-item>
-                    <v-btn depressed rounded @click="$vuetify.goTo('#basic')">Basic Information</v-btn>
-                </v-slide-item>
-                 <v-slide-item>
-                    <v-btn depressed rounded @click="$vuetify.goTo('#financ')">Historical Financials</v-btn>
-                </v-slide-item>
-                 <v-slide-item>
-                    <v-btn depressed rounded @click="$vuetify.goTo('#comp')">Comparisons Analysis</v-btn>
-                </v-slide-item>
-                 <v-slide-item>
-                    <v-btn depressed rounded @click="$vuetify.goTo('#annualMetric')">Annual Metrics</v-btn>
-                </v-slide-item>
-                 <v-slide-item>
-                    <v-btn depressed rounded @click="$vuetify.goTo('#quarterMetric')">Quarterly Metrics</v-btn>
-                </v-slide-item>
-                 <v-slide-item>
-                    <v-btn depressed rounded @click="$vuetify.goTo('#dcf')">Discounted Cash Flow</v-btn>
-                </v-slide-item>
-                 <v-slide-item>
-                    <v-btn depressed rounded @click="$vuetify.goTo('#earnings')">EPS Estimates</v-btn>
-                </v-slide-item>
-                 <v-slide-item>
-                    <v-btn depressed rounded @click="$vuetify.goTo('#analysts')">Analyst Recommendations</v-btn>
-                </v-slide-item>
-                 <v-slide-item>
-                    <v-btn depressed rounded @click="$vuetify.goTo('#insiders')">Insider Transactions</v-btn>
-                </v-slide-item>
-                <v-slide-item>
-                    <v-btn depressed rounded @click="$vuetify.goTo('#sentiment')">Sentiment Analysis</v-btn>
-                </v-slide-item>
-            </v-slide-group>
-        </v-footer>         -->
-    </v-app>
+<v-container fluid>
+    <v-row align="center" justify="center">
+        <v-col md="3">
+            <h2 class="text-left">
+              {{ head.ticker }}  
+            </h2>
+            
+        </v-col>   
+        <v-col md="3">
+            <h2 class="text-right">
+            {{ head.name }}
+            </h2>
+        </v-col>
+    </v-row>
     
+    <v-container>
+        <v-tabs>
+            <v-tab>Price History</v-tab>
+            <v-tab>Financials</v-tab>
+            <v-tab>Fundamental Analysis</v-tab>
+            <v-tab>Alternative Data</v-tab>
+            <v-tab>Analyst Recs</v-tab>
+            <v-tab-item><AdvancedChart /></v-tab-item>
+            <v-tab-item>
+                <v-row>
+                    <v-col cols="12">
+                     <Financials />   
+                    </v-col>
+                </v-row>
+                <v-row>
+                    <v-col cols="12">
+                     <EarningsSurprise />   
+                    </v-col>
+                </v-row>
+            </v-tab-item>
+            <v-tab-item>
+                <v-row>
+                    <v-col cols="12">
+                        <DiscountCashFlow />
+                    </v-col>
+                </v-row>
+                <v-row>
+                <v-col cols="12">
+                        <CompsTable />
+                    </v-col>
+                </v-row>
+            </v-tab-item>
+            <v-tab-item>
+                <v-row>
+                    <v-col cols="12">
+                        <SentimentAnalysis />
+                    </v-col>
+                </v-row>
+                <v-row>
+                <v-col cols="12">
+                        <InsiderTransactions />
+                    </v-col>
+                </v-row>
+            </v-tab-item>
+            <v-tab-item>
+            <v-row>
+                <v-col cols="12">
+                    <AnalystRecs />
+                </v-col>
+            </v-row>
+            </v-tab-item>
+        </v-tabs>
+    </v-container>
+    <v-container>
+        <v-row align="center" justify="center">
+            <v-col>
+                <BasicInfo />
+            </v-col>           
+        </v-row>
+    </v-container>
+    <v-container>
+        <StockNews />
+    </v-container>
+</v-container>    
 </template>
 
 <script>
-import SearchBar from '~/components/stock-page/SearchBar'
-import AdvancedChart from '~/components/stock-page/AdvancedChart'
-import SimilarCompanies from '~/components/stock-page/SimilarCompanies'
-import Financials from '~/components/stock-page/Financials'
-import DiscountCashFlow from '~/components/stock-page/DiscountCashFlow'
-import MetricsGraphAnnual from '~/components/stock-page/MetricsGraphAnnual'
-import MetricsGraphQuarter from '~/components/stock-page/MetricsGraphQuarter'
-import CompsTable from '~/components/stock-page/CompsTable'
-import EarningsSurprise from '~/components/stock-page/EarningsSurprise'
-import AnalystRecs from '~/components/stock-page/AnalystRecs'
-import InsiderTransactions from '~/components/stock-page/InsiderTransactions'
-import SentimentAnalysis from '~/components/stock-page/SentimentAnalysis'
-import MessageApp from '~/components/stock-page/MessageApp'
+import BasicInfo from '~/components/stock-page/BasicInfo';
+import SimilarCompanies from '~/components/stock-page/SimilarCompanies';
+import AdvancedChart from '~/components/stock-page/AdvancedChart';
+import AnalystRecs from '~/components/stock-page/AnalystRecs';
+import StockNews from '~/components/stock-page/StockNews';
+import Financials from '~/components/stock-page/Financials';
+import EarningsSurprise from '~/components/stock-page/EarningsSurprise';
+import DiscountCashFlow from '~/components/stock-page/DiscountCashFlow';
+import CompsTable from '~/components/stock-page/CompsTable';
+import SentimentAnalysis from '~/components/stock-page/SentimentAnalysis';
+import InsiderTransactions from '~/components/stock-page/InsiderTransactions';
 
 export default {
-    components: {SearchBar, AdvancedChart, SimilarCompanies, Financials, DiscountCashFlow, MetricsGraphAnnual,
-    MetricsGraphQuarter, CompsTable, EarningsSurprise, AnalystRecs, InsiderTransactions, SentimentAnalysis, 
-    MessageApp}
+    components: {BasicInfo, SimilarCompanies, AdvancedChart, AnalystRecs, StockNews,
+     Financials, EarningsSurprise, DiscountCashFlow, CompsTable,SentimentAnalysis,InsiderTransactions },
+    data() {
+        return {
+            head: [],
+        }
+    },
+    
+    methods: {
+        async getName() {
+            const ticker = this.$route.params.ticker.toUpperCase();
+            const res = await this.$axios.get(`/api/stock/basic/info/${ticker}`);
+            this.head = res.data[0];
+        }
+    },
+
+    mounted() {
+        this.getName()
+    }
 }
 </script>
 
