@@ -1,20 +1,20 @@
 #!/bin/bash
-git pull origin master || (echo "Authenticate with GitHub SSH before running this script" && exit)
+git pull origin master || exit
 echo -e "\n=============================="
 echo "Pulled latest code from master"
 echo "=============================="
 
-npm i || (echo "Failed to update dependencies" && exit)
+npm i || exit
 echo -e "\n============"
 echo "Updated deps"
 echo "============"
 
-npm run build || (echo "Failed nuxt build" && exit)
+npm run build || exit
 echo -e "\n============================="
 echo "Built latest code from master"
 echo "============================="
 
-pm2 start || (echo "pm2 failed to launch daemon, check ecosystem.config.js" && exit)
+pm2 start || exit
 echo -e "\n===="
 echo "Done"
 echo "===="
