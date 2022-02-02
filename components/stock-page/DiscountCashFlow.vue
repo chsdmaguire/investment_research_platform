@@ -1,5 +1,5 @@
 <template>
-      <v-container>        
+      <v-container fluid class="mb-12">        
         <v-layout row wrap align-center>
         <v-flex md12>
               <v-row no-gutters justify="center">
@@ -15,7 +15,7 @@
                       <tr>
                         <th>Help</th>
                          <th>Assumptions</th>
-                        <th>in thousands of $</th>
+                        <th>Line Items</th>
                         <th>FY 2021A</th>
                         <th>FY 2022E</th>
                         <th>FY 2023E</th>
@@ -481,189 +481,202 @@
                 </v-card>
           </v-flex>
         </v-layout>
-        <v-layout  row wrap justify-space-between>
-          <v-flex md6>
-            <h3>Estimated Stock Price</h3>
-          </v-flex>
-          <v-flex md6>
-                  <h3>${{ 
-                    // PV TV
-                      formatNumber(Math.round(((((((((this.revenue * ((1 + Number(this.slider / 100)) ** 5))  * (1 - ((1 - Number(this.COGS / 100)) + Number(this.opEx/ 100)))) * (1 - Number(this.TAX / 100)))
-                      + (((this.revenue * (1 + Number(this.slider / 100)) ** 5)) *  Number(this.DAexp / 100)) - (((this.revenue / 100 * (1 + Number(this.slider / 100)) ** 5)) *  Number(this.NWC / 100)) 
-                      - (((this.revenue * (1 + Number(this.slider / 100)) ** 5)) *  Number(this.CAPEX / 100)) +  (((this.revenue / 100 * (1 + Number(this.slider / 100)) ** 5)) *  Number(this.SBC / 100))) * 
-                      (1 + Number(this.ltGrowth / 100))) / (Number(this.WACC / 100) - Number(this.ltGrowth / 100))) 
-                      /  ((1 + Number(this.WACC / 100))) ** 5) 
-                      
-                      // PV FCF Year 0
-                      + (((this.revenue * (1 - ((1 - Number(this.COGS / 100)) + Number(this.opEx/ 100)))) * (1 - Number(this.TAX / 100))
-                    + (this.revenue *  Number(this.DAexp / 100)) - (this.revenue *  Number(this.NWC / 100)) - (this.revenue *  Number(this.CAPEX / 100))
-                    +  (this.revenue *  Number(this.SBC / 100))) / ((1 + Number(this.WACC / 100))) ** 0) 
-
-                    // PV FCF Year 1
-                    + (((((this.revenue * (1 + Number(this.slider / 100)))  * (1 - ((1 - Number(this.COGS / 100)) + Number(this.opEx/ 100)))) * (1 - Number(this.TAX / 100)))  
-                      + ((this.revenue * (1 + Number(this.slider / 100))) *  Number(this.DAexp / 100)) - ((this.revenue * (1 + Number(this.slider / 100))) *  Number(this.NWC / 100)) 
-                      - ((this.revenue * (1 + Number(this.slider / 100))) *  Number(this.CAPEX / 100)) +  ((this.revenue * (1 + Number(this.slider / 100))) *  Number(this.SBC / 100)))
-                      / ((1 + Number(this.WACC / 100))) ** 1) 
-
-                    // PV FCF Year 2
-                    + (((((this.revenue * ((1 + Number(this.slider / 100)) ** 2))  * (1 - ((1 - Number(this.COGS / 100)) + Number(this.opEx/ 100)))) * (1 - Number(this.TAX / 100)))
-                      + (((this.revenue * (1 + Number(this.slider / 100)) ** 2)) *  Number(this.DAexp / 100)) - (((this.revenue * (1 + Number(this.slider / 100)) ** 2)) *  Number(this.NWC / 100)) 
-                      - (((this.revenue * (1 + Number(this.slider / 100)) ** 2)) *  Number(this.CAPEX / 100)) +  (((this.revenue * (1 + Number(this.slider / 100)) ** 2)) *  Number(this.SBC / 100))) 
-                      /  ((1 + Number(this.WACC / 100))) ** 2)
-
-                    // PV FCF Year 3
-                    + (((((this.revenue * ((1 + Number(this.slider / 100)) ** 3))  * (1 - ((1 - Number(this.COGS / 100)) + Number(this.opEx/ 100)))) * (1 - Number(this.TAX / 100)))
-                      + (((this.revenue * (1 + Number(this.slider / 100)) ** 3)) *  Number(this.DAexp / 100)) - (((this.revenue * (1 + Number(this.slider / 100)) ** 3)) *  Number(this.NWC / 100)) 
-                      - (((this.revenue * (1 + Number(this.slider / 100)) ** 3)) *  Number(this.CAPEX / 100)) +  (((this.revenue * (1 + Number(this.slider / 100)) ** 3)) *  Number(this.SBC / 100))) 
-                      /  ((1 + Number(this.WACC / 100))) ** 3)
-                  
-                    // PV FCF Year 4
-                    + (((((this.revenue * ((1 + Number(this.slider / 100)) ** 4))  * (1 - ((1 - Number(this.COGS / 100)) + Number(this.opEx/ 100)))) * (1 - Number(this.TAX / 100)))
-                      + (((this.revenue * (1 + Number(this.slider / 100)) ** 4)) *  Number(this.DAexp / 100)) - (((this.revenue * (1 + Number(this.slider / 100)) ** 4)) *  Number(this.NWC / 100)) 
-                      - (((this.revenue * (1 + Number(this.slider / 100)) ** 4)) *  Number(this.CAPEX / 100)) +  (((this.revenue * (1 + Number(this.slider / 100)) ** 4)) *  Number(this.SBC / 100))) 
-                      /  ((1 + Number(this.WACC / 100))) ** 4) 
-
-                    // PV FCF Year 5
-                    + (((((this.revenue * ((1 + Number(this.slider / 100)) ** 5))  * (1 - ((1 - Number(this.COGS / 100)) + Number(this.opEx/ 100)))) * (1 - Number(this.TAX / 100)))
-                      + (((this.revenue * (1 + Number(this.slider / 100)) ** 5)) *  Number(this.DAexp / 100)) - (((this.revenue * (1 + Number(this.slider / 100)) ** 5)) *  Number(this.NWC / 100)) 
-                      - (((this.revenue * (1 + Number(this.slider / 100)) ** 5)) *  Number(this.CAPEX / 100)) +  (((this.revenue * (1 + Number(this.slider / 100)) ** 5)) *  Number(this.SBC / 100))) 
-                      /  ((1 + Number(this.WACC / 100))) ** 5)
-
-                          // - Net Debt = Market Cap
-                          - Number(this.netDebt))
-
-                        //  Divide by numSHares to get est price per share
-                        / Number(this.NumShares)))    }}</h3>
-          </v-flex>
-        </v-layout>
-
-        <v-layout row wrap align-center>
-          <v-flex md6>  
-                  <v-simple-table>
-                    <tbody>
-                      <tr>
-                        <td>Sum of PV FCF</td>                   
-                        <td>{{ formatNumber(Math.round((((this.revenue * (1 - ((1 - Number(this.COGS / 100)) + Number(this.opEx/ 100)))) * (1 - Number(this.TAX / 100))
-                        + (this.revenue *  Number(this.DAexp / 100)) - (this.revenue *  Number(this.NWC / 100)) - (this.revenue *  Number(this.CAPEX / 100))
-                        +  (this.revenue *  Number(this.SBC / 100))) / ((1 + Number(this.WACC / 100))) ** 0) + 
-                        (((((this.revenue * (1 + Number(this.slider / 100)))  * (1 - ((1 - Number(this.COGS / 100)) + Number(this.opEx/ 100)))) * (1 - Number(this.TAX / 100)))  
+        <template v-if="(((((this.revenue * (1 + Number(this.slider / 100)))  * (1 - ((1 - Number(this.COGS / 100)) + Number(this.opEx/ 100)))) * (1 - Number(this.TAX / 100)))  
                           + ((this.revenue * (1 + Number(this.slider / 100))) *  Number(this.DAexp / 100)) - ((this.revenue * (1 + Number(this.slider / 100))) *  Number(this.NWC / 100)) 
                           - ((this.revenue * (1 + Number(this.slider / 100))) *  Number(this.CAPEX / 100)) +  ((this.revenue * (1 + Number(this.slider / 100))) *  Number(this.SBC / 100)))
-                          / ((1 + Number(this.WACC / 100))) ** 1) + 
-                          (((((this.revenue * ((1 + Number(this.slider / 100)) ** 2))  * (1 - ((1 - Number(this.COGS / 100)) + Number(this.opEx/ 100)))) * (1 - Number(this.TAX / 100)))
-                          + (((this.revenue * (1 + Number(this.slider / 100)) ** 2)) *  Number(this.DAexp / 100)) - (((this.revenue * (1 + Number(this.slider / 100)) ** 2)) *  Number(this.NWC / 100)) 
-                          - (((this.revenue * (1 + Number(this.slider / 100)) ** 2)) *  Number(this.CAPEX / 100)) +  (((this.revenue * (1 + Number(this.slider / 100)) ** 2)) *  Number(this.SBC / 100))) 
-                          /  ((1 + Number(this.WACC / 100))) ** 2) +
-                          (((((this.revenue * ((1 + Number(this.slider / 100)) ** 3))  * (1 - ((1 - Number(this.COGS / 100)) + Number(this.opEx/ 100)))) * (1 - Number(this.TAX / 100)))
-                          + (((this.revenue * (1 + Number(this.slider / 100)) ** 3)) *  Number(this.DAexp / 100)) - (((this.revenue * (1 + Number(this.slider / 100)) ** 3)) *  Number(this.NWC / 100)) 
-                          - (((this.revenue * (1 + Number(this.slider / 100)) ** 3)) *  Number(this.CAPEX / 100)) +  (((this.revenue * (1 + Number(this.slider / 100)) ** 3)) *  Number(this.SBC / 100))) 
-                          /  ((1 + Number(this.WACC / 100))) ** 3)
-                          + (((((this.revenue * ((1 + Number(this.slider / 100)) ** 4))  * (1 - ((1 - Number(this.COGS / 100)) + Number(this.opEx/ 100)))) * (1 - Number(this.TAX / 100)))
-                          + (((this.revenue * (1 + Number(this.slider / 100)) ** 4)) *  Number(this.DAexp / 100)) - (((this.revenue * (1 + Number(this.slider / 100)) ** 4)) *  Number(this.NWC / 100)) 
-                          - (((this.revenue * (1 + Number(this.slider / 100)) ** 4)) *  Number(this.CAPEX / 100)) +  (((this.revenue * (1 + Number(this.slider / 100)) ** 4)) *  Number(this.SBC / 100))) 
-                          /  ((1 + Number(this.WACC / 100))) ** 4) +
-                          (((((this.revenue * ((1 + Number(this.slider / 100)) ** 5))  * (1 - ((1 - Number(this.COGS / 100)) + Number(this.opEx/ 100)))) * (1 - Number(this.TAX / 100)))
-                          + (((this.revenue * (1 + Number(this.slider / 100)) ** 5)) *  Number(this.DAexp / 100)) - (((this.revenue * (1 + Number(this.slider / 100)) ** 5)) *  Number(this.NWC / 100)) 
-                          - (((this.revenue * (1 + Number(this.slider / 100)) ** 5)) *  Number(this.CAPEX / 100)) +  (((this.revenue * (1 + Number(this.slider / 100)) ** 5)) *  Number(this.SBC / 100))) 
-                          /  ((1 + Number(this.WACC / 100))) ** 5)))
-                         }}</td>  
-                      </tr>
-                      <tr>
-                        <td>Terminal Value</td>
-                        <td>  {{ formatNumber(((((((this.revenue * ((1 + Number(this.slider / 100)) ** 5)) * (1 - ((1 - Number(this.COGS / 100)) + Number(this.opEx/ 100)))) * (1 - Number(this.TAX / 100)))  
-  + (((this.revenue * (1 + Number(this.slider / 100)) ** 5)) *  Number(this.DAexp / 100)) - (((this.revenue * (1 + Number(this.slider / 100)) ** 5)) *  Number(this.NWC / 100)) - (((this.revenue * (1 + Number(this.slider / 100)) ** 5)) 
-  *  Number(this.CAPEX / 100)) + (((this.revenue * (1 + Number(this.slider / 100)) ** 5)) *  Number(this.SBC / 100))) * (1 + Number(this.ltGrowth / 100))) / (Number(this.WACC / 100) - Number(this.ltGrowth / 100)))) }}  </td> 
+                          / ((1 + Number(this.WACC / 100))) ** 1) > 0">          
+          <v-layout  row wrap justify-space-between>
+            <v-flex md6>
+              <h3>Estimated Stock Price</h3>
+            </v-flex>
+            <v-flex md6>
+                    <h3>${{ 
+                      // PV TV
+                        formatNumber(Math.round(((((((((this.revenue * ((1 + Number(this.slider / 100)) ** 5))  * (1 - ((1 - Number(this.COGS / 100)) + Number(this.opEx/ 100)))) * (1 - Number(this.TAX / 100)))
+                        + (((this.revenue * (1 + Number(this.slider / 100)) ** 5)) *  Number(this.DAexp / 100)) - (((this.revenue / 100 * (1 + Number(this.slider / 100)) ** 5)) *  Number(this.NWC / 100)) 
+                        - (((this.revenue * (1 + Number(this.slider / 100)) ** 5)) *  Number(this.CAPEX / 100)) +  (((this.revenue / 100 * (1 + Number(this.slider / 100)) ** 5)) *  Number(this.SBC / 100))) * 
+                        (1 + Number(this.ltGrowth / 100))) / (Number(this.WACC / 100) - Number(this.ltGrowth / 100))) 
+                        /  ((1 + Number(this.WACC / 100))) ** 5) 
+                        
+                        // PV FCF Year 0
+                        + (((this.revenue * (1 - ((1 - Number(this.COGS / 100)) + Number(this.opEx/ 100)))) * (1 - Number(this.TAX / 100))
+                      + (this.revenue *  Number(this.DAexp / 100)) - (this.revenue *  Number(this.NWC / 100)) - (this.revenue *  Number(this.CAPEX / 100))
+                      +  (this.revenue *  Number(this.SBC / 100))) / ((1 + Number(this.WACC / 100))) ** 0) 
 
-                        <!-- <td>{{ formatNumber(Math.round(((((((this.revenue * ((1 + Number(this.slider / 100)) ** 5))  * (1 - ((1 - Number(this.COGS / 100)) + Number(this.opEx/ 100)))) * (1 - Number(this.TAX / 100)))
-                          + (((this.revenue * (1 + Number(this.slider / 100)) ** 5)) *  Number(this.DAexp / 100)) - (((this.revenue * (1 + Number(this.slider / 100)) ** 5)) *  Number(this.NWC / 100)) 
-                          - (((this.revenue * (1 + Number(this.slider / 100)) ** 5)) *  Number(this.CAPEX / 100)) +  (((this.revenue * (1 + Number(this.slider / 100)) ** 5)) *  Number(this.SBC / 100))) * 
-                          (1 + Number(this.ltGrowth / 100))) / (Number(this.WACC / 100) - Number(this.ltGrowth / 100)))))  }}</td>   -->
-                      </tr>
-                      <tr>
-                        <td>PV Terminal Value</td>                   
-                        <td>{{ formatNumber(Math.round((((((((this.revenue * ((1 + Number(this.slider / 100)) ** 5))  * (1 - ((1 - Number(this.COGS / 100)) + Number(this.opEx/ 100)))) * (1 - Number(this.TAX / 100)))
-                          + (((this.revenue * (1 + Number(this.slider / 100)) ** 5)) *  Number(this.DAexp / 100)) - (((this.revenue / 100 * (1 + Number(this.slider / 100)) ** 5)) *  Number(this.NWC / 100)) 
-                          - (((this.revenue * (1 + Number(this.slider / 100)) ** 5)) *  Number(this.CAPEX / 100)) +  (((this.revenue / 100 * (1 + Number(this.slider / 100)) ** 5)) *  Number(this.SBC / 100))) * 
-                          (1 + Number(this.ltGrowth / 100))) / (Number(this.WACC / 100) - Number(this.ltGrowth / 100))) 
-                          /  ((1 + Number(this.WACC / 100))) ** 5))) }}</td>  
-                      </tr>
-                    </tbody>
-                  </v-simple-table>          
-          </v-flex>
-          <v-flex md6>  
-                  <v-simple-table>
-                    <tbody>
-                      <tr>
-                        <td>Enterprise Value</td>                   
-                        <td>{{ formatNumber(Math.round((((((((this.revenue * ((1 + Number(this.slider / 100)) ** 5))  * (1 - ((1 - Number(this.COGS / 100)) + Number(this.opEx/ 100)))) * (1 - Number(this.TAX / 100)))
-                          + (((this.revenue * (1 + Number(this.slider / 100)) ** 5)) *  Number(this.DAexp / 100)) - (((this.revenue * (1 + Number(this.slider / 100)) ** 5)) *  Number(this.NWC / 100)) 
-                          - (((this.revenue * (1 + Number(this.slider / 100)) ** 5)) *  Number(this.CAPEX / 100)) +  (((this.revenue * (1 + Number(this.slider / 100)) ** 5)) *  Number(this.SBC / 100))) * 
-                          (1 + Number(this.ltGrowth / 100))) / (Number(this.WACC / 100) - Number(this.ltGrowth / 100))) 
-                          /  ((1 + Number(this.WACC / 100))) ** 5) + ((((this.revenue * (1 - ((1 - Number(this.COGS / 100)) + Number(this.opEx/ 100)))) * (1 - Number(this.TAX / 100))
-                        + (this.revenue *  Number(this.DAexp / 100)) - (this.revenue *  Number(this.NWC / 100)) - (this.revenue *  Number(this.CAPEX / 100))
-                        +  (this.revenue *  Number(this.SBC / 100))) / ((1 + Number(this.WACC / 100))) ** 0) + 
-                        (((((this.revenue * (1 + Number(this.slider / 100)))  * (1 - ((1 - Number(this.COGS / 100)) + Number(this.opEx/ 100)))) * (1 - Number(this.TAX / 100)))  
-                          + ((this.revenue * (1 + Number(this.slider / 100))) *  Number(this.DAexp / 100)) - ((this.revenue * (1 + Number(this.slider / 100))) *  Number(this.NWC / 100)) 
-                          - ((this.revenue * (1 + Number(this.slider / 100))) *  Number(this.CAPEX / 100)) +  ((this.revenue * (1 + Number(this.slider / 100))) *  Number(this.SBC / 100)))
-                          / ((1 + Number(this.WACC / 100))) ** 1) + 
-                          (((((this.revenue * ((1 + Number(this.slider / 100)) ** 2))  * (1 - ((1 - Number(this.COGS / 100)) + Number(this.opEx/ 100)))) * (1 - Number(this.TAX / 100)))
-                          + (((this.revenue * (1 + Number(this.slider / 100)) ** 2)) *  Number(this.DAexp / 100)) - (((this.revenue * (1 + Number(this.slider / 100)) ** 2)) *  Number(this.NWC / 100)) 
-                          - (((this.revenue * (1 + Number(this.slider / 100)) ** 2)) *  Number(this.CAPEX / 100)) +  (((this.revenue * (1 + Number(this.slider / 100)) ** 2)) *  Number(this.SBC / 100))) 
-                          /  ((1 + Number(this.WACC / 100))) ** 2) +
-                          (((((this.revenue * ((1 + Number(this.slider / 100)) ** 3))  * (1 - ((1 - Number(this.COGS / 100)) + Number(this.opEx/ 100)))) * (1 - Number(this.TAX / 100)))
-                          + (((this.revenue * (1 + Number(this.slider / 100)) ** 3)) *  Number(this.DAexp / 100)) - (((this.revenue * (1 + Number(this.slider / 100)) ** 3)) *  Number(this.NWC / 100)) 
-                          - (((this.revenue * (1 + Number(this.slider / 100)) ** 3)) *  Number(this.CAPEX / 100)) +  (((this.revenue * (1 + Number(this.slider / 100)) ** 3)) *  Number(this.SBC / 100))) 
-                          /  ((1 + Number(this.WACC / 100))) ** 3)
-                          + (((((this.revenue * ((1 + Number(this.slider / 100)) ** 4))  * (1 - ((1 - Number(this.COGS / 100)) + Number(this.opEx/ 100)))) * (1 - Number(this.TAX / 100)))
-                          + (((this.revenue * (1 + Number(this.slider / 100)) ** 4)) *  Number(this.DAexp / 100)) - (((this.revenue * (1 + Number(this.slider / 100)) ** 4)) *  Number(this.NWC / 100)) 
-                          - (((this.revenue * (1 + Number(this.slider / 100)) ** 4)) *  Number(this.CAPEX / 100)) +  (((this.revenue * (1 + Number(this.slider / 100)) ** 4)) *  Number(this.SBC / 100))) 
-                          /  ((1 + Number(this.WACC / 100))) ** 4) +
-                          (((((this.revenue * ((1 + Number(this.slider / 100)) ** 5))  * (1 - ((1 - Number(this.COGS / 100)) + Number(this.opEx/ 100)))) * (1 - Number(this.TAX / 100)))
-                          + (((this.revenue * (1 + Number(this.slider / 100)) ** 5)) *  Number(this.DAexp / 100)) - (((this.revenue * (1 + Number(this.slider / 100)) ** 5)) *  Number(this.NWC / 100)) 
-                          - (((this.revenue * (1 + Number(this.slider / 100)) ** 5)) *  Number(this.CAPEX / 100)) +  (((this.revenue * (1 + Number(this.slider / 100)) ** 5)) *  Number(this.SBC / 100))) 
-                          /  ((1 + Number(this.WACC / 100))) ** 5)))) }}</td>  
-                      </tr>
-                      <tr>
-                        <td>Net Debt</td>                   
-                        <td>{{ formatNumber(this.netDebt) }}</td>  
-                      </tr>
-                      
-                      <tr>
-                        <td>Est. Market Cap</td>
-                        <td>{{ formatNumber(Math.round(((((((((this.revenue * ((1 + Number(this.slider / 100)) ** 5))  * (1 - ((1 - Number(this.COGS / 100)) + Number(this.opEx/ 100)))) * (1 - Number(this.TAX / 100)))
-                          + (((this.revenue * (1 + Number(this.slider / 100)) ** 5)) *  Number(this.DAexp / 100)) - (((this.revenue * (1 + Number(this.slider / 100)) ** 5)) *  Number(this.NWC / 100)) 
-                          - (((this.revenue * (1 + Number(this.slider / 100)) ** 5)) *  Number(this.CAPEX / 100)) +  (((this.revenue * (1 + Number(this.slider / 100)) ** 5)) *  Number(this.SBC / 100))) * 
-                          (1 + Number(this.ltGrowth / 100))) / (Number(this.WACC / 100) - Number(this.ltGrowth / 100))) 
-                          /  ((1 + Number(this.WACC / 100))) ** 5) + ((((this.revenue * (1 - ((1 - Number(this.COGS / 100)) + Number(this.opEx/ 100)))) * (1 - Number(this.TAX / 100))
-                        + (this.revenue *  Number(this.DAexp / 100)) - (this.revenue *  Number(this.NWC / 100)) - (this.revenue *  Number(this.CAPEX / 100))
-                        +  (this.revenue *  Number(this.SBC / 100))) / ((1 + Number(this.WACC / 100))) ** 0) + 
-                        (((((this.revenue * (1 + Number(this.slider / 100)))  * (1 - ((1 - Number(this.COGS / 100)) + Number(this.opEx/ 100)))) * (1 - Number(this.TAX / 100)))  
-                          + ((this.revenue * (1 + Number(this.slider / 100))) *  Number(this.DAexp / 100)) - ((this.revenue * (1 + Number(this.slider / 100))) *  Number(this.NWC / 100)) 
-                          - ((this.revenue * (1 + Number(this.slider / 100))) *  Number(this.CAPEX / 100)) +  ((this.revenue * (1 + Number(this.slider / 100))) *  Number(this.SBC / 100)))
-                          / ((1 + Number(this.WACC / 100))) ** 1) + 
-                          (((((this.revenue * ((1 + Number(this.slider / 100)) ** 2))  * (1 - ((1 - Number(this.COGS / 100)) + Number(this.opEx/ 100)))) * (1 - Number(this.TAX / 100)))
-                          + (((this.revenue * (1 + Number(this.slider / 100)) ** 2)) *  Number(this.DAexp / 100)) - (((this.revenue * (1 + Number(this.slider / 100)) ** 2)) *  Number(this.NWC / 100)) 
-                          - (((this.revenue * (1 + Number(this.slider / 100)) ** 2)) *  Number(this.CAPEX / 100)) +  (((this.revenue * (1 + Number(this.slider / 100)) ** 2)) *  Number(this.SBC / 100))) 
-                          /  ((1 + Number(this.WACC / 100))) ** 2) +
-                          (((((this.revenue * ((1 + Number(this.slider / 100)) ** 3))  * (1 - ((1 - Number(this.COGS / 100)) + Number(this.opEx/ 100)))) * (1 - Number(this.TAX / 100)))
-                          + (((this.revenue * (1 + Number(this.slider / 100)) ** 3)) *  Number(this.DAexp / 100)) - (((this.revenue * (1 + Number(this.slider / 100)) ** 3)) *  Number(this.NWC / 100)) 
-                          - (((this.revenue * (1 + Number(this.slider / 100)) ** 3)) *  Number(this.CAPEX / 100)) +  (((this.revenue * (1 + Number(this.slider / 100)) ** 3)) *  Number(this.SBC / 100))) 
-                          /  ((1 + Number(this.WACC / 100))) ** 3)
-                          + (((((this.revenue * ((1 + Number(this.slider / 100)) ** 4))  * (1 - ((1 - Number(this.COGS / 100)) + Number(this.opEx/ 100)))) * (1 - Number(this.TAX / 100)))
-                          + (((this.revenue * (1 + Number(this.slider / 100)) ** 4)) *  Number(this.DAexp / 100)) - (((this.revenue * (1 + Number(this.slider / 100)) ** 4)) *  Number(this.NWC / 100)) 
-                          - (((this.revenue * (1 + Number(this.slider / 100)) ** 4)) *  Number(this.CAPEX / 100)) +  (((this.revenue * (1 + Number(this.slider / 100)) ** 4)) *  Number(this.SBC / 100))) 
-                          /  ((1 + Number(this.WACC / 100))) ** 4) +
-                          (((((this.revenue * ((1 + Number(this.slider / 100)) ** 5))  * (1 - ((1 - Number(this.COGS / 100)) + Number(this.opEx/ 100)))) * (1 - Number(this.TAX / 100)))
-                          + (((this.revenue * (1 + Number(this.slider / 100)) ** 5)) *  Number(this.DAexp / 100)) - (((this.revenue * (1 + Number(this.slider / 100)) ** 5)) *  Number(this.NWC / 100)) 
-                          - (((this.revenue * (1 + Number(this.slider / 100)) ** 5)) *  Number(this.CAPEX / 100)) +  (((this.revenue * (1 + Number(this.slider / 100)) ** 5)) *  Number(this.SBC / 100))) 
-                          /  ((1 + Number(this.WACC / 100))) ** 5))) - Number(this.netDebt))) }}</td>                   
-                        <td></td>  
-                      </tr>
-                    </tbody>
-                  </v-simple-table>          
-          </v-flex>
-        </v-layout>
+                      // PV FCF Year 1
+                      + (((((this.revenue * (1 + Number(this.slider / 100)))  * (1 - ((1 - Number(this.COGS / 100)) + Number(this.opEx/ 100)))) * (1 - Number(this.TAX / 100)))  
+                        + ((this.revenue * (1 + Number(this.slider / 100))) *  Number(this.DAexp / 100)) - ((this.revenue * (1 + Number(this.slider / 100))) *  Number(this.NWC / 100)) 
+                        - ((this.revenue * (1 + Number(this.slider / 100))) *  Number(this.CAPEX / 100)) +  ((this.revenue * (1 + Number(this.slider / 100))) *  Number(this.SBC / 100)))
+                        / ((1 + Number(this.WACC / 100))) ** 1) 
 
+                      // PV FCF Year 2
+                      + (((((this.revenue * ((1 + Number(this.slider / 100)) ** 2))  * (1 - ((1 - Number(this.COGS / 100)) + Number(this.opEx/ 100)))) * (1 - Number(this.TAX / 100)))
+                        + (((this.revenue * (1 + Number(this.slider / 100)) ** 2)) *  Number(this.DAexp / 100)) - (((this.revenue * (1 + Number(this.slider / 100)) ** 2)) *  Number(this.NWC / 100)) 
+                        - (((this.revenue * (1 + Number(this.slider / 100)) ** 2)) *  Number(this.CAPEX / 100)) +  (((this.revenue * (1 + Number(this.slider / 100)) ** 2)) *  Number(this.SBC / 100))) 
+                        /  ((1 + Number(this.WACC / 100))) ** 2)
+
+                      // PV FCF Year 3
+                      + (((((this.revenue * ((1 + Number(this.slider / 100)) ** 3))  * (1 - ((1 - Number(this.COGS / 100)) + Number(this.opEx/ 100)))) * (1 - Number(this.TAX / 100)))
+                        + (((this.revenue * (1 + Number(this.slider / 100)) ** 3)) *  Number(this.DAexp / 100)) - (((this.revenue * (1 + Number(this.slider / 100)) ** 3)) *  Number(this.NWC / 100)) 
+                        - (((this.revenue * (1 + Number(this.slider / 100)) ** 3)) *  Number(this.CAPEX / 100)) +  (((this.revenue * (1 + Number(this.slider / 100)) ** 3)) *  Number(this.SBC / 100))) 
+                        /  ((1 + Number(this.WACC / 100))) ** 3)
+                    
+                      // PV FCF Year 4
+                      + (((((this.revenue * ((1 + Number(this.slider / 100)) ** 4))  * (1 - ((1 - Number(this.COGS / 100)) + Number(this.opEx/ 100)))) * (1 - Number(this.TAX / 100)))
+                        + (((this.revenue * (1 + Number(this.slider / 100)) ** 4)) *  Number(this.DAexp / 100)) - (((this.revenue * (1 + Number(this.slider / 100)) ** 4)) *  Number(this.NWC / 100)) 
+                        - (((this.revenue * (1 + Number(this.slider / 100)) ** 4)) *  Number(this.CAPEX / 100)) +  (((this.revenue * (1 + Number(this.slider / 100)) ** 4)) *  Number(this.SBC / 100))) 
+                        /  ((1 + Number(this.WACC / 100))) ** 4) 
+
+                      // PV FCF Year 5
+                      + (((((this.revenue * ((1 + Number(this.slider / 100)) ** 5))  * (1 - ((1 - Number(this.COGS / 100)) + Number(this.opEx/ 100)))) * (1 - Number(this.TAX / 100)))
+                        + (((this.revenue * (1 + Number(this.slider / 100)) ** 5)) *  Number(this.DAexp / 100)) - (((this.revenue * (1 + Number(this.slider / 100)) ** 5)) *  Number(this.NWC / 100)) 
+                        - (((this.revenue * (1 + Number(this.slider / 100)) ** 5)) *  Number(this.CAPEX / 100)) +  (((this.revenue * (1 + Number(this.slider / 100)) ** 5)) *  Number(this.SBC / 100))) 
+                        /  ((1 + Number(this.WACC / 100))) ** 5)
+
+                            // - Net Debt = Market Cap
+                            - Number(this.netDebt))
+
+                          //  Divide by numSHares to get est price per share
+                          / Number(this.NumShares)))    }}</h3>
+            </v-flex>
+          </v-layout>
+  
+          <v-layout row wrap align-center>
+        
+            <v-flex md6>  
+                    <v-simple-table>
+                      <tbody>
+                        <tr>
+                          <td>Sum of PV FCF</td>                   
+                          <td>{{ formatNumber(Math.round((((this.revenue * (1 - ((1 - Number(this.COGS / 100)) + Number(this.opEx/ 100)))) * (1 - Number(this.TAX / 100))
+                          + (this.revenue *  Number(this.DAexp / 100)) - (this.revenue *  Number(this.NWC / 100)) - (this.revenue *  Number(this.CAPEX / 100))
+                          +  (this.revenue *  Number(this.SBC / 100))) / ((1 + Number(this.WACC / 100))) ** 0) + 
+                          (((((this.revenue * (1 + Number(this.slider / 100)))  * (1 - ((1 - Number(this.COGS / 100)) + Number(this.opEx/ 100)))) * (1 - Number(this.TAX / 100)))  
+                            + ((this.revenue * (1 + Number(this.slider / 100))) *  Number(this.DAexp / 100)) - ((this.revenue * (1 + Number(this.slider / 100))) *  Number(this.NWC / 100)) 
+                            - ((this.revenue * (1 + Number(this.slider / 100))) *  Number(this.CAPEX / 100)) +  ((this.revenue * (1 + Number(this.slider / 100))) *  Number(this.SBC / 100)))
+                            / ((1 + Number(this.WACC / 100))) ** 1) + 
+                            (((((this.revenue * ((1 + Number(this.slider / 100)) ** 2))  * (1 - ((1 - Number(this.COGS / 100)) + Number(this.opEx/ 100)))) * (1 - Number(this.TAX / 100)))
+                            + (((this.revenue * (1 + Number(this.slider / 100)) ** 2)) *  Number(this.DAexp / 100)) - (((this.revenue * (1 + Number(this.slider / 100)) ** 2)) *  Number(this.NWC / 100)) 
+                            - (((this.revenue * (1 + Number(this.slider / 100)) ** 2)) *  Number(this.CAPEX / 100)) +  (((this.revenue * (1 + Number(this.slider / 100)) ** 2)) *  Number(this.SBC / 100))) 
+                            /  ((1 + Number(this.WACC / 100))) ** 2) +
+                            (((((this.revenue * ((1 + Number(this.slider / 100)) ** 3))  * (1 - ((1 - Number(this.COGS / 100)) + Number(this.opEx/ 100)))) * (1 - Number(this.TAX / 100)))
+                            + (((this.revenue * (1 + Number(this.slider / 100)) ** 3)) *  Number(this.DAexp / 100)) - (((this.revenue * (1 + Number(this.slider / 100)) ** 3)) *  Number(this.NWC / 100)) 
+                            - (((this.revenue * (1 + Number(this.slider / 100)) ** 3)) *  Number(this.CAPEX / 100)) +  (((this.revenue * (1 + Number(this.slider / 100)) ** 3)) *  Number(this.SBC / 100))) 
+                            /  ((1 + Number(this.WACC / 100))) ** 3)
+                            + (((((this.revenue * ((1 + Number(this.slider / 100)) ** 4))  * (1 - ((1 - Number(this.COGS / 100)) + Number(this.opEx/ 100)))) * (1 - Number(this.TAX / 100)))
+                            + (((this.revenue * (1 + Number(this.slider / 100)) ** 4)) *  Number(this.DAexp / 100)) - (((this.revenue * (1 + Number(this.slider / 100)) ** 4)) *  Number(this.NWC / 100)) 
+                            - (((this.revenue * (1 + Number(this.slider / 100)) ** 4)) *  Number(this.CAPEX / 100)) +  (((this.revenue * (1 + Number(this.slider / 100)) ** 4)) *  Number(this.SBC / 100))) 
+                            /  ((1 + Number(this.WACC / 100))) ** 4) +
+                            (((((this.revenue * ((1 + Number(this.slider / 100)) ** 5))  * (1 - ((1 - Number(this.COGS / 100)) + Number(this.opEx/ 100)))) * (1 - Number(this.TAX / 100)))
+                            + (((this.revenue * (1 + Number(this.slider / 100)) ** 5)) *  Number(this.DAexp / 100)) - (((this.revenue * (1 + Number(this.slider / 100)) ** 5)) *  Number(this.NWC / 100)) 
+                            - (((this.revenue * (1 + Number(this.slider / 100)) ** 5)) *  Number(this.CAPEX / 100)) +  (((this.revenue * (1 + Number(this.slider / 100)) ** 5)) *  Number(this.SBC / 100))) 
+                            /  ((1 + Number(this.WACC / 100))) ** 5)))
+                          }}</td>  
+                        </tr>
+                        <tr>
+                          <td>Terminal Value</td>
+                          <td>  {{ formatNumber(((((((this.revenue * ((1 + Number(this.slider / 100)) ** 5)) * (1 - ((1 - Number(this.COGS / 100)) + Number(this.opEx/ 100)))) * (1 - Number(this.TAX / 100)))  
+    + (((this.revenue * (1 + Number(this.slider / 100)) ** 5)) *  Number(this.DAexp / 100)) - (((this.revenue * (1 + Number(this.slider / 100)) ** 5)) *  Number(this.NWC / 100)) - (((this.revenue * (1 + Number(this.slider / 100)) ** 5)) 
+    *  Number(this.CAPEX / 100)) + (((this.revenue * (1 + Number(this.slider / 100)) ** 5)) *  Number(this.SBC / 100))) * (1 + Number(this.ltGrowth / 100))) / (Number(this.WACC / 100) - Number(this.ltGrowth / 100)))) }}  </td> 
+
+                          <!-- <td>{{ formatNumber(Math.round(((((((this.revenue * ((1 + Number(this.slider / 100)) ** 5))  * (1 - ((1 - Number(this.COGS / 100)) + Number(this.opEx/ 100)))) * (1 - Number(this.TAX / 100)))
+                            + (((this.revenue * (1 + Number(this.slider / 100)) ** 5)) *  Number(this.DAexp / 100)) - (((this.revenue * (1 + Number(this.slider / 100)) ** 5)) *  Number(this.NWC / 100)) 
+                            - (((this.revenue * (1 + Number(this.slider / 100)) ** 5)) *  Number(this.CAPEX / 100)) +  (((this.revenue * (1 + Number(this.slider / 100)) ** 5)) *  Number(this.SBC / 100))) * 
+                            (1 + Number(this.ltGrowth / 100))) / (Number(this.WACC / 100) - Number(this.ltGrowth / 100)))))  }}</td>   -->
+                        </tr>
+                        <tr>
+                          <td>PV Terminal Value</td>                   
+                          <td>{{ formatNumber(Math.round((((((((this.revenue * ((1 + Number(this.slider / 100)) ** 5))  * (1 - ((1 - Number(this.COGS / 100)) + Number(this.opEx/ 100)))) * (1 - Number(this.TAX / 100)))
+                            + (((this.revenue * (1 + Number(this.slider / 100)) ** 5)) *  Number(this.DAexp / 100)) - (((this.revenue / 100 * (1 + Number(this.slider / 100)) ** 5)) *  Number(this.NWC / 100)) 
+                            - (((this.revenue * (1 + Number(this.slider / 100)) ** 5)) *  Number(this.CAPEX / 100)) +  (((this.revenue / 100 * (1 + Number(this.slider / 100)) ** 5)) *  Number(this.SBC / 100))) * 
+                            (1 + Number(this.ltGrowth / 100))) / (Number(this.WACC / 100) - Number(this.ltGrowth / 100))) 
+                            /  ((1 + Number(this.WACC / 100))) ** 5))) }}</td>  
+                        </tr>
+                      </tbody>
+                    </v-simple-table>          
+            </v-flex>
+            <v-flex md6>  
+                    <v-simple-table>
+                      <tbody>
+                        <tr>
+                          <td>Enterprise Value</td>                   
+                          <td>{{ formatNumber(Math.round((((((((this.revenue * ((1 + Number(this.slider / 100)) ** 5))  * (1 - ((1 - Number(this.COGS / 100)) + Number(this.opEx/ 100)))) * (1 - Number(this.TAX / 100)))
+                            + (((this.revenue * (1 + Number(this.slider / 100)) ** 5)) *  Number(this.DAexp / 100)) - (((this.revenue * (1 + Number(this.slider / 100)) ** 5)) *  Number(this.NWC / 100)) 
+                            - (((this.revenue * (1 + Number(this.slider / 100)) ** 5)) *  Number(this.CAPEX / 100)) +  (((this.revenue * (1 + Number(this.slider / 100)) ** 5)) *  Number(this.SBC / 100))) * 
+                            (1 + Number(this.ltGrowth / 100))) / (Number(this.WACC / 100) - Number(this.ltGrowth / 100))) 
+                            /  ((1 + Number(this.WACC / 100))) ** 5) + ((((this.revenue * (1 - ((1 - Number(this.COGS / 100)) + Number(this.opEx/ 100)))) * (1 - Number(this.TAX / 100))
+                          + (this.revenue *  Number(this.DAexp / 100)) - (this.revenue *  Number(this.NWC / 100)) - (this.revenue *  Number(this.CAPEX / 100))
+                          +  (this.revenue *  Number(this.SBC / 100))) / ((1 + Number(this.WACC / 100))) ** 0) + 
+                          (((((this.revenue * (1 + Number(this.slider / 100)))  * (1 - ((1 - Number(this.COGS / 100)) + Number(this.opEx/ 100)))) * (1 - Number(this.TAX / 100)))  
+                            + ((this.revenue * (1 + Number(this.slider / 100))) *  Number(this.DAexp / 100)) - ((this.revenue * (1 + Number(this.slider / 100))) *  Number(this.NWC / 100)) 
+                            - ((this.revenue * (1 + Number(this.slider / 100))) *  Number(this.CAPEX / 100)) +  ((this.revenue * (1 + Number(this.slider / 100))) *  Number(this.SBC / 100)))
+                            / ((1 + Number(this.WACC / 100))) ** 1) + 
+                            (((((this.revenue * ((1 + Number(this.slider / 100)) ** 2))  * (1 - ((1 - Number(this.COGS / 100)) + Number(this.opEx/ 100)))) * (1 - Number(this.TAX / 100)))
+                            + (((this.revenue * (1 + Number(this.slider / 100)) ** 2)) *  Number(this.DAexp / 100)) - (((this.revenue * (1 + Number(this.slider / 100)) ** 2)) *  Number(this.NWC / 100)) 
+                            - (((this.revenue * (1 + Number(this.slider / 100)) ** 2)) *  Number(this.CAPEX / 100)) +  (((this.revenue * (1 + Number(this.slider / 100)) ** 2)) *  Number(this.SBC / 100))) 
+                            /  ((1 + Number(this.WACC / 100))) ** 2) +
+                            (((((this.revenue * ((1 + Number(this.slider / 100)) ** 3))  * (1 - ((1 - Number(this.COGS / 100)) + Number(this.opEx/ 100)))) * (1 - Number(this.TAX / 100)))
+                            + (((this.revenue * (1 + Number(this.slider / 100)) ** 3)) *  Number(this.DAexp / 100)) - (((this.revenue * (1 + Number(this.slider / 100)) ** 3)) *  Number(this.NWC / 100)) 
+                            - (((this.revenue * (1 + Number(this.slider / 100)) ** 3)) *  Number(this.CAPEX / 100)) +  (((this.revenue * (1 + Number(this.slider / 100)) ** 3)) *  Number(this.SBC / 100))) 
+                            /  ((1 + Number(this.WACC / 100))) ** 3)
+                            + (((((this.revenue * ((1 + Number(this.slider / 100)) ** 4))  * (1 - ((1 - Number(this.COGS / 100)) + Number(this.opEx/ 100)))) * (1 - Number(this.TAX / 100)))
+                            + (((this.revenue * (1 + Number(this.slider / 100)) ** 4)) *  Number(this.DAexp / 100)) - (((this.revenue * (1 + Number(this.slider / 100)) ** 4)) *  Number(this.NWC / 100)) 
+                            - (((this.revenue * (1 + Number(this.slider / 100)) ** 4)) *  Number(this.CAPEX / 100)) +  (((this.revenue * (1 + Number(this.slider / 100)) ** 4)) *  Number(this.SBC / 100))) 
+                            /  ((1 + Number(this.WACC / 100))) ** 4) +
+                            (((((this.revenue * ((1 + Number(this.slider / 100)) ** 5))  * (1 - ((1 - Number(this.COGS / 100)) + Number(this.opEx/ 100)))) * (1 - Number(this.TAX / 100)))
+                            + (((this.revenue * (1 + Number(this.slider / 100)) ** 5)) *  Number(this.DAexp / 100)) - (((this.revenue * (1 + Number(this.slider / 100)) ** 5)) *  Number(this.NWC / 100)) 
+                            - (((this.revenue * (1 + Number(this.slider / 100)) ** 5)) *  Number(this.CAPEX / 100)) +  (((this.revenue * (1 + Number(this.slider / 100)) ** 5)) *  Number(this.SBC / 100))) 
+                            /  ((1 + Number(this.WACC / 100))) ** 5)))) }}</td>  
+                        </tr>
+                        <tr>
+                          <td>Net Debt</td>                   
+                          <td>{{ formatNumber(this.netDebt) }}</td>  
+                        </tr>
+                        
+                        <tr>
+                          <td>Est. Market Cap</td>
+                          <td>{{ formatNumber(Math.round(((((((((this.revenue * ((1 + Number(this.slider / 100)) ** 5))  * (1 - ((1 - Number(this.COGS / 100)) + Number(this.opEx/ 100)))) * (1 - Number(this.TAX / 100)))
+                            + (((this.revenue * (1 + Number(this.slider / 100)) ** 5)) *  Number(this.DAexp / 100)) - (((this.revenue * (1 + Number(this.slider / 100)) ** 5)) *  Number(this.NWC / 100)) 
+                            - (((this.revenue * (1 + Number(this.slider / 100)) ** 5)) *  Number(this.CAPEX / 100)) +  (((this.revenue * (1 + Number(this.slider / 100)) ** 5)) *  Number(this.SBC / 100))) * 
+                            (1 + Number(this.ltGrowth / 100))) / (Number(this.WACC / 100) - Number(this.ltGrowth / 100))) 
+                            /  ((1 + Number(this.WACC / 100))) ** 5) + ((((this.revenue * (1 - ((1 - Number(this.COGS / 100)) + Number(this.opEx/ 100)))) * (1 - Number(this.TAX / 100))
+                          + (this.revenue *  Number(this.DAexp / 100)) - (this.revenue *  Number(this.NWC / 100)) - (this.revenue *  Number(this.CAPEX / 100))
+                          +  (this.revenue *  Number(this.SBC / 100))) / ((1 + Number(this.WACC / 100))) ** 0) + 
+                          (((((this.revenue * (1 + Number(this.slider / 100)))  * (1 - ((1 - Number(this.COGS / 100)) + Number(this.opEx/ 100)))) * (1 - Number(this.TAX / 100)))  
+                            + ((this.revenue * (1 + Number(this.slider / 100))) *  Number(this.DAexp / 100)) - ((this.revenue * (1 + Number(this.slider / 100))) *  Number(this.NWC / 100)) 
+                            - ((this.revenue * (1 + Number(this.slider / 100))) *  Number(this.CAPEX / 100)) +  ((this.revenue * (1 + Number(this.slider / 100))) *  Number(this.SBC / 100)))
+                            / ((1 + Number(this.WACC / 100))) ** 1) + 
+                            (((((this.revenue * ((1 + Number(this.slider / 100)) ** 2))  * (1 - ((1 - Number(this.COGS / 100)) + Number(this.opEx/ 100)))) * (1 - Number(this.TAX / 100)))
+                            + (((this.revenue * (1 + Number(this.slider / 100)) ** 2)) *  Number(this.DAexp / 100)) - (((this.revenue * (1 + Number(this.slider / 100)) ** 2)) *  Number(this.NWC / 100)) 
+                            - (((this.revenue * (1 + Number(this.slider / 100)) ** 2)) *  Number(this.CAPEX / 100)) +  (((this.revenue * (1 + Number(this.slider / 100)) ** 2)) *  Number(this.SBC / 100))) 
+                            /  ((1 + Number(this.WACC / 100))) ** 2) +
+                            (((((this.revenue * ((1 + Number(this.slider / 100)) ** 3))  * (1 - ((1 - Number(this.COGS / 100)) + Number(this.opEx/ 100)))) * (1 - Number(this.TAX / 100)))
+                            + (((this.revenue * (1 + Number(this.slider / 100)) ** 3)) *  Number(this.DAexp / 100)) - (((this.revenue * (1 + Number(this.slider / 100)) ** 3)) *  Number(this.NWC / 100)) 
+                            - (((this.revenue * (1 + Number(this.slider / 100)) ** 3)) *  Number(this.CAPEX / 100)) +  (((this.revenue * (1 + Number(this.slider / 100)) ** 3)) *  Number(this.SBC / 100))) 
+                            /  ((1 + Number(this.WACC / 100))) ** 3)
+                            + (((((this.revenue * ((1 + Number(this.slider / 100)) ** 4))  * (1 - ((1 - Number(this.COGS / 100)) + Number(this.opEx/ 100)))) * (1 - Number(this.TAX / 100)))
+                            + (((this.revenue * (1 + Number(this.slider / 100)) ** 4)) *  Number(this.DAexp / 100)) - (((this.revenue * (1 + Number(this.slider / 100)) ** 4)) *  Number(this.NWC / 100)) 
+                            - (((this.revenue * (1 + Number(this.slider / 100)) ** 4)) *  Number(this.CAPEX / 100)) +  (((this.revenue * (1 + Number(this.slider / 100)) ** 4)) *  Number(this.SBC / 100))) 
+                            /  ((1 + Number(this.WACC / 100))) ** 4) +
+                            (((((this.revenue * ((1 + Number(this.slider / 100)) ** 5))  * (1 - ((1 - Number(this.COGS / 100)) + Number(this.opEx/ 100)))) * (1 - Number(this.TAX / 100)))
+                            + (((this.revenue * (1 + Number(this.slider / 100)) ** 5)) *  Number(this.DAexp / 100)) - (((this.revenue * (1 + Number(this.slider / 100)) ** 5)) *  Number(this.NWC / 100)) 
+                            - (((this.revenue * (1 + Number(this.slider / 100)) ** 5)) *  Number(this.CAPEX / 100)) +  (((this.revenue * (1 + Number(this.slider / 100)) ** 5)) *  Number(this.SBC / 100))) 
+                            /  ((1 + Number(this.WACC / 100))) ** 5))) - Number(this.netDebt))) }}</td>                   
+                          <td></td>  
+                        </tr>
+                      </tbody>
+                    </v-simple-table>          
+            </v-flex>
+          </v-layout>          
+      </template>
+
+
+      <template v-else>
+        <v-card class="text-center mx-auto align-center justify-center my-6">
+          <v-card-title class="text-center align-center justify-center">Unable to calculate share price since free cash flows are negative</v-card-title>
+        </v-card>
+      </template>          
+       
   </v-container>
 
 </template>
@@ -699,8 +712,8 @@ export default {
 
         async updateDCF() {
             const ticker = this.$route.params.ticker.toUpperCase();
-            const dcfResonse =  await this.$axios.get(`/api/dcf/inputs/${ticker}`);
-            const histRev = await this.$axios.get(`/api/dcf/rev/${ticker}`);
+            const dcfResonse =  await this.$axios.get(`/dcf/inputs/${ticker}`);
+            const histRev = await this.$axios.get(`/dcf/rev/${ticker}`);
             if (histRev.data.length > 0 && dcfResonse.data.length > 0) {
             const revValues = histRev.data
             const sumall = revValues.map(item => item.value).reduce((prev, curr) => prev + curr, 0);
@@ -710,7 +723,7 @@ export default {
               this.CAPEX +=  Number((input.capex_margin * 100).toFixed(2)) 
               this.NWC +=  Number((input.change_nwc_margin * 100).toFixed(2)) 
               this.COGS +=  Number((input.gross_margin * 100).toFixed(2))
-              this.opEx +=  Number((input.operating_margin * 100).toFixed(2))
+              this.opEx +=  Math.abs(Number((input.operating_margin * 100).toFixed(2)))
               this.DAexp +=  Number((input.da_margin * 100).toFixed(2))
               this.TAX +=  Number((input.taxexp * 100).toFixed(2)) 
               this.SBC +=  Number((input.sbc_margin * 100).toFixed(2))
@@ -744,7 +757,7 @@ export default {
               this.CAPEX =  Number((input.capex_margin * 100).toFixed(2)) 
               this.NWC =  Number((input.change_nwc_margin * 100).toFixed(2)) 
               this.COGS =  Number((input.gross_margin * 100).toFixed(2))
-              this.opEx =  Number((input.operating_margin * 100).toFixed(2))
+              this.opEx =  Math.abs(Number((input.operating_margin * 100).toFixed(2)))
               this.DAexp =  Number((input.da_margin * 100).toFixed(2))
               this.TAX =  Number((input.taxexp * 100).toFixed(2)) 
               this.SBC =  Number((input.sbc_margin * 100).toFixed(2))

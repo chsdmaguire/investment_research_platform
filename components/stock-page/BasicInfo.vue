@@ -130,9 +130,9 @@ export default {
             },
         async getBasicInfo() {
             const ticker = this.$route.params.ticker.toUpperCase();
-            const res = await this.$axios.get(`/api/stock/basic/info/${ticker}`);
+            const res = await this.$axios.get(`/stock/basic/info/${ticker}`);
             this.basicInfo = res.data[0];
-            const response = await this.$axios.get(`/api/stock/key/metrics/${ticker}`);
+            const response = await this.$axios.get(`/stock/key/metrics/${ticker}`);
             response.data.forEach(item => {
                 if(item.metric == 'psAnnual'){this.keyMetrics.push({name: 'Price to Sales', value: Number(item.value)})}
                 else if(item.metric == 'grossMarginAnnual'){this.keyMetrics.push({name: 'Gross Margin', value: Number(item.value)})}
@@ -142,7 +142,6 @@ export default {
                 else if(item.metric == 'beta'){this.keyMetrics.push({name: 'Beta', value: Number(item.value)})}
                 else if(item.metric == 'revenueGrowth3Y'){this.keyMetrics.push({name:'3Y Revenue Growth', value: Number(item.value)})}
             });
-            console.log(this.keyMetrics)
         }
     },
 

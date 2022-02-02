@@ -22,7 +22,7 @@
          
      
           <v-col cols="12">
-          <IndiceChartBase :chart-data="chartData" :options="chartOptions"
+          <IndiceChartBase :chart-data="chartData" :chart-options="chartOptions"
           v-on:change="updateChart" v-model="selected" />
           </v-col>
          </v-row>
@@ -544,7 +544,7 @@ export default {
 
             for(var i = 0; i < allIds.length; i++) {
                 const id = allIds[i];
-                const res = await this.$axios.get(`/api/fred/db/index/${id}/${start}`);
+                const res = await this.$axios.get(`/fred/db/index/${id}/${start}`);
                 const arr = res.data.sort((a, b) => (a.time > b.time) ?  1: -1);
                 this.allData[i].lastItems = arr.slice(-2);
                 const firstItem = arr.slice(0, 1);

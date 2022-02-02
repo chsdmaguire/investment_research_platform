@@ -73,9 +73,9 @@ export default {
   },
   methods: {
     async updateGraph() {
-           this.economy = await this.$axios.$get('/api/econ/metric/list');
-           const initialResponse = await this.$axios.get('/api/econ/graph/metric/GDPC1');
-           const initialNotes =  await this.$axios.get('/api/econ/metric/notes/GDPC1');
+           this.economy = await this.$axios.$get('/econ/metric/list');
+           const initialResponse = await this.$axios.get('/econ/graph/metric/GDPC1');
+           const initialNotes =  await this.$axios.get('/econ/metric/notes/GDPC1');
            this.chartNotes = initialNotes.data[0];
            this.title = initialNotes.data[0].title;
            this.serId = initialNotes.data[0].series_id;
@@ -155,7 +155,7 @@ export default {
            this.frequency = '';
            this.popularity = '';
            this.itemNotes = '';           
-           this.$axios.get(`/api/econ/metric/notes/${this.selectedMetric}`).then(res => {
+           this.$axios.get(`/econ/metric/notes/${this.selectedMetric}`).then(res => {
            this.chartNotes = res.data[0];
            this.title = res.data[0].title;
            this.serId = res.data[0].series_id;
@@ -167,7 +167,7 @@ export default {
 
           this.gdpYaxis.length = 0;
           this.gdpDates.length = 0;
-         this.$axios.get(`/api/econ/graph/metric/${this.selectedMetric}`).then(response => {
+         this.$axios.get(`/econ/graph/metric/${this.selectedMetric}`).then(response => {
            response.data.forEach(element => {
              this.gdpDates.push(element.date);
              if( String(this.chartNotes.units).includes('Billions')) {

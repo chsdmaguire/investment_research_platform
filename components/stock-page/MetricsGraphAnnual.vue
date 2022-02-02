@@ -47,13 +47,13 @@ export default {
   methods: {
     async updateCompanies() {
             const ticker = this.$route.params.ticker.toUpperCase()
-            const fsliList = await this.$axios.get(`/api/annual/metrics/${ticker}`);
+            const fsliList = await this.$axios.get(`/annual/metrics/${ticker}`);
             if (fsliList.data.length > 0) {
               this.companies = fsliList.data;
             }
            
             const initial_fsli = 'Revenue Growth Rate';
-            const initialResp =  await this.$axios.get(`/api/annual/chart/metrics/${ticker}/${initial_fsli}`);
+            const initialResp =  await this.$axios.get(`/annual/chart/metrics/${ticker}/${initial_fsli}`);
             if (initialResp.data.length > 0) {
             const initMetric = initialResp.data;
             initMetric.forEach(val => {
@@ -123,7 +123,7 @@ export default {
         const ticker = this.$route.params.ticker.toUpperCase()
          this.metricData.length = 0;
          this.keys.length = 0;
-         this.$axios.get(`/api/annual/chart/metrics/${ticker}/${this.selectedFsli}`).then(response => 
+         this.$axios.get(`/annual/chart/metrics/${ticker}/${this.selectedFsli}`).then(response => 
          {
            response.data.forEach(elem => {
               this.metricData.push(elem.num_value);

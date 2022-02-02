@@ -32,7 +32,7 @@ export default {
     methods: {
        async renderMix() {
             const ticker = this.$route.params.ticker.toUpperCase()
-            const earnSurpise = await this.$axios.get(`/api/earnings/surpises/${ticker}`);
+            const earnSurpise = await this.$axios.get(`/earnings/surpises/${ticker}`);
             if (earnSurpise.data.length > 0) {
             this.allEarnings = earnSurpise.data;
             const estimateData = [];

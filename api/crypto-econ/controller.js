@@ -10,8 +10,9 @@ const getListing = async (req, res) => {
 }
 
 const cryptoCandleStick = async (req, res) => {
-    ticker = req.params.ticker
-    pool.query(queries.cryptoCandleStick, [ticker], (error, results) => {
+    ticker = req.params.ticker;
+    date = req.params.date;
+    pool.query(queries.cryptoCandleStick, [ticker, date], (error, results) => {
         if(error) throw error
         return res.status(200).json(results.rows)
         });

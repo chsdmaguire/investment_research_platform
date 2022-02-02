@@ -87,10 +87,6 @@
                     <v-btn>% Scale</v-btn>
                   </v-btn-toggle>            
           </v-row>
-          <v-row>
-              <div>
-              </div>
-          </v-row>
       </template>
   </v-container>
 </template>
@@ -117,8 +113,6 @@ export default {
             {text: 'Twitter Sentiment', value: 'twitter'},
             {text: 'Reddit Sentiment', value: 'reddit'},
             {text: 'Analyst Recommendations', value: 'analyst'},],
-            newChart: null,
-            limit: null,
             
         }
     },
@@ -138,7 +132,7 @@ export default {
                     startDate.setDate(startDate.getDate() - 7);
                     break;
                 case 1:
-                    startDate.setDate(startDate.getMonth() - 1);
+                    startDate.setDate(startDate.getDate() - 30);
                     break;
                 case 2:
                     startDate.setDate(startDate.getDate() - 90);
@@ -159,7 +153,7 @@ export default {
             
             const ticker = this.$route.params.ticker.toUpperCase();
             const date = startDate.toLocaleDateString().toString().replaceAll('/', '-');
-            const res = await this.$axios.get(`/api/stock/candlestick/chart/${ticker}/${date}`);
+            const res = await this.$axios.get(`/stock/candlestick/chart/${ticker}/${date}`);
                 if(res.data.length > 0) {
                     const arr = res.data.sort((a, b) => (a.time > b.time) ? 1: -1)
                     arr.forEach(bar => {

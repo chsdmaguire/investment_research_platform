@@ -42,7 +42,7 @@ export default {
   methods: {
     async getAnalystRecs() {
       const ticker = this.$route.params.ticker.toUpperCase()
-      const analystRecs = await this.$axios.$get(`/api/analyst/recs/${ticker}`);
+      const analystRecs = await this.$axios.$get(`/analyst/recs/${ticker}`);
       if(analystRecs.length > 0 ) {
       analystRecs.forEach(rec => {
         this.xAxis.push(rec.period.split('T')[0])
@@ -118,7 +118,7 @@ export default {
 
     async fillData() {
       const ticker = this.$route.params.ticker.toUpperCase();
-      this.mostRecent = await this.$axios.$get(`/api/analyst/recs/mostrecent/${ticker}`);
+      this.mostRecent = await this.$axios.get(`/analyst/recs/mostrecent/${ticker}`);
       const pie_labels = [];
       const pie_values = [];
       for(const [key, value] of Object.entries(this.mostRecent[0])) {

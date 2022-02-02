@@ -24,27 +24,27 @@
     </template>
 
     <template v-slot:[`item.percent_change_24h`]="{ item }">
-        <span v-if="item.percent_change_24h > 0" style="color: green;">{{ item.percent_change_24h.toLocaleString() }}%</span>
+        <span v-if="item.percent_change_24h > 0" style="color: green;">{{ item.percent_change_24h.toFixed(2) }}%</span>
         <span v-else style="color: red;">{{ item.percent_change_24h.toFixed(2) }}%</span>
     </template>
 
         <template v-slot:[`item.percent_change_7d`]="{ item }">
-        <span v-if="item.percent_change_7d > 0" style="color: green;">{{ item.percent_change_7d.toLocaleString() }}%</span>
+        <span v-if="item.percent_change_7d > 0" style="color: green;">{{ item.percent_change_7d.toFixed(2) }}%</span>
         <span v-else style="color: red;">{{ item.percent_change_7d.toFixed(2) }}%</span>
     </template>
 
     <template v-slot:[`item.percent_change_30d`]="{ item }">
-        <span v-if="item.percent_change30dh > 0" style="color: green;">{{ item.percent_change_30d.toLocaleString() }}%</span>
+        <span v-if="item.percent_change30dh > 0" style="color: green;">{{ item.percent_change_30d.toFixed(2) }}%</span>
         <span v-else style="color: red;">{{ item.percent_change_30d.toFixed(2) }}%</span>
     </template>
 
     <template v-slot:[`item.percent_change_60d`]="{ item }">
-        <span v-if="item.percent_change_60d > 0" style="color: green;">{{ item.percent_change_60d.toLocaleString() }}%</span>
+        <span v-if="item.percent_change_60d > 0" style="color: green;">{{ item.percent_change_60d.toFixed(2) }}%</span>
         <span v-else style="color: red;">{{ item.percent_change_60d.toFixed(2) }}%</span>
     </template>
 
     <template v-slot:[`item.percent_change_90d`]="{ item }">
-        <span v-if="item.percent_change_90d > 0" style="color: green;">{{ item.percent_change_90d.toLocaleString() }}%</span>
+        <span v-if="item.percent_change_90d > 0" style="color: green;">{{ item.percent_change_90d.toFixed(2) }}%</span>
         <span v-else style="color: red;">{{ item.percent_change_90d.toFixed(2) }}%</span>
     </template>
 
@@ -113,7 +113,7 @@ export default {
   methods: {
 
     async fetchListing() {
-      this.cryptoData = await this.$axios.$get('/api/crypto/listings');
+      this.cryptoData = await this.$axios.$get('/crypto/listings');
     },
     abbreviate(num) {
       return numeral(num).format('0.00a');
@@ -130,14 +130,5 @@ export default {
 </script>
 
 <style>
-
-
-/* .table thead th {
-  border-bottom: 1px solid #dee2e6 !important;
-}
-
-tr {
-  cursor: pointer;
-} */
 
 </style>

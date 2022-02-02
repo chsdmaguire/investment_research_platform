@@ -69,7 +69,7 @@
 
           methods: {
             async getTopNews() {
-                this.topNewsSlides = await this.$axios.$get('/api/news/top/top news');
+                this.topNewsSlides = await this.$axios.$get('/news/top/top news');
                 this.loading = false;
                 },
 
@@ -78,7 +78,7 @@
                     case 0:
                         this.loading = true;
                         this.topNewsSlides.length = 0;
-                        this.$axios.$get('/api/news/top/top news').then(res => {
+                        this.$axios.$get('/news/top/top news').then(res => {
                             this,this.topNewsSlides = res
                         });
                         this.loading = false;
@@ -86,7 +86,7 @@
                     case 1:
                         this.loading = true;
                         this.topNewsSlides.length = 0;
-                        this.$axios.$get('/api/news/top/business').then(res => {
+                        this.$axios.$get('/news/top/business').then(res => {
                             this,this.topNewsSlides = res
                         });
                         this.loading = false;
@@ -94,7 +94,7 @@
                     case 2:
                         this.loading = true;
                         this.topNewsSlides.length = 0;
-                         this.$axios.$get('/api/news/top/merger').then(res => {
+                         this.$axios.$get('/news/top/merger').then(res => {
                             this,this.topNewsSlides = res
                         });
                         this.loading = false;
@@ -102,7 +102,7 @@
                     case 3:
                         this.loading = true;
                         this.topNewsSlides.length = 0;
-                        this.$axios.$get('/api/news/top/crypto').then(res => {
+                        this.$axios.$get('/news/top/crypto').then(res => {
                             this.topNewsSlides = res
                         });
                         this.loading = false;

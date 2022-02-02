@@ -47,14 +47,14 @@ export default {
   methods: {
     async updateQuarterChart() {
       const ticker = this.$route.params.ticker.toUpperCase()
-      const fsliList = await this.$axios.get(`/api/stock/quarter/metrics/chart/${ticker}`);
+      const fsliList = await this.$axios.get(`/stock/quarter/metrics/chart/${ticker}`);
       if (fsliList.data.length > 0) {
       const fsliData = fsliList.data
       fsliData.forEach(element => this.quarterFslis.push(element));        
       }
 
       const initial_met = 'Revenue Growth Rate';
-      const quartResponse = await this.$axios.get(`/api/stock/quarter/metrics/chart/${ticker}/${initial_met}`);
+      const quartResponse = await this.$axios.get(`/stock/quarter/metrics/chart/${ticker}/${initial_met}`);
       if (quartResponse.data.length > 0) {
       const revData = quartResponse.data;
       revData.forEach(val => {
@@ -115,7 +115,7 @@ export default {
         const ticker = this.$route.params.ticker.toUpperCase()
          this.chartValues.length = 0;
          this.chartKeys.length = 0;        
-         this.$axios.get(`/api/stock/quarter/metrics/chart/${ticker}/${this.chosenMetric}`).then(response => {
+         this.$axios.get(`/stock/quarter/metrics/chart/${ticker}/${this.chosenMetric}`).then(response => {
            response.data.forEach(elem => {
              this.chartValues.push(elem.num_value);
              this.chartKeys.push(elem.date.split('T')[0]);

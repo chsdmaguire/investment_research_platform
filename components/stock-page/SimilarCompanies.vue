@@ -43,7 +43,7 @@ export default {
         methods: {
             async getTrending() {
                 const ticker = this.$route.params.ticker.toUpperCase();
-                const trendStocks = await this.$axios.get(`/api/similar/companies/${ticker}`);
+                const trendStocks = await this.$axios.get(`/similar/companies/${ticker}`);
                 trendStocks.data.forEach(element => {
                     this.topStocks.push({
                         

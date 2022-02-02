@@ -202,9 +202,9 @@ export default {
         
       async getallComps() {
           const ticker = this.$route.params.ticker.toUpperCase();
-        const companyComps = await this.$axios.$get(`/api/stock/market/allcomps/${ticker}`);
+        const companyComps = await this.$axios.$get(`/stock/market/allcomps/${ticker}`);
         this.allMetrics = companyComps;
-        this.competitorList = await this.$axios.$get(`/api/stock/competitors/${ticker}`);
+        this.competitorList = await this.$axios.$get(`/stock/competitors/${ticker}`);
         if (this.allMetrics.length > 0) {
         for(const company in this.allMetrics){
 
@@ -273,7 +273,7 @@ export default {
       
       async getcompanyComps() {
           const ticker = this.$route.params.ticker.toUpperCase();
-          const tickComps = await this.$axios.$get(`/api/comps/${ticker}`);
+          const tickComps = await this.$axios.$get(`/comps/${ticker}`);
           if (tickComps.length > 0) {
           this.tickerComps = tickComps;
           this.netInc = tickComps[0].net_income;

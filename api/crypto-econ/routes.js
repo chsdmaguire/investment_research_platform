@@ -5,7 +5,7 @@ const router = Router();
 
 // CRYPTO
 router.get('/crypto/listings', controller.getListing)
-router.get('/crypto/candlestick/:ticker', controller.cryptoCandleStick)
+router.get('/crypto/candlestick/:ticker/:date', controller.cryptoCandleStick)
 router.get('/crypto/ticker/list', controller.cryptoList)
 
 // ECON

@@ -51,7 +51,7 @@ export default {
   methods: {
     async barchartdata() {
       const ticker = this.$route.params.ticker.toUpperCase()
-          const senti = await this.$axios.get(`/api/social/sentiment/${ticker}`);
+          const senti = await this.$axios.get(`/social/sentiment/${ticker}`);
           if (senti.data.length > 0) {
           const sentiData = senti.data;
 

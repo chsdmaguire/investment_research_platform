@@ -66,8 +66,21 @@
                     </v-card>
                 </v-list-item>
               </v-list>       
-        
+            <v-divider></v-divider>    
       </template>
+      <v-card class="d-flex flex-column">
+        <v-spacer></v-spacer>
+        
+        <v-card-actions >
+          <v-card-title>
+          <div class="copyright copyright-content d-sm-flex justify-content-between">
+              <p class="text" style=" width: 100%; text-align: center">
+                © {{ new Date().getFullYear() }} — <strong>Flibyrd LLC</strong>
+              </p>
+            </div>
+        </v-card-title>
+        </v-card-actions>
+      </v-card>
 
     </v-navigation-drawer>
     <v-app-bar
@@ -77,8 +90,11 @@
     >
 
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
-      <v-toolbar-title v-text="title" />
+
+      <v-toolbar-title v-text="title" />   
+      <router-link to="/">      
       <v-img src="icon.png" max-width="35px" class="ml-4" link="/"></v-img>
+      </router-link>
 
     <v-col md="6" class="ml-12 pl-12">
        <StockSearch />
@@ -188,7 +204,7 @@
 
 <script>
 import StockSearch from '~/components/stock-main/StockSearch'
-//import BacktoTopButton from '~/components/BacktoTopButton'
+// import BacktoTopButton from '~/components/BacktoTopButton'
 
 export default {
   components: {StockSearch},
