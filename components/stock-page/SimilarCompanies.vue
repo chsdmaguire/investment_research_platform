@@ -1,9 +1,5 @@
 <template>
   <v-container fluid>
-      <v-layout row wrap justify-center>
-            <h4>
-                  Similar Companies
-              </h4>
       <v-data-table hide-details
       hide-default-footer
       dense
@@ -26,8 +22,6 @@
           <span v-else style="color: red;"> {{ formatPercentChange(item.percent_change)  }}</span>        
       </template>
     </v-data-table> 
-      </v-layout>
-   
   </v-container>
 </template>
 
@@ -49,7 +43,7 @@ export default {
         methods: {
             async getTrending() {
                 const ticker = this.$route.params.ticker.toUpperCase();
-                const trendStocks = await this.$axios.get(`/api/similar/companies/${ticker}`);
+                const trendStocks = await this.$axios.get(`/similar/companies/${ticker}`);
                 trendStocks.data.forEach(element => {
                     this.topStocks.push({
                         

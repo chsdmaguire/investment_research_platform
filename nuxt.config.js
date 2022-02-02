@@ -1,7 +1,6 @@
 require('dotenv').config()
 const axios = require('axios');
-const API_HOST = process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : 'https://flibyrd.com';
-
+const API_HOST = process.env.NODE_ENV === 'development' ? `http://localhost:3000/api/${process.env.ALL_API_TOKEN}` : `https://flibyrd.com/api/${process.env.ALL_API_TOKEN}`;
 
 import colors from 'vuetify/es5/util/colors'
 
@@ -21,7 +20,7 @@ export default {
       { name: 'format-detection', content: 'telephone=no' }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/icon.png' }
+      { rel: 'icon', type: 'image/x-icon', href: 'Icon.png' }
     ]
   },
 
@@ -29,12 +28,7 @@ export default {
   css: [
   ],
 
-  transpile: ['lightweight-charts', 'wowjs'],
-
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: [ 
-    {src: '~/plugins/vue-wowjs.client', mode: 'client'}
-  ],
 
   // Server Middlware
   serverMiddleware: ['~/api/server' ],
@@ -67,22 +61,8 @@ export default {
   modules: [
     ['@nuxtjs/axios'],
     '@nuxtjs/robots',
-    // '@nuxtjs/auth'
   ],
 
-  // generate: {
-  //   routes() {
-  //     // const API_HOST = 'http://localhost:3000';
-  //     return axios.get(API_HOST)
-  //     .then(( { data } ) => {
-  //       return data.posts.map(( { ticker }) => `/companies/${ticker}`)
-  //     }).catch((err) => {
-  //       console.log('Error returned', err)
-  //     });
-  
-  //   },
-  //   fallback: true,
-  // },
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
   vuetify: {
@@ -104,8 +84,6 @@ export default {
   },
 
   axios: {
-    // host: 'localhost',
-    //  port: 3000,
     baseURL: `${API_HOST}`
   },
 

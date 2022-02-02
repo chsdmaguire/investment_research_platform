@@ -5,14 +5,6 @@
         </v-skeleton-loader>
       </template>
       <template v-else>
-        <v-row align="center" justify="center">
-            <v-btn-toggle mandatory group v-model="newsCat" v-on:change="changeNews">
-                <v-btn >Top News</v-btn>
-                <v-btn>Business</v-btn>
-                <v-btn>Mergers</v-btn>
-                <v-btn>Crypto</v-btn>
-            </v-btn-toggle>
-        </v-row>
         <v-row v-for="(slide, i) in topNewsSlides" :key="i" class="py-2" align="center" justify="center">
             <v-card height="100%" width="100%" :href="slide.url" target="_blank">
                 <v-row justify="center" align="center">
@@ -25,9 +17,8 @@
                         </p>
                         <div class="d-flex align-center">
                             <div class="pl-2 dateSource">{{ slide.source }} ·  
-                                {{ ((new Date(slide.datetime * 1000)).getMonth() +1) + '/' + 
-                                (new Date(slide.datetime * 1000)).getDate() + '/' +                       
-                                (new Date(slide.datetime * 1000)).getFullYear()  }}</div>
+                                {{ formatDate(Date.now() - new Date(slide.datetime).getTime()) }}
+                                </div>
                             </div>           
                     </v-col>
 
@@ -69,46 +60,22 @@
 
           methods: {
             async getTopNews() {
-                this.topNewsSlides = await this.$axios.$get('/news/top/top news');
+                const ticker = this.$route.params.ticker.toUpperCase();
+                this.topNewsSlides = await this.$axios.get(`/news/stock/${ticker}`);
                 this.loading = false;
+
                 },
 
-            changeNews() {
-                switch(this.newsCat) {
-                    case 0:
-                        this.loading = true;
-                        this.topNewsSlides.length = 0;
-                        this.$axios.$get('/news/top/top news').then(res => {
-                            this,this.topNewsSlides = res
-                        });
-                        this.loading = false;
-                        break;
-                    case 1:
-                        this.loading = true;
-                        this.topNewsSlides.length = 0;
-                        this.$axios.$get('/news/top/business').then(res => {
-                            this,this.topNewsSlides = res
-                        });
-                        this.loading = false;
-                        break;
-                    case 2:
-                        this.loading = true;
-                        this.topNewsSlides.length = 0;
-                         this.$axios.$get('/news/top/merger').then(res => {
-                            this,this.topNewsSlides = res
-                        });
-                        this.loading = false;
-                        break;
-                    case 3:
-                        this.loading = true;
-                        this.topNewsSlides.length = 0;
-                        this.$axios.$get('/news/top/crypto').then(res => {
-                            this.topNewsSlides = res
-                        });
-                        this.loading = false;
-                        break;
+                formatDate(val) {
+                    const newVal = Math.floor(val / 60000);
+                    if(newVal < 60) {
+                        return newVal + " minutes ago"
+                    } else if (newVal > 60 && newVal < 1440) {
+                        return Math.floor(newVal / 60) + " hours ago"
+                    } else {
+                        return Math.floor(newVal / 1440 ) + " days ago"
+                    }
                 }
-            }
     },
 
     mounted() {

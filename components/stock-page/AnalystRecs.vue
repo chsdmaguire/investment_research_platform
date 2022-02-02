@@ -1,19 +1,16 @@
 <template>
-  <v-container class="myapp">
-    <v-layout row wrap justify-space-between>
-      <v-flex lg10>
-        <h1>Analyst Recommendations</h1>
-      </v-flex>
-      <v-flex lg5 class="my-6 mx-1"> 
-          <!-- <div id="analyst-line-chart" class="analyst-line"></div> -->
-          <AnalystRecsBase :chart-data="BarData" :options="chartOptions"/>
-      </v-flex>
-      <v-flex lg5 class="my-6 mx-1">
-          <div class="analyst-doughnut">
-            <ChartDoughnutBase :chart-data="PieData" />
-          </div>
-      </v-flex>
-    </v-layout>
+  <v-container>
+    <v-row justify="center" align="center">
+       <h3>Analyst Recommendations</h3>
+    </v-row>
+    <v-row justify="center" align="center">
+      <v-col md="6" sm="10">
+        <AnalystRecsBase :chart-data="BarData" :options="chartOptions"/>
+      </v-col>
+      <v-col md="6" sm="10">
+         <ChartDoughnutBase :chart-data="PieData" />
+      </v-col>
+    </v-row>
   </v-container>
 </template>
 
@@ -45,7 +42,7 @@ export default {
   methods: {
     async getAnalystRecs() {
       const ticker = this.$route.params.ticker.toUpperCase()
-      const analystRecs = await this.$axios.$get(`/api/analyst/recs/${ticker}`);
+      const analystRecs = await this.$axios.$get(`/analyst/recs/${ticker}`);
       if(analystRecs.length > 0 ) {
       analystRecs.forEach(rec => {
         this.xAxis.push(rec.period.split('T')[0])
@@ -121,7 +118,7 @@ export default {
 
     async fillData() {
       const ticker = this.$route.params.ticker.toUpperCase();
-      this.mostRecent = await this.$axios.$get(`/api/analyst/recs/mostrecent/${ticker}`);
+      this.mostRecent = await this.$axios.get(`/analyst/recs/mostrecent/${ticker}`);
       const pie_labels = [];
       const pie_values = [];
       for(const [key, value] of Object.entries(this.mostRecent[0])) {

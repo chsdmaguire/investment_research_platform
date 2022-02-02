@@ -1,13 +1,25 @@
 <template>
-<div>
+<v-container fluid>
+    <v-row align="center" justify="center">
+        <v-col cols="12">
+            <CryptoGraph /> 
+        </v-col>
+    </v-row>
+    <v-row align="center" justify="center">
+        <v-col cols="12">
+            <CryptoTable /> 
+        </v-col>
+    </v-row>
+</v-container>
+<!-- <div>
     <div class="graph">
-        <CryptoGraph /> 
+        
     </div>
    <div class="cryp-table">
     <CryptoTable />       
    </div>
 
-</div>
+</div> -->
   
 </template>
 

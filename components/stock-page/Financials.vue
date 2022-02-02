@@ -1,6 +1,6 @@
 <template>
 <v-container> 
-    <v-card class="mx-auto justify-center" >
+    <v-card class="mx-auto justify-center" flat >
         <template v-if="periodType == 'annual'">
             <v-row align="center" justify="center"> 
                 <v-container>      
@@ -533,7 +533,7 @@ export default {
 
         async initialData() {
             const ticker = this.$route.params.ticker.toUpperCase();
-            const getDate = await this.$axios.get(`/api/historical/financials/dates/${ticker}`);
+            const getDate = await this.$axios.get(`/historical/financials/dates/${ticker}`);
             const DateData = getDate.data
             if(DateData.length > 0) {
             for (let i = 0; i < DateData.length; i++) {
@@ -549,7 +549,7 @@ export default {
             }
 
            
-            const annualFinancials = await this.$axios.get(`/api/financials/values/${ticker}`);
+            const annualFinancials = await this.$axios.get(`/financials/values/${ticker}`);
             this.allFinancials = annualFinancials.data
             if (this.allFinancials.length > 0) {
             this.allFinancials.forEach(line => {

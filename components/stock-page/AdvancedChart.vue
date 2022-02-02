@@ -1,51 +1,75 @@
 <template>
-<v-container fluid>
-    <template v-if="loading">
+  <v-container fluid>
+      <template v-if="loading">
         <v-skeleton-loader dark type="date-picker">
         </v-skeleton-loader>         
       </template>
       <template v-else>
-        
-    <v-autocomplete
-    id="cryptoShow" 
-    :items="currencies"
-    v-model="selectedCurrency"
-    v-on:change="replaceChart"
-    item-text="name"
-    item-value="symbol"
-    label="Select a Cryptocurrency"
-    rounded
-    dense
-    solo
-    >
-        <template v-slot:item="{ item }">
-            <v-list-item-avatar
-            color="indigo"
-            class="white--text text-uppercase"
-            >
-            {{ item.symbol }}
-            </v-list-item-avatar>
-            <v-list-item-content>
-            <v-list-item-title v-text="item.name" class="text-capitalize font-weight-black h6"></v-list-item-title>
-            </v-list-item-content>
-            <v-list-item-action>
-            <v-list-item-title v-text="item.cmc_rank"></v-list-item-title>
-            <v-list-item-subtitle class="font-italic">Rank</v-list-item-subtitle>
-            </v-list-item-action>
-        </template>
-    </v-autocomplete>
-        <v-row align="center" justify="center">
-            <v-col cols="12">
-                <v-card title="Bar">
-                    <v-card img-bottom class="pa-4">
-                        <IndiceChartBase :chart-data="chartData" 
-                        :chart-options="chartOptions" v-on:change="replaceChart"
-                        v-model="selectedCurrency" />
-                    </v-card>
-                </v-card>
-            </v-col>
-        </v-row>
+          <!-- <v-row align="center" justify="center">
+              <v-col cols="3">
+                  <v-dialog v-model="ratioDialog" width="600">
+                      <template v-slot:activator="{ on, attrs }">
+                          <v-btn color="red lighten-2" dark
+                            v-bind="attrs" v-on="on"> Financial Ratios</v-btn>
+                      </template>
+                      <v-card class="mx-auto justify-center">
+                          <v-tabs>
+                              <v-tab>Profitability</v-tab>
+                              <v-tab>Efficiency</v-tab>
+                              <v-tab>Leverage</v-tab>
+                              <v-tab>Solvency</v-tab>
+                              <v-tab>Valuation</v-tab>
+                          </v-tabs>
+                      </v-card>
+                  </v-dialog>
+              </v-col>
+              <v-col cols="3">
+                  <v-dialog v-model="altDialog" width="500">
+                      <template v-slot:activator="{ on, attrs }">
+                          <v-btn color="red lighten-2" dark
+                            v-bind="attrs" v-on="on"> Alternative Data</v-btn>
+                      </template>
+                      <v-card class="mx-auto justify-center">
+                          <v-list>
+                              <v-list-item-group v-model="altDataModel" multiple>
+                                  <template v-for="(item, i) in altDataList">
+                                      <v-divider v-if="!item" :key="`divider-${i}`"></v-divider>
+                                      <v-list-item  v-else :key="`item-${i}`" :value="item.value" active-class="deep-purple--text text--accent-4">
+                                        <template v-slot:default="{ active }">
+                                            <v-list-item-content>
+                                                <v-list-item-title v-text="item.text"></v-list-item-title>
+                                            </v-list-item-content>
+
+                                            <v-list-item-action>
+                                                <v-checkbox
+                                                :input-value="active"
+                                                color="deep-purple accent-4 text-white"
+                                                ></v-checkbox>
+                                            </v-list-item-action>
+                                        </template>
+                                      </v-list-item>
+                                  </template>
+                              </v-list-item-group>
+                          </v-list>
+                      </v-card>
+                  </v-dialog>
+              </v-col>
+          <v-col cols="3">
+                  <v-dialog v-model="compareDialog" width="500">
+                      <template>
+                      </template>
+                      <v-btn>
+                      </v-btn>
+                  </v-dialog>
+              </v-col>
+          </v-row> -->
+          <v-row align="center" justify="center">
+              <v-col cols="12">
+                  <IndiceChartBase :chart-data="chartData" :chart-options="chartOptions"  v-on:change="render()" id="indice-chart"/>
+              </v-col>
+          </v-row>
           <v-row  align="center" justify="center">
+              <v-col>   
                   <v-btn-toggle mandatory group v-model="timeFrame" v-on:change="changeTime" dense>
                     <v-btn >5D</v-btn>
                     <v-btn>1M</v-btn>
@@ -55,115 +79,46 @@
                     <v-btn>3Y</v-btn>
                     <v-btn>5Y</v-btn>
                   </v-btn-toggle>
-          </v-row>
-          <v-row  align="center" justify="center">
-                <v-btn-toggle mandatory v-model="scaler" dense v-on:change="changeScale">
-                <v-btn >Auto Scale</v-btn>
-                <v-btn>Log Scale</v-btn>
-                <v-btn>% Scale</v-btn>
-                </v-btn-toggle>       
+              </v-col>
+              <v-spacer> </v-spacer>
+                  <v-btn-toggle mandatory v-model="scaler" dense v-on:change="changeScale">
+                    <v-btn >Auto Scale</v-btn>
+                    <v-btn>Log Scale</v-btn>
+                    <v-btn>% Scale</v-btn>
+                  </v-btn-toggle>            
           </v-row>
       </template>
-
-</v-container>
+  </v-container>
 </template>
 
 <script>
 const numeral = require('numeral');
+
 export default {
-    data () {
+    data() {
         return {
-            currencies: [],
-            selectedCurrency: null,
-            chartData: null,
-            chartOptions: null,
-            candlesX: [],
-            candlesY: [],
+            loading: true,
             timeFrame: 0,
             scaler: 0,
-            loading: true,
+            candlesY: [],
+            candlesX: [],
+            chartData: null,
+            chartOptions: null,
+            ratioDialog: false,
+            altDialog: false,
+            compareDialog: false,
+            altDataModel: [],
+            altDataList: [{text: 'Inside Transactions', value: 'inside'},
+            {text: 'EPS Estimates', value: 'eps'},
+            {text: 'Twitter Sentiment', value: 'twitter'},
+            {text: 'Reddit Sentiment', value: 'reddit'},
+            {text: 'Analyst Recommendations', value: 'analyst'},],
+            
         }
     },
-    mounted() {
-        this.changeTime();
-        this.changeScale();
-    },
     methods: {
-        replaceChart () {
-            this.loading = true;
-            this.candlesX.length = 0;
-            this.candlesY.length = 0;
-            this.scaler = 0;
-            const startDate = new Date();
-            startDate.setDate(startDate.getDate() - 7);
-            const date = startDate.toLocaleDateString().toString().replaceAll('/', '-');
-            this.$axios.get(`/crypto/candlestick/${this.selectedCurrency}/${date}`).then(res => {
-                const response = res.data.sort((a, b) => (a.date > b.date) ? 1: -1);
-                
-                response.forEach(a => {
-                    this.candlesY.push(Number(a.open));
-                    this.candlesX.push(a.date.split('T')[0])
-                });
-
-        this.chartData = {
-                labels: this.candlesX,
-                datasets: [
-                    {
-                    type: 'line',
-                    backgroundColor: '#32a852',
-                    borderColor: '#32a852',
-                    data: this.candlesY,
-                    fill: false,
-                    }
-                ]
-            },
-            
-            this.chartOptions = {
-                elements: {
-                    point: {
-                        radius: 0,
-                    }
-                },
-                scales: {
-                    yAxes: [{
-                        position: 'right',
-                        type: 'linear', 
-                     ticks: {
-                        beginAtZero: false,                       
-                        },
-                        gridLines: {
-                        display: false
-                        }           
-                        }, 
-                        ],
-                        xAxes: [{
-                        type: 'time',
-                        distribution: 'series',
-                        time: {
-                            unit: 'week'
-                        },
-                        ticks: {
-                            beginAtZero: false
-                        },
-                        gridLines: {
-                            display: false
-                        }
-                        }]   
-                },
-                legend: {
-                    display: false,
-                     onClick: (e) => e.stopPropagation()
-                    },
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    height: 400,
-            };
-                
-            });
-            
-             this.loading = false;
-        },
-        async changeTime() {
+     
+       async changeTime() {
             this.loading = true;
             this.scaler = 0;
             this.chartData = null;
@@ -171,11 +126,7 @@ export default {
             this.candlesX.length = 0;
             this.candlesY.length = 0;
             const startDate = new Date();
-            startDate.setDate(startDate.getDate());
-
-             const cryptoList = await this.$axios.get('/crypto/ticker/list');
-            this.currencies = cryptoList.data;
-            
+            startDate.setDate(startDate.getDate())
             switch(this.timeFrame) {
                 case 0:
                     startDate.setDate(startDate.getDate() - 7);
@@ -199,17 +150,19 @@ export default {
                     startDate.setDate(startDate.getDate() -1825);
                     break
             }
-            this.selectedCurrency = 'BTC'
+            
+            const ticker = this.$route.params.ticker.toUpperCase();
             const date = startDate.toLocaleDateString().toString().replaceAll('/', '-');
-            const candleResponse = await this.$axios.get(`/crypto/candlestick/${this.selectedCurrency}/${date}`);
-            if(candleResponse.data.length > 0) {
-                    const arr = candleResponse.data.sort((a, b) => (a.date > b.date) ? 1: -1)
+            const res = await this.$axios.get(`/stock/candlestick/chart/${ticker}/${date}`);
+                if(res.data.length > 0) {
+                    const arr = res.data.sort((a, b) => (a.time > b.time) ? 1: -1)
                     arr.forEach(bar => {
                     this.candlesY.push(Number(bar.open));
                     this.candlesX.push(bar.date.split('T')[0]);
                 })
             };
-             this.chartData = {
+            
+            this.chartData = {
                 labels: this.candlesX,
                 datasets: [
                     {
@@ -217,6 +170,7 @@ export default {
                     backgroundColor: '#32a852',
                     borderColor: '#32a852',
                     data: this.candlesY,
+                    label: ticker,
                     fill: false,
                     }
                 ]
@@ -263,9 +217,9 @@ export default {
             },
              this.loading = false;
         },
-
         async changeScale() {
-            this.loading = true;
+                const ticker = this.$route.params.ticker.toUpperCase();
+                this.loading = true;
                 this.chartData = null;
                 this.chartOptions = null;
                 switch(this.scaler) {
@@ -319,7 +273,7 @@ export default {
                             backgroundColor: '#32a852',
                             borderColor: '#32a852',
                             data: this.candlesY,
-                            label: this.selectedCurrency,
+                            label: ticker,
                             fill: false,
                             }
                         ]
@@ -341,7 +295,7 @@ export default {
                         },
                         scales: {
                             yAxes: [{
-                                position: 'right',
+                                position: 'left',
                                 type: 'logarithmic', 
                             ticks: {
                                 beginAtZero: false,
@@ -384,7 +338,7 @@ export default {
                             backgroundColor: '#32a852',
                             borderColor: '#32a852',
                             data: newArr,
-                            label: this.selectedCurrency,
+                            label: ticker,
                             fill: false,
                             }
                         ]
@@ -448,7 +402,7 @@ export default {
                             backgroundColor: '#32a852',
                             borderColor: '#32a852',
                             data: newYVal,
-                            label: this.selectedCurrency,
+                            label: ticker,
                             fill: false,
                             }
                         ]
@@ -457,14 +411,16 @@ export default {
                 }
                         
                     this.loading = false;
-        }
+                },
     },
 
-
+    mounted() {
+        this.changeTime();
+        this.changeScale();
+    },
 }
 </script>
 
-<style scoped>
-
+<style>
 
 </style>

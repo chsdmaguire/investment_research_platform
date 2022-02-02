@@ -168,7 +168,7 @@ const numeral = require('numeral');
     methods: {
     
         async getEarningsData() {
-            const response = await this.$axios.get('/api/ipo/calendar');
+            const response = await this.$axios.get('/ipo/calendar');
             response.data.forEach(item => {
                 this.events.push({
                     name: item.symbol + '   ' + item.name,

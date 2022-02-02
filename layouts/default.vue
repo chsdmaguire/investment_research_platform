@@ -66,8 +66,21 @@
                     </v-card>
                 </v-list-item>
               </v-list>       
-        
+            <v-divider></v-divider>    
       </template>
+      <v-card class="d-flex flex-column">
+        <v-spacer></v-spacer>
+        
+        <v-card-actions >
+          <v-card-title>
+          <div class="copyright copyright-content d-sm-flex justify-content-between">
+              <p class="text" style=" width: 100%; text-align: center">
+                © {{ new Date().getFullYear() }} — <strong>Flibyrd LLC</strong>
+              </p>
+            </div>
+        </v-card-title>
+        </v-card-actions>
+      </v-card>
 
     </v-navigation-drawer>
     <v-app-bar
@@ -77,8 +90,11 @@
     >
 
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
-      <v-toolbar-title v-text="title" />
-      <v-img src="icon.png" max-width="35px" class="ml-4"></v-img>
+
+      <v-toolbar-title v-text="title" />   
+      <router-link to="/">      
+      <v-img src="icon.png" max-width="35px" class="ml-4" link="/"></v-img>
+      </router-link>
 
     <v-col md="6" class="ml-12 pl-12">
        <StockSearch />
@@ -177,9 +193,10 @@
     <v-main>
       <v-container>
         <Nuxt />
-        <BacktoTopButton />
+
         <Cookies />
- 
+        <BackToTopButton />
+
       </v-container>
     </v-main>
   </v-app>
@@ -219,47 +236,42 @@ export default {
           to: '/'
         },
         {
-          icon: 'mdi-chart-bubble',
-          title: 'Equities',
-          to: '/equities'
-        },
-        {
-          icon: 'mdi-chart-bubble',
+          icon: 'mdi-currency-btc',
           title: 'Crypto',
           to: '/crypto'
         },
         {
-          icon: 'mdi-chart-bubble',
+          icon: 'mdi-podium-silver',
           title: 'Economics',
           to: '/economic'
         },
         {
-          icon: 'mdi-chart-bubble',
+          icon: 'mdi-school-outline',
           title: 'Education',
           to: '/education'
         },
         {
-          icon: 'mdi-chart-bubble',
+          icon: 'mdi-information-outline',
           title: 'About Flibyrd',
           to: '/about'
         },
         {
-          icon: 'mdi-chart-bubble',
+          icon: 'mdi-account',
           title: 'My Account',
           to: '/admin'
         },
         {
-          icon: 'mdi-chart-bubble',
+          icon: 'mdi-form-select',
           title: 'Privacy Policy',
           to: '/privacy'
         },
         {
-          icon: 'mdi-chart-bubble',
+          icon: 'mdi-file-settings',
           title: 'Terms of Use',
           to: '/terms'
         },
         {
-          icon: 'mdi-chart-bubble',
+          icon: 'mdi-keyboard-settings-outline',
           title: 'Contact Us',
           to: '/contact'
         },
@@ -320,89 +332,6 @@ export default {
 /* @import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
 .primary-text {
   color: #007bff;
-}
-
-body {
-  font-family: "Montserrat", sans-serif;
-  font-weight: normal;
-  font-style: normal;
-  color: #6A6972;
-  overflow-x: hidden; }
-
-* {
-  margin: 0;
-  padding: 0;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box; }
-
-/* img {
-  max-width: 100%; }
-
-a:focus,
-input:focus,
-textarea:focus,
-button:focus {
-  text-decoration: none;
-  outline: none; }
-
-a:focus,
-a:hover {
-  text-decoration: none; }
-
-i,
-span,
-a {
-  display: inline-block; }
-
-audio,
-canvas,
-iframe,
-img,
-svg,
-video {
-  vertical-align: middle; }
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-family: "Montserrat", sans-serif;
-  font-weight: 700;
-  color: #2E2E2E;
-  margin: 0px; }
-
-h1 {
-  font-size: 48px; }
-
-h2 {
-  font-size: 36px; }
-
-h3 {
-  font-size: 28px; }
-
-h4 {
-  font-size: 22px; }
-
-h5 {
-  font-size: 18px; }
-
-h6 {
-  font-size: 16px; }
-
-ul, ol {
-  margin: 0px;
-  padding: 0px;
-  list-style-type: none; }
-
-p {
-  font-family: "Montserrat", sans-serif;
-  font-size: 16px;
-  font-weight: 400;
-  line-height: 26px;
-  color: #6A6972;
-  margin: 0px; } */
+} */
 
 </style>

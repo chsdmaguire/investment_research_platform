@@ -56,7 +56,7 @@
         if (this.items.length > 0) return
         
         // Lazily load input items
-        fetch("/api/basic")
+        fetch("/api/lO6uh1bzIcMwIlru97RMw932fk4AKDJK935jhv&37377JDJdkw/basic")
           .then(res => res.clone().json())
           .then(res => {
             this.items = res

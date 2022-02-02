@@ -3,6 +3,8 @@ const express = require('express');
 const app = express();
 const PORT = process.env.LCOAL_PORT || 3000;
 
+require('dotenv').config();
+
 app.use(express.json())
 app.use(express.urlencoded({
   extended: false
@@ -13,17 +15,7 @@ var corsOptions = {
   };
 const cors = require('cors');
 app.use(cors(corsOptions));
-// app.use((req, res, next) => {
-//   res.header('Access-Control-Allow-Origin', '*')
-//   res.header('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE, OPTIONS')
-//   res.header('Access-Control-Allow-Headers', 'Content-Type, Content-Length, x-access-token')
-//   if (req.method === 'OPTIONS') {
-//     res.sendStatus(200)
-//   }
-//   else {
-//     next()
-//   }
-// })
+
 
 //helmet
 const helmet = require('helmet');
@@ -48,6 +40,6 @@ app.use(accounts)
 
 
 export default {
-    path: '/api',
+    path: `/api/${process.env.ALL_API_TOKEN}`,
     handler: app
 }

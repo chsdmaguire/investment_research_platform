@@ -8,9 +8,9 @@ export function resetAuthToken () {
 }
 
 export const auth = {
-    me: () => axios.get('/api/auth/me'),
-    login: (data) => axios.post('/api/auth/login', data),
-    google: (data) => axios.post('/api/auth/google', data),
-    register: (data) => axios.post('/api/auth/register', data),
-    remove: (data) => axios.post('/api/auth/deleteuser', data),
+    me: () => axios.get('/auth/me'),
+    login: (data) => axios.post('/auth/login', data),
+    google: (data) => axios.post('/auth/google', data),
+    register: (data) => axios.post('/auth/register', data),
+    remove: (data) => axios.post('/auth/deleteuser', data),
   }

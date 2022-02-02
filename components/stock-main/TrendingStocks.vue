@@ -165,7 +165,7 @@ export default {
     },
         methods: {
             async getTrending() {
-                const trendStocks = await this.$axios.get('/api/top/trending');
+                const trendStocks = await this.$axios.get('/top/trending');
                 trendStocks.data.forEach(element => {
                     this.topStocks.push({
                         
@@ -177,7 +177,7 @@ export default {
                     })
                 });
                 const movers = [];
-                const res = await this.$axios.get('/api/stocks/movers');
+                const res = await this.$axios.get('/stocks/movers');
                 for (let i = 0; i < res.data.length; i++) {
                     if (i > 0 && res.data[i].ticker == res.data[i -1].ticker && res.data[i].date > res.data[i -1].date) {
                         const curVal = res.data[i].open;
