@@ -1,6 +1,8 @@
 # Flibyrd
 
-# Hosting
+# DevOps
+
+## SSH access
 
 ## OVH
 
