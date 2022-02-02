@@ -63,6 +63,11 @@ export default {
     '@nuxtjs/robots',
   ],
 
+  server: {
+    host: process.env.NODE_ENV === 'development' ? 'localhost' : '0.0.0.0',
+    port: process.env.PORT
+  },
+
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
   vuetify: {
