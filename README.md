@@ -13,5 +13,3 @@
 ## PostgreSQL
 
 # Continuous Deployment
-
-test
