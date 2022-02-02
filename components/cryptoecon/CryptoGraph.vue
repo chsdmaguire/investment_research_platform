@@ -105,7 +105,6 @@ export default {
                     this.candlesX.push(a.date.split('T')[0])
                 });
 
-console.log(this.candlesX, this.candlesY)
         this.chartData = {
                 labels: this.candlesX,
                 datasets: [
@@ -210,7 +209,6 @@ console.log(this.candlesX, this.candlesY)
                     this.candlesX.push(bar.date.split('T')[0]);
                 })
             };
-            console.log(this.candlesX, this.candlesY)
              this.chartData = {
                 labels: this.candlesX,
                 datasets: [

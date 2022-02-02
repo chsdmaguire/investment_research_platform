@@ -62,7 +62,6 @@
             async getTopNews() {
                 const ticker = this.$route.params.ticker.toUpperCase();
                 this.topNewsSlides = await this.$axios.get(`/news/stock/${ticker}`);
-                console.log(Date.now())
                 this.loading = false;
 
                 },

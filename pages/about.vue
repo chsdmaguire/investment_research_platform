@@ -1,14 +1,16 @@
 <template>
-<v-container>
-<div style="margin-top:-350px">
+<v-container fluid>
+  <v-row align="center" justify="center"> 
+    <v-col cols="12">
    <Intro />
-</div>
-   
- <div style="margin-top:-350px">
-   <TheAbout />
- </div>
-    
+    </v-col>
+  </v-row>
 
+    <v-row align="center" justify="center"> 
+    <v-col cols="12">
+   <TheAbout />
+    </v-col>
+  </v-row>
 </v-container>
 
 </template>

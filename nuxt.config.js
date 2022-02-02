@@ -28,12 +28,7 @@ export default {
   css: [
   ],
 
-  transpile: ['lightweight-charts', 'wowjs'],
-
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: [ 
-    {src: '~/plugins/vue-wowjs.client', mode: 'client'}
-  ],
 
   // Server Middlware
   serverMiddleware: ['~/api/server' ],
