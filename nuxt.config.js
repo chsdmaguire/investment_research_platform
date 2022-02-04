@@ -20,12 +20,13 @@ export default {
       { name: 'format-detection', content: 'telephone=no' }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: 'Icon.png' }
+      { rel: 'icon', type: 'image/x-icon', href: 'Icon.png' },
     ]
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
+
   ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
@@ -33,9 +34,9 @@ export default {
   // Server Middlware
   serverMiddleware: ['~/api/server' ],
 
-  googleAnalytics: {
-    id: process.env.GOOGLE_ANALYTICS_ID
-  },
+  // googleAnalytics: {
+  //   id: process.env.GOOGLE_ANALYTICS_ID
+  // },
 
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -54,7 +55,7 @@ export default {
   buildModules: [
     '@nuxtjs/vuetify',
     '@nuxtjs/dotenv',
-    '@nuxtjs/google-analytics'
+    // '@nuxtjs/google-analytics',
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -84,8 +85,8 @@ export default {
           error: colors.deepOrange.accent4,
           success: colors.green.accent3
         }
-      }
-    }
+      },     
+    },
   },
 
   axios: {

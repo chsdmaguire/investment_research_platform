@@ -260,6 +260,14 @@ const bigMovers = async(req, res) => {
 });
 }
 
+const patents = async(req, res) => {
+    ticker = req.params.ticker;
+    pool.query(queries.patents, [ticker], (error, results) => {
+        if (error) throw error;
+        res.status(200).json(results.rows);
+});
+}
+
 module.exports = {
     basicSearch,
     topNews,
@@ -288,4 +296,5 @@ module.exports = {
     topTrending,
     similarCompanies,
     bigMovers,
+    patents
 }

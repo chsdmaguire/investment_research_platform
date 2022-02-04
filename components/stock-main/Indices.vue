@@ -545,6 +545,7 @@ export default {
             for(var i = 0; i < allIds.length; i++) {
                 const id = allIds[i];
                 const res = await this.$axios.get(`/fred/db/index/${id}/${start}`);
+                console.log(res.data)
                 const arr = res.data.sort((a, b) => (a.time > b.time) ?  1: -1);
                 this.allData[i].lastItems = arr.slice(-2);
                 const firstItem = arr.slice(0, 1);

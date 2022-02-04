@@ -58,6 +58,11 @@
                         <InsiderTransactions />
                     </v-col>
                 </v-row>
+                <v-row>
+                <v-col cols="12">
+                        <Patents />
+                    </v-col>
+                </v-row>
             </v-tab-item>
             <v-tab-item>
             <v-row>
@@ -93,10 +98,11 @@ import DiscountCashFlow from '~/components/stock-page/DiscountCashFlow';
 import CompsTable from '~/components/stock-page/CompsTable';
 import SentimentAnalysis from '~/components/stock-page/SentimentAnalysis';
 import InsiderTransactions from '~/components/stock-page/InsiderTransactions';
+import Patents from '~/components/stock-page/Patents';
 
 export default {
     components: {BasicInfo, SimilarCompanies, AdvancedChart, AnalystRecs, StockNews,
-     Financials, EarningsSurprise, DiscountCashFlow, CompsTable,SentimentAnalysis,InsiderTransactions },
+     Financials, EarningsSurprise, DiscountCashFlow, CompsTable,SentimentAnalysis,InsiderTransactions, Patents },
     data() {
         return {
             head: [],

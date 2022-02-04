@@ -66,4 +66,7 @@ router.get('/stocks/movers', controller.bigMovers)
 // MOST SIMILAR
 router.get('/similar/companies/:ticker', controller.similarCompanies)
 
+// PATENTS
+router.get('/stocks/patents/:ticker', controller.patents)
+
 module.exports = router;

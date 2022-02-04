@@ -74,6 +74,9 @@ const bigMovers = "with top as (select distinct ticker, open, close, date, volum
 // SIMILAR COMPANIES
 const similarCompanies = "with similar_companies as (select * from equities.peers where ticker = $1)  select a.ticker, a.date, a.open, a.close, b.name from  equities.candlestick_data a, equities.basic_info b  where a.ticker in (select peers from similar_companies) and a.ticker = b.ticker group by a.ticker, b.ticker, b.name, date, open, close order by date desc limit 6"
 
+// PATENTS
+const patents = "select distinct * from equities.patents where ticker = $1"
+
 module.exports = {
     topNews,
     getIpos,
@@ -102,4 +105,5 @@ module.exports = {
     topTrending,
     similarCompanies,
     bigMovers,
+    patents
 }

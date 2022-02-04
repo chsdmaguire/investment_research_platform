@@ -2,6 +2,16 @@
 
    <div>
      <head>
+       <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-6TR511TP58"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-6TR511TP58');
+</script>
+
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2719099872585013"
      crossorigin="anonymous"></script>       
 <script>
@@ -314,19 +324,21 @@ export default {
 </script>
 
 <style scoped>
+
 .user-btn-text {
     font-size: 150%;
     color: #fff;
     font-weight: bold;
     text-align: center;
     text-decoration: none;
-}
+} 
 
 @media screen and (max-width: 640px ) {
   .user-btn-text {
     font-size: 90%;
   } 
 }
+
 
 
 /* @import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
