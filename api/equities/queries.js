@@ -18,7 +18,7 @@ const mostRecentRec = 'select * from equities.analyst_recs where ticker = $1 ord
 const sentimentAnalysis = 'select DISTINCT * from equities.social_sentiment where ticker = $1 ORDER BY date desc';
 
 // STOCK SPECIFIC NEWS API
-const stockNews = 'select DISTINCT * from equities.stock_news where ticker = $1 ORDER BY datetime desc';
+const stockNews = 'select DISTINCT * from equities.stock_news where ticker = $1 ORDER BY datetime desc limit 60';
 
 // INSIDER TRANSACTIONS API
 const insideTransactions = 'select distinct * from equities.inside_transactions where ticker = $1 ORDER BY transaction_date desc';

@@ -61,7 +61,8 @@
           methods: {
             async getTopNews() {
                 const ticker = this.$route.params.ticker.toUpperCase();
-                this.topNewsSlides = await this.$axios.get(`/news/stock/${ticker}`);
+                const res = await this.$axios.get(`/news/stock/${ticker}`);
+                this.topNewsSlides = res.data
                 this.loading = false;
 
                 },

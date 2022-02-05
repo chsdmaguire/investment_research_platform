@@ -13,11 +13,12 @@
       <v-row align="center" justify="center">
           <v-btn-toggle mandatory v-model="timeFrame" v-on:change="changeTime" group>
               <v-btn >5D</v-btn>
-              <v-btn>1M</v-btn>
-              <v-btn>6M</v-btn>
-              <v-btn>YTD</v-btn>
-              <v-btn>1Y</v-btn>
-              <v-btn>5Y</v-btn>
+                <v-btn>1M</v-btn>
+                <v-btn>3M</v-btn>
+                <v-btn>6M</v-btn>
+                <v-btn>1Y</v-btn>
+                <v-btn>3Y</v-btn>
+                <v-btn>5Y</v-btn>
           </v-btn-toggle>
          
      
@@ -222,44 +223,47 @@ export default {
         return {
     chartData: null,
     loading: true,
+    timeFrame: 0,
     chartOptions: {
-                scales: {
-                    yAxes: [{
-                        position: 'right',
-                        type: 'linear', 
-                     ticks: {
-                        beginAtZero: false,
-                        callback: function(value) {    
-                               return numeral(value).format('0.00%')
-                            }                        
-                        },
-                        gridLines: {
-                        display: false
-                        }           
-                        }, 
-                        ],
-                        xAxes: [{
-                        type: 'time',
-                        distribution: 'series',
-                        time: {
-                            unit: 'week'
-                        },
-                        ticks: {
-                            beginAtZero: false
-                        },
-                        gridLines: {
-                            display: false
-                        }
-                        }]   
-                },
-                legend: {
-                    display: true,
-                     onClick: (e) => e.stopPropagation()
-                    },
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    height: 400,
+        elements: {
+                point: {
+                    radius: 0,
+                }
             },
+        scales: {
+            yAxes: [{
+                position: 'right',
+                type: 'linear', 
+                ticks: {
+                beginAtZero: false,
+                callback: function(value) {    
+                        return numeral(value).format('0.00%')
+                    }                        
+                },
+                gridLines: {
+                display: false
+                }           
+                }, 
+                ],
+                xAxes: [{
+                type: 'time',
+                distribution: 'series',
+                ticks: {
+                    beginAtZero: false
+                },
+                gridLines: {
+                    display: false
+                }
+                }]   
+        },
+        legend: {
+            display: true,
+                onClick: (e) => e.stopPropagation()
+            },
+            responsive: true,
+            maintainAspectRatio: false,
+            height: 400,
+    },
     selected: ['SP500'],
     allData: [
         {time : [], val : [],  color: '#6097f0', id: 'SP500', label: 'S&P 500', hidden: false, lastItems: 0 },
@@ -277,7 +281,7 @@ export default {
        {time : [], val : [],  color: '#ff192d', id: 'WILLMIDCAPVALPR', label: 'Mid Cap Value', hidden: true, lastItems: 0},
        {time : [], val : [],  color: '#7c81d6', id: 'WILLSMLCAPVALPR', label: 'Small Cap Value', hidden: true, lastItems: 0},
     ],
-    timeFrame: 0,
+   
         }
     },
 
@@ -518,22 +522,25 @@ export default {
            startDate.setDate(startDate.getDate() - 5);
             switch(this.timeFrame) {
                 case 0:
-                    startDate.setDate(startDate.getDate() - 10);
+                    startDate.setDate(startDate.getDate() - 7);
                     break;
                 case 1:
-                    startDate.setDate(startDate.getMonth() - 1);
+                    startDate.setDate(startDate.getDate() - 30);
                     break;
                 case 2:
-                    startDate.setDate(startDate.getMonth() - 6);
+                    startDate.setDate(startDate.getDate() - 90);
                     break;
                 case 3:
-                    startDate.setDate(startDate.getFullYear() -1);
+                     startDate.setDate(startDate.getDate() - 180);
                     break;
-                case 4:
-                    startDate.setDate(startDate.getMonth() - 12);
+                case 4: 
+                    startDate.setDate(startDate.getDate() - 365);
                     break;
                 case 5:
-                    startDate.setDate(startDate.getFullYear() -5);
+                     startDate.setDate(startDate.getDate() - 1095);
+                     break;
+                case 6:
+                    startDate.setDate(startDate.getDate() -1825);
                     break
             }
             const start = startDate.toISOString();
@@ -545,7 +552,6 @@ export default {
             for(var i = 0; i < allIds.length; i++) {
                 const id = allIds[i];
                 const res = await this.$axios.get(`/fred/db/index/${id}/${start}`);
-                console.log(res.data)
                 const arr = res.data.sort((a, b) => (a.time > b.time) ?  1: -1);
                 this.allData[i].lastItems = arr.slice(-2);
                 const firstItem = arr.slice(0, 1);

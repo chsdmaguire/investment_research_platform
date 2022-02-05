@@ -34,6 +34,7 @@
     "pg": "^8.7.1",
     "vue-beautiful-chat": "^2.5.0",
     "vue-chartjs": "^3.5.1",
+    "vuex": "^3.6.2",
     "webpack": "^4.45.0"
   },
   "devDependencies": {
