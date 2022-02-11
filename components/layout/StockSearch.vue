@@ -54,9 +54,9 @@
       search (val) {
         // Items have already been loaded
         if (this.items.length > 0) return
-        
+        const token = process.env.ALL_API_TOKEN
         // Lazily load input items
-        fetch("/api/lO6uh1bzIcMwIlru97RMw932fk4AKDJK935jhv&37377JDJdkw/basic")
+        fetch(`/api/${token}/basic`)
           .then(res => res.clone().json())
           .then(res => {
             this.items = res

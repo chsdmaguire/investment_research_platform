@@ -86,6 +86,13 @@
 const numeral = require('numeral');
 
 export default {
+  head() {
+    return {
+      meta: [
+        {name: 'description', content: 'Table showing top cryptocurrencies by name, symbol, price, ranking, supply, percentage change, and market cap'}
+      ]
+    }
+  },
   data() {
     return {
         cryptoData: [],

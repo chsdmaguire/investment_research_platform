@@ -1,6 +1,7 @@
+
 <template>
  <v-container>
-      <v-card class="px-4">
+      <v-card class="px-4" v-if="!user">
         <v-card-text>
             <v-form ref="registerForm" v-model="valid" lazy-validation>
                 <v-alert v-if="alert" :type="alert.type">
@@ -35,7 +36,7 @@
                     <v-spacer></v-spacer>
                     <v-col class="d-flex ml-auto" cols="12" sm="3" xsm="12">
                         <v-btn x-large block :disabled="!valid" :loading="loading"
-                         color="success" @click="registerUser">Register</v-btn>
+                         color="success" @click="registerUser()">Register</v-btn>
                     </v-col>
                 </v-row>
                 <!-- ADD V-PROGRESS BAR FOR PASSWORD -->
@@ -47,6 +48,7 @@
 
 <script>
 export default {
+
     data() {
         return {
             valid: true,
@@ -71,34 +73,38 @@ export default {
     computed: {
         passwordMatch() {
       return () => this.password === this.verify || "Password must match";
-    }
     },
-
+    user () {
+          return this.$store.state.email 
+      }
+    },
     methods: {
         registerUser() {
             this.alert = null;
             this.loading = true;
+
             if (this.$refs.registerForm.validate()) {
-                this.$store.dispatch('account/register', {
-                    firstName: this.firstName,
-                    lastName: this.lastName,
+                const user = { 
                     email: this.email,
-                    password: this.password}).then(res => {
+                    password: this.password,
+                    firstName: this.firstName,
+                    lastName: this.lastName}
+                    this.$axios.post('/auth/register', user).then(res => {
                         this.alert = {type: 'success', message: res.data.message};
-                        this.loading = false;
-                        this.$router.push('/admin');
+                        this.$store.dispatch('userLocalLogin', res.data);
+                        this.loading = false; 
+                        this.$router.push('/');
                     }).catch(err => {
-                console.log(err)
-                this.alert = {type: 'error', message: err || err.res.status}
-                })
+                        this.loading = false;
+                        this.alert = {type: 'error', message: err.response.data.message }
+                    })
+                    this.loading = false;
+                    }
             }
         },       
         
 }
-
-}
 </script>
 
 <style scoped>
-
 </style>

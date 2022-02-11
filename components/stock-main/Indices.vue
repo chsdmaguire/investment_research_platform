@@ -36,7 +36,7 @@
                           <td>
                               <v-checkbox v-model="selected" label="S&P 500" value="SP500" v-on:change="updateChart"></v-checkbox>
                           </td>
-                          <td> {{ allData[0].lastItems[1].value }} </td>
+                          <td> {{ filterPrice(allData[0].lastItems[1].value) }} </td>
                           <td v-if="Number(allData[0].lastItems[1].value) - Number(allData[0].lastItems[0].value) > 0" style="color:green"> 
                               {{ filterChange(Number(allData[0].lastItems[1].value) - Number(allData[0].lastItems[0].value)) }} </td>
                               <td v-else style="color:red">{{ filterChange(Number(allData[0].lastItems[1].value) - Number(allData[0].lastItems[0].value)) }}</td>
@@ -48,7 +48,7 @@
                           <td>
                               <v-checkbox v-model="selected" label="Nasdaq" value="NASDAQCOM" v-on:change="updateChart"></v-checkbox>
                           </td>
-                          <td> {{ Number(allData[1].lastItems[1].value) }} </td>
+                          <td> {{ filterPrice(Number(allData[1].lastItems[1].value)) }} </td>
                           <td v-if="Number(allData[1].lastItems[1].value) - Number(allData[1].lastItems[0].value) > 0" style="color:green"> 
                               {{ filterChange(Number(allData[1].lastItems[1].value) - Number(allData[1].lastItems[0].value)) }} </td>
                               <td v-else style="color:red">{{ filterChange(Number(allData[1].lastItems[1].value) - Number(allData[1].lastItems[0].value)) }}</td>
@@ -60,7 +60,7 @@
                           <td>
                               <v-checkbox v-model="selected" label="Dow Jones" value="DJIA" v-on:change="updateChart"></v-checkbox>
                           </td>
-                          <td> {{ Number(allData[2].lastItems[1].value) }} </td>
+                          <td> {{ filterPrice(Number(allData[2].lastItems[1].value)) }} </td>
                            <td v-if="Number(allData[2].lastItems[1].value) - Number(allData[2].lastItems[0].value) > 0" style="color:green"> 
                               {{ filterChange(Number(allData[2].lastItems[1].value) - Number(allData[2].lastItems[0].value)) }} </td>
                               <td v-else style="color:red">{{ filterChange(Number(allData[2].lastItems[1].value) - Number(allData[2].lastItems[0].value)) }}</td>
@@ -72,7 +72,7 @@
                           <td>
                               <v-checkbox v-model="selected" label="Wilshire 5000" value="WILL5000INDFC" v-on:change="updateChart"></v-checkbox>
                           </td>
-                          <td> {{ Number(allData[3].lastItems[1].value) }} </td>
+                          <td> {{ filterPrice(Number(allData[3].lastItems[1].value)) }} </td>
                            <td v-if="Number(allData[3].lastItems[1].value) - Number(allData[3].lastItems[0].value) > 0" style="color:green"> 
                               {{ filterChange(Number(allData[3].lastItems[1].value) - Number(allData[3].lastItems[0].value)) }} </td>
                               <td v-else style="color:red">{{ filterChange(Number(allData[3].lastItems[1].value) - Number(allData[3].lastItems[0].value)) }}</td>
@@ -84,7 +84,7 @@
                           <td>
                               <v-checkbox v-model="selected" label="Vix" value="VIXCLS" v-on:change="updateChart"></v-checkbox>
                           </td>
-                          <td> {{ Number(allData[4].lastItems[1].value) }} </td>
+                          <td> {{ filterPrice(Number(allData[4].lastItems[1].value)) }} </td>
                            <td v-if="Number(allData[4].lastItems[1].value) - Number(allData[4].lastItems[0].value) > 0" style="color:green"> 
                               {{ filterChange(Number(allData[4].lastItems[1].value) - Number(allData[4].lastItems[0].value)) }} </td>
                               <td v-else style="color:red">{{ filterChange(Number(allData[4].lastItems[1].value) - Number(allData[4].lastItems[0].value)) }}</td>
@@ -96,7 +96,7 @@
                           <td>
                               <v-checkbox v-model="selected" label="Large Cap" value="WILLLRGCAP" v-on:change="updateChart"></v-checkbox>
                           </td>
-                          <td> {{ Number(allData[5].lastItems[1].value) }} </td>
+                          <td> {{ filterPrice(Number(allData[5].lastItems[1].value)) }} </td>
                            <td v-if="Number(allData[5].lastItems[1].value) - Number(allData[5].lastItems[0].value) > 0" style="color:green"> 
                               {{ filterChange(Number(allData[5].lastItems[1].value) - Number(allData[5].lastItems[0].value)) }} </td>
                               <td v-else style="color:red">{{ filterChange(Number(allData[5].lastItems[1].value) - Number(allData[5].lastItems[0].value)) }}</td>
@@ -108,7 +108,7 @@
                           <td>
                               <v-checkbox v-model="selected" label="Mid Cap" value="WILLMIDCAPPR" v-on:change="updateChart"></v-checkbox>
                           </td>
-                          <td> {{ Number(allData[6].lastItems[1].value) }} </td>
+                          <td> {{ filterPrice(Number(allData[6].lastItems[1].value)) }} </td>
                            <td v-if="Number(allData[6].lastItems[1].value) - Number(allData[6].lastItems[0].value) > 0" style="color:green"> 
                               {{ filterChange(Number(allData[6].lastItems[1].value) - Number(allData[6].lastItems[0].value)) }} </td>
                               <td v-else style="color:red">{{ filterChange(Number(allData[6].lastItems[1].value) - Number(allData[6].lastItems[0].value)) }}</td>
@@ -120,7 +120,7 @@
                           <td>
                               <v-checkbox v-model="selected" label="Small Cap" value="WILLSMLCAP" v-on:change="updateChart"></v-checkbox>
                           </td>
-                          <td> {{ Number(allData[7].lastItems[1].value) }} </td>
+                          <td> {{ filterPrice(Number(allData[7].lastItems[1].value)) }} </td>
                            <td v-if="Number(allData[7].lastItems[1].value) - Number(allData[7].lastItems[0].value) > 0" style="color:green"> 
                               {{ filterChange(Number(allData[7].lastItems[1].value) - Number(allData[7].lastItems[0].value)) }} </td>
                               <td v-else style="color:red">{{ filterChange(Number(allData[7].lastItems[1].value) - Number(allData[7].lastItems[0].value)) }}</td>
@@ -132,7 +132,7 @@
                           <td>
                               <v-checkbox v-model="selected" label="Large Cap Growth" value="WILLLRGCAPGR" v-on:change="updateChart"></v-checkbox>
                           </td>
-                          <td> {{ Number(allData[8].lastItems[1].value) }} </td>
+                          <td> {{ filterPrice(Number(allData[8].lastItems[1].value)) }} </td>
                            <td v-if="Number(allData[8].lastItems[1].value) - Number(allData[8].lastItems[0].value) > 0" style="color:green"> 
                               {{ filterChange(Number(allData[8].lastItems[1].value) - Number(allData[8].lastItems[0].value)) }} </td>
                               <td v-else style="color:red">{{ filterChange(Number(allData[8].lastItems[1].value) - Number(allData[8].lastItems[0].value)) }}</td>
@@ -144,7 +144,7 @@
                           <td>
                               <v-checkbox v-model="selected" label="Mid Cap Growth" value="WILLMIDCAPGR" v-on:change="updateChart"></v-checkbox>
                           </td>
-                          <td> {{ Number(allData[9].lastItems[1].value) }} </td>
+                          <td> {{ filterPrice(Number(allData[9].lastItems[1].value)) }} </td>
                            <td v-if="Number(allData[9].lastItems[1].value) - Number(allData[9].lastItems[0].value) > 0" style="color:green"> 
                               {{ filterChange(Number(allData[9].lastItems[1].value) - Number(allData[9].lastItems[0].value)) }} </td>
                               <td v-else style="color:red">{{ filterChange(Number(allData[9].lastItems[1].value) - Number(allData[9].lastItems[0].value)) }}</td>
@@ -156,7 +156,7 @@
                           <td>
                               <v-checkbox v-model="selected" label="Small Cap Growth" value="WILLSMLCAPGR" v-on:change="updateChart"></v-checkbox>
                           </td>
-                          <td> {{ Number(allData[10].lastItems[1].value) }} </td>
+                          <td> {{ filterPrice(Number(allData[10].lastItems[1].value)) }} </td>
                            <td v-if="Number(allData[10].lastItems[1].value) - Number(allData[10].lastItems[0].value) > 0" style="color:green"> 
                               {{ filterChange(Number(allData[10].lastItems[1].value) - Number(allData[10].lastItems[0].value)) }} </td>
                               <td v-else style="color:red">{{ filterChange(Number(allData[10].lastItems[1].value) - Number(allData[10].lastItems[0].value)) }}</td>
@@ -168,7 +168,7 @@
                           <td>
                               <v-checkbox v-model="selected" label="Large Cap Value" value="WILLMIDCAPVALPR" v-on:change="updateChart"></v-checkbox>
                           </td>
-                          <td> {{ Number(allData[11].lastItems[1].value) }} </td>
+                          <td> {{ filterPrice(Number(allData[11].lastItems[1].value)) }} </td>
                            <td v-if="Number(allData[11].lastItems[1].value) - Number(allData[11].lastItems[0].value) > 0" style="color:green"> 
                               {{ filterChange(Number(allData[11].lastItems[1].value) - Number(allData[11].lastItems[0].value)) }} </td>
                               <td v-else style="color:red">{{ filterChange(Number(allData[11].lastItems[1].value) - Number(allData[11].lastItems[0].value)) }}</td>
@@ -180,7 +180,7 @@
                           <td>
                               <v-checkbox v-model="selected" label="Mid Cap Value" value="WILLMIDCAPVALPR" v-on:change="updateChart"></v-checkbox>
                           </td>
-                          <td> {{ Number(allData[12].lastItems[1].value) }} </td>
+                          <td> {{ filterPrice(Number(allData[12].lastItems[1].value)) }} </td>
                            <td v-if="Number(allData[12].lastItems[1].value) - Number(allData[12].lastItems[0].value) > 0" style="color:green"> 
                               {{ filterChange(Number(allData[12].lastItems[1].value) - Number(allData[12].lastItems[0].value)) }} </td>
                               <td v-else style="color:red">{{ filterChange(Number(allData[12].lastItems[1].value) - Number(allData[12].lastItems[0].value)) }}</td>
@@ -192,7 +192,7 @@
                           <td>
                               <v-checkbox v-model="selected" label="Small Cap Value" value="WILLSMLCAPVALPR" v-on:change="updateChart"></v-checkbox>
                           </td>
-                          <td> {{ Number(allData[13].lastItems[1].value) }} </td>
+                          <td> {{ filterPrice(Number(allData[13].lastItems[1].value)) }} </td>
                            <td v-if="Number(allData[13].lastItems[1].value) - Number(allData[13].lastItems[0].value) > 0" style="color:green"> 
                               {{ filterChange(Number(allData[13].lastItems[1].value) - Number(allData[13].lastItems[0].value)) }} </td>
                               <td v-else style="color:red">{{ filterChange(Number(allData[13].lastItems[1].value) - Number(allData[13].lastItems[0].value)) }}</td>
@@ -701,7 +701,10 @@ export default {
         },
         filterChange(val) {
             return numeral(val).format('0.00')
-        }
+        },
+        filterPrice(val) {
+            return numeral(val).format('0,0.00')
+        },
     },
 
     mounted() {

@@ -11,15 +11,6 @@
         </v-col>
     </v-row>
 </v-container>
-<!-- <div>
-    <div class="graph">
-        
-    </div>
-   <div class="cryp-table">
-    <CryptoTable />       
-   </div>
-
-</div> -->
   
 </template>
 

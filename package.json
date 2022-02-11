@@ -10,8 +10,8 @@
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.13.6",
-    "@nuxtjs/google-analytics": "^2.4.0",
     "@nuxtjs/robots": "^2.5.0",
+    "@nuxtjs/sitemap": "^2.4.0",
     "axios": "^0.24.0",
     "bcrypt": "^5.0.1",
     "chart.js": "^2.9.4",
@@ -29,6 +29,7 @@
     "nodemailer": "^6.7.2",
     "numeral": "^2.0.6",
     "nuxt": "^2.15.7",
+    "nuxt-cookie-control": "^1.9.91",
     "nuxt-robots-module": "^1.5.1",
     "particles.vue": "^2.22.3",
     "pg": "^8.7.1",

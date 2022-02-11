@@ -1,33 +1,15 @@
 <template>
   <v-container fluid>
-      <v-row>
-          <div class="animated-title">
+           <div class="animated-title">
   <div class="text-top">
     <div>
       <span>Flibyrd</span>
     </div>
   </div>
   <div class="text-bottom">
-    <div>Automated Wealth Management</div>
+    <div>Financial planning made quick and simple</div>
   </div>
 </div>
-      </v-row>
-
-      <v-row justify="center" align="center">
-      </v-row>
-      <v-row justify="center" align="center">
-          <div class="summary">
-              <span>Coming Soon</span>
-              <!-- <span>Financial planning made quick and simple</span> -->
-          </div>
-      </v-row>
-      <!-- <v-row>
-          <div class="continue-btn">
-          <v-btn class="primary">
-              Continue
-          </v-btn>
-          </div>
-      </v-row> -->
   </v-container>
 </template>
 
@@ -105,14 +87,6 @@ export default {
     left: 30%;
     position: absolute;
     top: 50%;
-    animation: showBottomText 1s;
-  animation-delay: 2s;
-  animation-fill-mode: forwards;
-}
-.continue-btn {
-    left: 45%;
-    position: absolute;
-    top: 80%;
     animation: showBottomText 1s;
   animation-delay: 2s;
   animation-fill-mode: forwards;

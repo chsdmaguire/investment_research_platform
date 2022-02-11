@@ -17,7 +17,8 @@ export default {
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { hid: 'description', name: 'Flibyrd', content: 'A free and easy-to-use platform, democratizing financial analysis and financial education for the average retail investor. Free stock market news, stock market prices, stock market analysis, top cryptocurrencies, cryptourrency price data, and economic trends.'},
-      { name: 'format-detection', content: 'telephone=no' }
+      { name: 'format-detection', content: 'telephone=no' },
+      {name: 'keywords', content: 'fundamental analysis, financial analysis, stocks, cryptocurrencies, economic trends, markets, news'}
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: 'icon.png' },
@@ -34,11 +35,6 @@ export default {
   // Server Middlware
   serverMiddleware: ['~/api/server' ],
 
-  // googleAnalytics: {
-  //   id: process.env.GOOGLE_ANALYTICS_ID
-  // },
-
-
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
 
@@ -47,28 +43,60 @@ export default {
     Disallow: '/api',
   },
 
-  router: {
-    middleware: ['auth']
-  },
-
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
     '@nuxtjs/vuetify',
     '@nuxtjs/dotenv',
-    // '@nuxtjs/google-analytics',
+
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
-    ['@nuxtjs/axios'],
+    '@nuxtjs/axios',
     '@nuxtjs/robots',
+    'nuxt-cookie-control',
+    '@nuxtjs/sitemap'
   ],
+
+  cookies: {
+    necessary:[
+      {
+      name: 'Default Cookies',
+      description: 'used for cookie control',
+      cookies: ["cookie_control_consent", "cookie_control_enabled_cookies"]
+    },      
+    ],
+    optional: [
+      {
+        name: 'Google Analytics',
+        description: "Google Analytics is a web analytics service offered by Google that tracks and reports website traffic.",
+        src: 'https://www.googletagmanager.com/gtag/js?id=G-6TR511TP58',
+        async: true,
+        cookies: ['_ga', '_gid', '_gat_gtag_G-6TR511TP58', '_gac_', 'AMP_TOKEN'],
+        accepted: () => {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', 'G-6TR511TP58');
+        }
+      }
+    ]
+  },
+
 
   server: {
     host: process.env.NODE_ENV === 'development' ? 'localhost' : '0.0.0.0',
     port: process.env.PORT
   },
 
+sitemap: {
+  routes: async () => {
+    const { data } = await axios.get(`${API_HOST}/basic`);
+    return data.map((item) => `/companies/${item.ticker}`)
+  }
+},
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
   vuetify: {

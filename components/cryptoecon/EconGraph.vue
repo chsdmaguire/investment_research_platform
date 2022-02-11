@@ -50,6 +50,14 @@
 const numeral = require('numeral');
 
 export default {
+  head() {
+    return {
+      title: this.title,
+      meta: [
+        {name: 'description', content: this.itemNotes}
+      ]
+    }
+  },
   data() {
     return {
       chartData: null,

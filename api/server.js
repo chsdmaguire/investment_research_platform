@@ -34,9 +34,10 @@ app.use(cryptoRoutes)
 const contact = require('./contact/routes')
 app.use(contact)
 
-// Google authentication
+// authentication
 const accounts = require('./accounts/routes')
 app.use(accounts)
+
 
 
 export default {

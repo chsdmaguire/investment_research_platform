@@ -1,13 +1,13 @@
 <template>
 <v-container fluid>
     <v-row align="center" justify="center">
-        <v-col md="3">
+        <v-col sm="3">
             <h2 class="text-left">
               {{ head.ticker }}  
             </h2>
             
         </v-col>   
-        <v-col md="3">
+        <v-col sm="3">
             <h2 class="text-right">
             {{ head.name }}
             </h2>
@@ -101,6 +101,16 @@ import InsiderTransactions from '~/components/stock-page/InsiderTransactions';
 import Patents from '~/components/stock-page/Patents';
 
 export default {
+  head() {
+    return {
+      title: this.head.ticker,
+      meta: [
+          {name: 'description', content: this.head.description},
+          {name: 'keywords', content: this.head.name},
+      ]
+    }
+  },
+
     components: {BasicInfo, SimilarCompanies, AdvancedChart, AnalystRecs, StockNews,
      Financials, EarningsSurprise, DiscountCashFlow, CompsTable,SentimentAnalysis,InsiderTransactions, Patents },
     data() {
@@ -112,7 +122,7 @@ export default {
     methods: {
         async getName() {
             const ticker = this.$route.params.ticker.toUpperCase();
-            const res = await this.$axios.get(`/api/stock/basic/info/${ticker}`);
+            const res = await this.$axios.get(`/stock/basic/info/${ticker}`);
             this.head = res.data[0];
         }
     },

@@ -1,5 +1,5 @@
 <template>
-<v-app>
+
      <v-container fluid class="splash">
 
     <v-container class="splash-centered mx-auto my-auto">      
@@ -50,7 +50,6 @@
       </v-card>
     </v-container>
   </v-container>    
-</v-app> 
 </template>
 
 <script>
@@ -89,7 +88,6 @@ export default {
 
 <style scoped>
 .splash {
-  background-color: white;
   height: 90vh;
   text-align: center;
   display: flex;
@@ -98,9 +96,6 @@ export default {
   width: 500px;
 }
 
-.contact-card {
-  background-color: rgb(250, 250, 250);
-}
 
 .input-section {
     color: white;

@@ -16,7 +16,10 @@
 </template>
 
 <script>
+import Intro from '~/components/about/Intro';
+import TheAbout from '~/components/about/TheAbout';
 export default {
+  components: {TheAbout, Intro}
 }
 </script>
 
