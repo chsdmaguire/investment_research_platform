@@ -1,14 +1,18 @@
 <template>
 <v-container fluid>
-  <v-row align="center" justify="center"> 
+  <v-row align="center" justify="center" class="mb-10"> 
     <v-col cols="12">
-   <Intro />
+      <v-container>
+        <Intro /> 
+      </v-container>
     </v-col>
   </v-row>
 
     <v-row align="center" justify="center"> 
     <v-col cols="12">
-   <TheAbout />
+      <v-container>
+        <TheAbout />
+      </v-container>
     </v-col>
   </v-row>
 </v-container>

@@ -81,24 +81,24 @@
         <Nuxt />
 
         
-        <BackToTopButton />
+        
 
       </v-container>
     </v-main>
-    <CookieControl />
+    <BackToTopButton />
+    <!-- <CookieControl /> -->
   </v-app>
   </div>
 </template>
 
 <script>
 import StockSearch from '~/components/layout/StockSearch';
-import Cookies from '~/components/layout/Cookies';
 import BackToTopButton from '~/components/layout/BackToTopButton';
 import UserBtn from '~/components/layout/UserBtn';
 import LoginBtn from '~/components/layout/LoginBtn';
 import NavList from '~/components/layout/NavList';
 export default {
-  components: {StockSearch, Cookies, BackToTopButton, UserBtn, LoginBtn, NavList},
+  components: {StockSearch, BackToTopButton, UserBtn, LoginBtn, NavList},
   data () {
     return {
       clipped: false,

@@ -175,8 +175,6 @@ export default {
 }
 
 .splash {
-  background-color: white;
-  height: 90vh;
   text-align: center;
   display: flex;
   padding-right: 13vh;

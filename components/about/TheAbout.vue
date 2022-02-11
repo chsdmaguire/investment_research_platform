@@ -1,10 +1,8 @@
 <template>
-  <section class="about-area">
+  <v-container class="about-area" fluid>
     <div class="about-shape">
       <img src="~/assets/about-shape.svg" alt="shape">
     </div>
-    <v-container>
-
       <v-row>
         <v-col cols="6">
           <div class="fadeInRight about-content wow" data-wow-duration="1s" data-wow-delay="0.5s">
@@ -78,11 +76,7 @@
         </v-col>
       </v-row>
 
-
-
-
-    </v-container>
-  </section>
+  </v-container>
 </template>
 
 <script>
