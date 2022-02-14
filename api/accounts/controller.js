@@ -4,6 +4,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const queries = require("./queries");
 const nodemailer  = require('nodemailer');
+const { google } = require('googleapis');
 
 const mailHost = {
     host: 'smtp.gmail.com',
@@ -197,9 +198,54 @@ const deleteUser = async (req, res) => {
         };
 }
 
+const googleConfig = {
+    clientId: '465940272449-kthr32rjfonjm3bbp86s2erjg7o1g35f.apps.googleusercontent.com',
+    clientSecret: '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',
+    redirect: 'http://localhost:3000/login'
+  }
+function createConnection() {
+    return new google.auth.OAuth2(
+      googleConfig.clientId,
+      googleConfig.clientSecret,
+      googleConfig.redirect
+    );
+  }
+
+  const defaultScope = [
+    'https://www.googleapis.com/auth/plus.me',
+    'https://www.googleapis.com/auth/userinfo.email',
+  ];
+  
+
+  function getConnectionUrl(auth) {
+    return auth.generateAuthUrl({
+      access_type: 'offline',
+      prompt: 'consent', // access type and approval prompt will force a new refresh token to be made each time signs in
+      scope: defaultScope
+    });
+  }
+  
+  const urlGoogle = async (req, res) => {
+      const auth = createConnection();
+      const url = getConnectionUrl(auth);
+      return res.status(200).json({url: url})
+  }
+
+  const getGoogleToken = async (req, res) => {
+      console.log(req)
+  }
+
+//   function urlGoogle() {
+//     const auth = createConnection(); // this is from previous step
+//     const url = getConnectionUrl(auth);
+//     return url;
+//   }
+
 module.exports = {
     registerNewUser,
     loginUser,
     meRoute,
-    deleteUser
+    deleteUser,
+    urlGoogle,
+    getGoogleToken
 }

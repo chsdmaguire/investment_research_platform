@@ -77,13 +77,13 @@
         
     </v-app-bar>
     <v-main>
-      <v-container>
+      <!-- <v-container> -->
         <Nuxt />
 
         
         
 
-      </v-container>
+      <!-- </v-container> -->
     </v-main>
     <BackToTopButton />
     <!-- <CookieControl /> -->
@@ -115,12 +115,16 @@ export default {
           return this.$store.state.email 
       },
   },
+
+  mounted() {
+    
+  }
 }
 </script>
 
 <style scoped>
 .user-btn-text {
-    font-size: 150%;
+    font-size: 100%;
     color: #fff;
     font-weight: bold;
     text-align: center;

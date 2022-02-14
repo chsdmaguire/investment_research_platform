@@ -7,6 +7,7 @@ export function resetAuthToken () {
   delete axios.defaults.headers.common['x-access-token']
 }
 
+
 // export const auth = {
 //     me: () => axios.get('/auth/me'),
 //     login: (data) => axios.post('/auth/login', data),
