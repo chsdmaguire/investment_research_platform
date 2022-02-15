@@ -93,6 +93,7 @@ export default {
   },
 
 sitemap: {
+  hostname: "https://flibyrd.com",
   routes: async () => {
     const { data } = await axios.get(`${API_HOST}/basic`);
     return data.map((item) => `/companies/${item.ticker}`)
