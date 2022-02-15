@@ -45,8 +45,9 @@ export default {
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
-    '@nuxtjs/vuetify',
+    ['@nuxtjs/vuetify', { iconfont: 'mdi' }],
     '@nuxtjs/dotenv',
+    
 
   ],
 
@@ -55,7 +56,8 @@ export default {
     '@nuxtjs/axios',
     '@nuxtjs/robots',
     'nuxt-cookie-control',
-    '@nuxtjs/sitemap'
+    '@nuxtjs/sitemap' // must be last item in modules!!!
+    
   ],
 
   cookies: {

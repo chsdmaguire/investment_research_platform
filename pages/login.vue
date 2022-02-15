@@ -25,7 +25,9 @@
                        :loading="loading" @click="localLogin()"> Login </v-btn>
                     </v-col> 
                     <v-col class="d-flex" md="6" sm="3" xsm="12">
-                    </v-col>
+                    <v-btn x-large block color="secondary" 
+                       @click="googleLogIn()"> Login with Google </v-btn>
+                    </v-col> 
                 </v-row>
             </v-form>
         </v-card-text>
@@ -41,7 +43,8 @@
 </template>
 
 <script>
-export default {   
+
+export default {
     data() {
         return {
             valid: true,
@@ -51,47 +54,52 @@ export default {
             loginEmail: "",
             alert: null,
             loginEmailRules: [
-            v => !!v || "Required",
-            v => /.+@.+\..+/.test(v) || "E-mail must be valid"
+                v => !!v || "Required",
+                v => /.+@.+\..+/.test(v) || "E-mail must be valid"
             ],
             rules: {
-            required: value => !!value || "Required.",
-            min: v => (v && v.length >= 6) || "Min 8 characters"
+                required: value => !!value || "Required.",
+                min: v => (v && v.length >= 6) || "Min 8 characters"
             },
-        }
+        };
     },
     computed: {
-      userName () {
-          return this.$store.state.firstName 
-      }
-  },
+        userName() {
+            return this.$store.state.firstName;
+        }
+    },
     methods: {
-
         localLogin() {
             this.alert = null;
             this.loading = true;
             if (this.$refs.loginForm.validate()) {
-
-                    const user = {
-                        email: this.loginEmail,
-                         password: this.loginPassword
-                    }
-                     this.$axios.post('/auth/login', user).then(res => {
-                         this.alert = {type: 'success', message: res.data.message}
-                         console.log(res.data)
-                         this.$store.dispatch('userLocalLogin', res.data);
-                        this.loading = false; 
-                        this.$router.push('/');
-                     }).catch(err => {
-                         this.loading = false;
-                        this.alert = {type: 'error', message: err.response.data.message }
-                    })
-                    
-                        
-                    }
-            },   
+                const user = {
+                    email: this.loginEmail,
+                    password: this.loginPassword
+                };
+                this.$axios.post("/auth/login", user).then(res => {
+                    this.alert = { type: "success", message: res.data.message };
+                    console.log(res.data);
+                    this.$store.dispatch("userLocalLogin", res.data);
+                    this.loading = false;
+                    this.$router.push("/");
+                }).catch(err => {
+                    this.loading = false;
+                    this.alert = { type: "error", message: err.response.data.message };
+                });
+            }
         },
- }
+       async googleLogIn() {
+           this.$auth.loginWith('google');
+        }
+
+    },
+    mounted() {
+    const {email, given_name, family_name, picture, email_verified} = this.$auth.user;
+      const user = {email, given_name, family_name, picture, email_verified};
+      console.log(user);
+    }
+}
 </script>
 
 <style scoped>
