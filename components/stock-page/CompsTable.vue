@@ -1,23 +1,24 @@
 <template>
+  <v-container fluid>
+      <template v-if="loading">
+        <v-skeleton-loader dark type="date-picker">
+        </v-skeleton-loader>         
+      </template>
 
-      <v-container class="mt-10">
-        <v-row class="justify-center">
-          <h1>Comparisons Analysis</h1>
-        </v-row>
-        <v-row>
+      <template v-else>
+      <v-row align="center" justify="center">
           <v-col cols="12">
-            <v-autocomplete
-              v-model="initialCompetitors"
-              :items="allCompanies"
-              filled
-              chips
-              cache-items
+              <v-autocomplete
+                v-model="initialCompetitors"
+                filled
+                chips
+                cache-items
+                :items="allCompanies"
+                label="Select"
+                item-text="title"
+                item-value="ticker"
+                multiple>
 
-              label="Select"
-              item-text="name"
-              item-value="ticker"
-              multiple
-            >
           <template v-slot:selection="data">
                 <v-chip
                   :input-value="data.selected"
@@ -32,217 +33,299 @@
              <template v-slot:item="data">
                  <v-list-item-content v-text="data.item" :input-value="data.selected" 
                  @click="updateList(data.item)">
-                 <v-list-item-title v-text="data.name"></v-list-item-title>
+                 <v-list-item-title v-text="data.title"></v-list-item-title>
                  </v-list-item-content>
               </template>  
-              
-            </v-autocomplete> 
 
-                <v-data-table
-                :headers="headers"
-                :items="competitorMetrics"
-                hide-default-footer
-                class="elevation-1">
-
-                <template v-slot:[`item.pe_norm_anual`]= "{ item }">
-                  {{ item.pe_norm_anual.toFixed(2) }}
-                </template> 
-
-                <template v-slot:[`item.ev_ebitda`]= "{ item }">
-                  {{ item.ev_ebitda.toFixed(2) }}
-                </template> 
-                <template v-slot:[`item.ps_annual`]= "{ item }">
-                  {{ item.ps_annual.toFixed(2) }}
-                </template> 
-                <template v-slot:[`item.pb_annual`]= "{ item }">
-                  {{ item.pb_annual.toFixed(2) }}
-                </template> 
-
-                <template v-slot:[`item.ev_ebit`]= "{ item }">
-                  {{ item.ev_ebit.toFixed(2) }}
-                </template> 
-
-                <template v-slot:[`item.p_fcf_annual`]= "{ item }">
-                  {{ item.p_fcf_annual.toFixed(2) }}
-                </template> 
-                </v-data-table>
-
-              <v-card class="mt-4">
-                 <v-simple-table>
-                  <thead>
-                    <tr>
-                      <th class="text-left">
-                        Calculation
-                      </th>
-                      <th class="text-left">
-                        P/E
-                      </th>
-                      <th class="text-left">
-                        EV/EBITDA
-                      </th>
-                      <th class="text-left">
-                        Price/Sales
-                      </th>
-                      <th class="text-left">
-                        Price/Book
-                      </th>
-                      <th class="text-left">
-                        EV/EBIT
-                      </th>
-                      <th class="text-left">
-                        Price/FCF
-                      </th>
-                    </tr>
-                  </thead>
-                <tbody>
-                  <tr> 
-                    <td>Average</td>
-                    <td>{{ Math.round(this.PEavg * 100) / 100 }}  </td>
-                    <td>{{ Math.round(this.EVEBITDAavg * 100) / 100 }}  </td>
-                    <td>{{ Math.round(this.PsalesAvg * 100) / 100 }}  </td>
-                    <td>{{ Math.round(this.PBavg * 100) / 100 }}  </td>
-                    <td>{{ Math.round(this.EVtoEBITavg * 100) / 100 }}  </td>
-                    <td>{{ Math.round(this.EVtoFCFavg * 100) / 100 }}  </td>
-                  </tr>
-                  <tr> 
-                    <td>Median</td>
-                    <td>{{ Math.round(this.PEmedian * 100) / 100 }}  </td>
-                    <td>{{ Math.round(this.EVEBITDAmedian * 100) / 100 }}  </td>
-                    <td>{{ Math.round(this.PSalesMedian * 100) / 100 }}  </td>
-                    <td>{{ Math.round(this.PBmedian * 100) / 100 }}  </td>
-                    <td>{{ Math.round(this.EVtoEBITmedian * 100) / 100 }}  </td>
-                    <td>{{ Math.round(this.EVtoFCFmedian * 100) / 100 }}  </td>
-                  </tr>
-                  <tr>
-                    <td v-for="metric in tickerComps" :key="metric.ticker">{{ metric.ticker }}</td>
-                    <td v-for="metric in tickerComps" :key="metric.pe_norm_anual">{{ Math.round(metric.pe_norm_anual* 100) / 100 }}</td>
-                    <td v-for="metric in tickerComps" :key="metric.ev_ebitda">{{ Math.round(metric.ev_ebitda* 100) / 100 }}</td>
-                    <td v-for="metric in tickerComps" :key="metric.ps_annual">{{ Math.round(metric.ps_annual* 100) / 100 }}</td>
-                    <td v-for="metric in tickerComps" :key="metric.pb_annual">{{ Math.round(metric.pb_annual* 100) / 100 }}</td>
-                    <td v-for="metric in tickerComps" :key="metric.ev_ebit">{{ Math.round(metric.ev_ebit* 100) / 100 }}</td>
-                    <td v-for="metric in tickerComps" :key="metric.p_fcf_annual">{{ Math.round(metric.p_fcf_annual* 100) / 100 }}</td>
-                  </tr>
-                <tr>
-                     <td>Exp. Share Price</td>
-                    <td> {{ ((this.netInc / this.numOfShares) * this.PEmedian).toFixed() }} </td> 
-                     <td> {{   (((this.EVEBITDAmedian * this.ebit_da) - this.netDebt) / this.numOfShares).toFixed() }}</td>   
-                    <td> {{ (this.revPerShare * this.PSalesMedian).toFixed() }} </td> 
-                    <td> {{ ((this.bvPerShare * this.PBmedian).toFixed() )}} </td>  
-                    <td> {{ (((this.EVtoEBITmedian * this.operInc) - this.netDebt) /this.numOfShares).toFixed()}} </td>
-                    <td> {{ ((( (1 / (( 1 / (this.markCap * 1000000) ) * this.priceFcf))
-                       * this.EVtoFCFmedian) - this.netDebt)  / this.numOfShares).toFixed() }} </td>                
-                  </tr>
-                </tbody>
-              </v-simple-table>
-              </v-card>
-
-
+                </v-autocomplete>
           </v-col>
-        </v-row>
-      </v-container>
-
+          
+      </v-row>
+      <v-row align="center" justify="center">
+          <v-col cols="12">
+      <v-simple-table>
+          <thead>
+              <tr>
+                  <th v-for="(head, idx) in compsHead" :key="idx">
+                      {{ head }}
+                  </th>
+              </tr>
+          </thead>
+          <tbody>
+              <tr v-for="(stock, idx) in compsTable" :key="idx">
+                  <td>
+                      {{ stock.ticker }}
+                  </td>
+                  <td>
+                      {{ stock.name }}
+                  </td>
+                  <td>
+                      {{ formatPrice(stock.price) }}
+                  </td>
+                  <td>
+                      {{ bigNumber(stock.market_cap * 1000000) }}
+                  </td>
+                  <td>
+                      {{ bigNumber((stock.market_cap * 1000000) + stock.debt) }}
+                  </td>
+                  <td>
+                      {{ bigNumber(stock.revenue) }}
+                  </td>
+                  <td>
+                      {{ bigNumber(stock.bookvalue) }}
+                  </td>
+                  <td>
+                      {{ bigNumber(stock.netincome) }}
+                  </td>
+                  <td>
+                      {{ bigNumber(stock.ebit) }}
+                  </td>
+                  <td>
+                      {{ bigNumber(stock.ebitda) }}
+                  </td>
+                  <td>
+                      {{ bigNumber(stock.ocf) }}
+                  </td>
+                  <td>
+                      {{ metricFormat((stock.market_cap * 1000000) / stock.revenue) }}
+                  </td>
+                    <td>
+                      {{ metricFormat((stock.market_cap * 1000000) / stock.netincome) }}
+                  </td>
+                   <td>
+                      {{ metricFormat((stock.market_cap * 1000000) / stock.bookvalue) }}
+                  </td>
+                  <td>
+                      {{ metricFormat(((stock.market_cap * 1000000) + stock.debt) / stock.ebit) }}
+                  </td>
+                  <td>
+                      {{ metricFormat(((stock.market_cap * 1000000) + stock.debt) / stock.ebitda) }}
+                  </td>
+                  <td>
+                      {{ metricFormat((stock.market_cap * 1000000) / stock.ocf) }}
+                  </td>
+              </tr>
+          </tbody>
+          <tbody>
+            <tr v-for="(stock, idx) in thisCompany" :key="idx">
+                <td>
+                    {{ stock.ticker }}
+                </td>
+                <td>
+                    {{ stock.name }}
+                </td>
+                <td>
+                      {{ formatPrice(stock.price) }}
+                  </td>
+                  <td>
+                      {{ bigNumber(stock.market_cap * 1000000) }}
+                  </td>
+                  <td>
+                      {{ bigNumber((stock.market_cap * 1000000) + stock.debt) }}
+                  </td>
+                  <td>
+                      {{ bigNumber(stock.revenue) }}
+                  </td>
+                  <td>
+                      {{ bigNumber(stock.bookvalue) }}
+                  </td>
+                  <td>
+                      {{ bigNumber(stock.netincome) }}
+                  </td>
+                  <td>
+                      {{ bigNumber(stock.ebit) }}
+                  </td>
+                  <td>
+                      {{ bigNumber(stock.ebitda) }}
+                  </td>
+                  <td>
+                      {{ bigNumber(stock.ocf) }}
+                  </td>
+                  <td>
+                      {{ metricFormat((stock.market_cap * 1000000) / stock.revenue) }}
+                  </td>
+                    <td>
+                      {{ metricFormat((stock.market_cap * 1000000) / stock.netincome) }}
+                  </td>
+                   <td>
+                      {{ metricFormat((stock.market_cap * 1000000) / stock.bookvalue) }}
+                  </td>
+                  <td>
+                      {{ metricFormat(((stock.market_cap * 1000000) + stock.debt) / stock.ebit) }}
+                  </td>
+                  <td>
+                      {{ metricFormat(((stock.market_cap * 1000000) + stock.debt) / stock.ebitda) }}
+                  </td>
+                  <td>
+                      {{ metricFormat((stock.market_cap * 1000000) / stock.ocf) }}
+                  </td>
+            </tr>
+          </tbody>
+          <tbody>
+              <tr>
+                  <td>Average</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td>{{ metricFormat(this.PsalesAvg) }}</td>
+                  <td>{{ metricFormat(this.PEavg) }}</td>
+                  <td>{{ metricFormat(this.PBavg) }}</td>
+                  <td>{{ metricFormat(this.EVtoEBITavg) }}</td>
+                  <td>{{ metricFormat(this.EVEBITDAavg) }}</td>
+                  <td>{{ metricFormat(this.PtoOCFavg) }}</td>
+                  
+              </tr>
+              <tr> 
+                  <td>Median</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td>{{ metricFormat(this.PSalesMedian) }}</td>
+                  <td>{{ metricFormat(this.PEmedian) }}</td>
+                  <td>{{ metricFormat(this.PBmedian) }}</td>
+                  <td>{{ metricFormat(this.EVtoEBITmedian) }}</td>
+                  <td>{{ metricFormat(this.EVEBITDAmedian) }}</td>
+                  <td>{{ metricFormat(this.PtoOCFmedian) }}</td>
+                  
+                 
+              </tr>
+              <tr>
+                  <td>exp. Share Price</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td> {{ formatPrice((this.thisCompany[0].revenue * this.PsalesAvg) / ((this.thisCompany[0].market_cap * 1000000) / this.thisCompany[0].price)) }} </td>
+                  <td> {{ formatPrice((this.thisCompany[0].netincome * this.PEavg) / ((this.thisCompany[0].market_cap * 1000000) / this.thisCompany[0].price)) }} </td>
+                  <td> {{ formatPrice((this.thisCompany[0].bookvalue * this.PBavg) / ((this.thisCompany[0].market_cap * 1000000) / this.thisCompany[0].price)) }} </td>
+                  <td> {{ formatPrice(((this.thisCompany[0].ebit * this.EVtoEBITavg) - this.thisCompany[0].debt) / ((this.thisCompany[0].market_cap * 1000000) / this.thisCompany[0].price)) }} </td>
+                  <td> {{ formatPrice(((this.thisCompany[0].ebitda * this.EVEBITDAavg - this.thisCompany[0].debt)) / ((this.thisCompany[0].market_cap * 1000000) / this.thisCompany[0].price)) }} </td>
+                  <td> {{ formatPrice((this.thisCompany[0].ocf * this.PtoOCFavg) / ((this.thisCompany[0].market_cap * 1000000) / this.thisCompany[0].price)) }} </td>
+                  
+              </tr>
+          </tbody>
+      </v-simple-table>
+      </v-col>
+      </v-row>
+      </template>
+</v-container>
 </template>
 
 <script>
-export default {
-    data () {
-        return {
-        netInc: 0,
-        numOfShares: 0,
-        ebit_da: 0,
-        netDebt: 0,
-        revPerShare: 0,
-        bvPerShare: 0,
-        operInc: 0,
-        markCap: 0,
-        priceFcf: 0,
+const numeral = require('numeral');
 
-        initialCompetitors: [],
-        competitorMetrics: [],
-        allCompanies: [],
-        allMetrics: [],
-        PEratio : [],
-        EVebitda: [],
-        Psales: [],
-        PBratio: [],
-        EVtoEBIT: [],
-        EVtoFCF: [],
-        EVtoOCF: [],
-        tickerComps: [],
-        PEavg : 0,
-        EVEBITDAavg: 0,
-        PsalesAvg: 0,
-        PBavg: 0,
-        EVtoEBITavg: 0,
-        EVtoFCFavg: 0,
-        PEmedian: 0,
-        EVEBITDAmedian: 0,
-        PSalesMedian: 0,
-        PBmedian: 0,
-        EVtoEBITmedian: 0,
-        EVtoFCFmedian: 0,
-        EVtoOCFmedian: 0, 
-        autoUpdate: true,
-        headers: [
-          {text: 'Ticker', value: 'ticker'},
-          {text: 'Name', value: 'name'},
-          {text: 'P/E', value: 'pe_norm_anual'},
-          {text: 'EV/EBITDA', value: 'ev_ebitda'},
-          {text: 'Price/Sales', value: 'ps_annual'},
-          {text: 'Price/Book', value: 'pb_annual'},
-          {text: 'EV/EBIT', value: 'ev_ebit'},
-          {text: 'Price/FCF', value: 'p_fcf_annual'},
-        ],
-        competitorList: [],
-        
+export default {
+    data() {
+        return {
+            compsHead: ['Ticker', 'Name', 'Price', 'Market Cap', 'EV', 'Sales', 'BV', 'Net Income', 'EBIT', 'EBITDA', 'OCF', 'P/S', 'P/E', 'P/B', 'EV/EBIT', 'EV/EBITDA', 'P/OCF'],
+            allData: [],
+            competitorList: [],
+            compsTable: [],
+            thisCompany: [],
+            selectList: [],
+            initialCompetitors: [],
+            allCompanies: [],
+            loading: true,
+            compsCalcs: [],
+
+            PEratio : [],
+            EVebitda: [],
+            Psales: [],
+            PBratio: [],
+            EVtoEBIT: [],
+            PtoOCF: [],
+
+            PEavg: 0,
+            EVEBITDAavg: 0,
+            PsalesAvg: 0,
+            PBavg: 0,
+            EVtoEBITavg: 0,
+            PtoOCFavg: 0,
+
+            PEmedian: 0,
+            EVEBITDAmedian: 0,
+            PSalesMedian: 0,
+            PBmedian: 0,
+            EVtoEBITmedian: 0,
+            PtoOCFmedian: 0, 
         }
     },
-
+    
     methods: {
-        
-      async getallComps() {
-          const ticker = this.$route.params.ticker.toUpperCase();
-        const companyComps = await this.$axios.$get(`/stock/market/allcomps/${ticker}`);
-        this.allMetrics = companyComps;
-        this.competitorList = await this.$axios.$get(`/stock/competitors/${ticker}`);
-        if (this.allMetrics.length > 0) {
-        for(const company in this.allMetrics){
+        bigNumber(val) {
+          return numeral(val).format('0.0a')
+    },
+        metricFormat(val) {
+            return numeral(val).format('0.0') + ' x'
+        },
 
-          for(var i = 0; i < this.competitorList.length; i++) {
+        formatPrice(val) {
+            return numeral(val).format('0,0.0a')
+        },
 
-            if(this.competitorList[i].peers === this.allMetrics[company].ticker) {
+        async getComps() {
+            this.loading = true;
+            const response = await this.$axios.get('/stocks/comps');
+            response.data.forEach(entry => {
+                const newName = entry.ticker + " ( " + entry.name + " )";
+                entry.title = newName;
+                this.allData.push(entry)
+            })
+            this.allData = response.data;
+            const ticker = this.$route.params.ticker.toUpperCase();
+            const resp = await this.$axios.get(`/stock/competitors/${ticker}`);
+            this.competitorList = resp.data
+            this.allData.forEach(e => {
 
-              this.initialCompetitors.push(this.allMetrics[company].ticker)
-              this.competitorMetrics.push(this.allMetrics[company])
-              this.PEratio.push(Number(this.allMetrics[company].pe_norm_anual))
-              this.EVebitda.push(Number(this.allMetrics[company].ev_ebitda))
-              this.Psales.push(Number(this.allMetrics[company].ps_annual))
-              this.PBratio.push(Number(this.allMetrics[company].pb_annual))
-              this.EVtoEBIT.push(Number(this.allMetrics[company].ev_ebit))
-              this.EVtoFCF.push(Number(this.allMetrics[company].p_fcf_annual))
-            }
-            else {
-              
-           this.allCompanies.push(this.allMetrics[company].ticker);
-                        } 
-                      }
-                    };          
-        }
-          if (this.initialCompetitors.length > 0) {
-            for(var i = 0; i < this.initialCompetitors.length; i++) {
-              this.index++
-              this.allCompanies.push(this.initialCompetitors[i]);
+                this.allCompanies.push(e.title) 
+                if (e.ticker === ticker) { this.thisCompany.push(e) } 
+                this.competitorList.forEach(item => {
 
-            };
+                if (item.peers === e.ticker) {
+                        this.compsTable.push(e);
+                        if (e.netincome > 0) { this.PEratio.push((e.market_cap * 1000000) / e.netincome) };
+                         if (e.ebitda > 0) { this.EVebitda.push((e.market_cap + e.debt) / e.ebitda) };
+                          this.Psales.push((e.market_cap * 1000000) / e.revenue);
+                        if (e.bookvalue > 0 )this.PBratio.push((e.market_cap * 1000000) / e.bookvalue);
+                         if (e.ebit > 0) { this.EVtoEBIT.push(((e.market_cap * 1000000) + e.debt) / e.ebit) };
+                         if (e.ocf > 0) { this.PtoOCF.push(((e.market_cap * 1000000) + e.debt) / e.ocf) };
+                        this.initialCompetitors.push(e.title)
+                   }
+                })
+            });
 
-          }
+            this.calcmetrics()
 
+            this.loading = false;
+        },
+
+        calcmetrics() {
             this.PEavg = this.PEratio.reduce((a, b) => a + b) / this.PEratio.length;
             this.EVEBITDAavg = this.EVebitda.reduce((a, b) => a + b) / this.EVebitda.length;
             this.PsalesAvg = this.Psales.reduce((a, b) => a + b) / this.Psales.length;
             this.PBavg = this.PBratio.reduce((a, b) => a + b) / this.PBratio.length;
             this.EVtoEBITavg = this.EVtoEBIT.reduce((a, b) => a + b) / this.EVtoEBIT.length;
-            this.EVtoFCFavg = this.EVtoFCF.reduce((a, b) => a + b) / this.EVtoFCF.length;
+            this.PtoOCFavg = this.PtoOCF.reduce((a, b) => a + b) / this.PtoOCF.length;
 
             this.PEmedian = this.PEratio.length % 2 == 0 ? 
             (this.PEratio.sort()[Math.ceil(this.PEratio.length / 2)] + 
@@ -264,125 +347,58 @@ export default {
             (this.EVtoEBIT.sort()[Math.ceil(this.EVtoEBIT.length / 2)] + 
             this.EVtoEBIT.sort()[this.EVtoEBIT.length - 1]) / 2 : this.EVtoEBIT.sort()[this.EVtoEBIT.length - 1];
 
-            this.EVtoFCFmedian = this.EVtoFCF.length % 2 == 0 ? 
-            (this.EVtoFCF.sort()[Math.ceil(this.EVtoFCF.length / 2)] + 
-            this.EVtoFCF.sort()[this.EVtoFCF.length - 1]) / 2 : this.EVtoFCF.sort()[this.EVtoFCF.length - 1];
-
-    
+            this.PtoOCFmedian = this.PtoOCF.length % 2 == 0 ? 
+            (this.PtoOCF.sort()[Math.ceil(this.PtoOCF.length / 2)] + 
+            this.PtoOCF.sort()[this.PtoOCF.length - 1]) / 2 : this.PtoOCF.sort()[this.PtoOCF.length - 1];
         },
-      
-      async getcompanyComps() {
-          const ticker = this.$route.params.ticker.toUpperCase();
-          const tickComps = await this.$axios.$get(`/comps/${ticker}`);
-          if (tickComps.length > 0) {
-          this.tickerComps = tickComps;
-          this.netInc = tickComps[0].net_income;
-          this.numOfShares = tickComps[0].numshares;
-          this.ebit_da = tickComps[0].ebitda;
-          this.netDebt = tickComps[0].net_debt_annual;
-          this.revPerShare = tickComps[0].rev_share_ttm;
-          this.bvPerShare = tickComps[0].bv_share_annual;
-          this.operInc = tickComps[0].ebit;
-          this.markCap = tickComps[0].market_capitalization;
-          this.priceFcf = tickComps[0].p_fcf_annual            
-          }
 
-        },   
+        
         remove (item) {
-        const index = this.initialCompetitors.indexOf(item)
-        if (index >= 0) this.initialCompetitors.splice(index, 1)
-        this.competitorMetrics.splice(index, 1)
+            console.log(item)
+            const index = this.initialCompetitors.indexOf(item);
+            if (index >= 0) this.initialCompetitors.splice(index, 1)
+            this.compsTable.splice(index, 1)
 
-        this.PEratio.splice(index, 1)
-        this.EVebitda.splice(index, 1)
-        this.Psales.splice(index, 1)
-        this.PBratio.splice(index, 1)
+            this.PEratio.splice(index, 1)
+            this.EVebitda.splice(index, 1)
+            this.Psales.splice(index, 1)
+            this.PBratio.splice(index, 1)
+            this.EVtoEBIT.splice(index, 1)
+            this.PtoOCF.splice(index, 1)
 
-        this.PEavg = this.PEratio.reduce((a, b) => a + b) / this.PEratio.length
-        this.EVEBITDAavg = this.EVebitda.reduce((a, b) => a + b) / this.EVebitda.length
-        this.PsalesAvg = this.Psales.reduce((a, b) => a + b) / this.Psales.length
-        this.PBavg = this.PBratio.reduce((a, b) => a + b) / this.PBratio.length
+            this.calcmetrics()
 
-        this.PEmedian = this.PEratio.length % 2 == 0 ? 
-        (this.PEratio.sort()[Math.ceil(this.PEratio.length / 2)] + 
-        this.PEratio.sort()[this.PEratio.length - 1]) / 2 : this.PEratio.sort()[this.PEratio.length - 1];
-
-        this.EVEBITDAmedian = this.EVebitda.length % 2 == 0 ? 
-        (this.EVebitda.sort()[Math.ceil(this.EVebitda.length / 2)] + 
-        this.PEratio.sort()[this.EVebitda.length - 1]) / 2 : this.EVebitda.sort()[this.EVebitda.length - 1];
-
-        this.PSalesMedian = this.Psales.length % 2 == 0 ? 
-        (this.Psales.sort()[Math.ceil(this.Psales.length / 2)] + 
-        this.PEratio.sort()[this.Psales.length - 1]) / 2 : this.Psales.sort()[this.Psales.length - 1];
-
-        this.PBmedian = this.PBratio.length % 2 == 0 ? 
-        (this.PBratio.sort()[Math.ceil(this.PBratio.length / 2)] + 
-        this.PEratio.sort()[this.PBratio.length - 1]) / 2 : this.PBratio.sort()[this.PBratio.length - 1];
-
-        this.index--
         },
-       updateList (item) {
-          for(const compData in this.allMetrics){
-          if(item === this.allMetrics[compData].ticker) {
-            this.initialCompetitors.push(item)
-              this.initialCompetitors.push(this.allMetrics[compData].ticker);
-              this.competitorMetrics.push(this.allMetrics[compData])
 
-              // regular metrics
-              this.PEratio.push(Number(this.allMetrics[compData].pe_norm_anual))
-              this.EVebitda.push(Number(this.allMetrics[compData].ev_ebitda))
-              this.Psales.push(Number(this.allMetrics[compData].ps_annual))
-              this.PBratio.push(Number(this.allMetrics[compData].pb_annual))
-              this.EVtoEBIT.push(Number(this.allMetrics[compData].ev_ebit))
-              this.EVtoFCF.push(Number(this.allMetrics[compData].p_fcf_annual))
+        updateList (item) {
+            this.allData.forEach(e => {
+                if (item === e.title && this.initialCompetitors.includes(item) == false) {
+                    this.initialCompetitors.push(item)
+                    this.initialCompetitors.push(e.title)
+                    this.compsTable.push(e)
+                    if (e.netincome > 0) { this.PEratio.push((e.market_cap * 1000000) / e.netincome) };
+                    if (e.ebitda > 0) { this.EVebitda.push((e.market_cap + e.debt) / e.ebitda) };
+                    this.Psales.push((e.market_cap * 1000000) / e.revenue);
+                this.PBratio.push((e.market_cap * 1000000) / e.bookvalue);
+                    if (e.ebit > 0) { this.EVtoEBIT.push(((e.market_cap * 1000000) + e.debt) / e.ebit) };
+                    if (e.ocf > 0) { this.PtoOCF.push(((e.market_cap * 1000000) + e.debt) / e.ocf) };
+                }
+            });
 
-              // calculate Average for each column
-              this.PEavg = this.PEratio.reduce((a, b) => a + b) / this.PEratio.length
-              this.EVEBITDAavg = this.EVebitda.reduce((a, b) => a + b) / this.EVebitda.length
-              this.PsalesAvg = this.Psales.reduce((a, b) => a + b) / this.Psales.length
-              this.PBavg = this.PBratio.reduce((a, b) => a + b) / this.PBratio.length
-              this.EVtoEBITavg = this.EVtoEBIT.reduce((a, b) => a + b) / this.EVtoEBIT.length
-              this.EVtoEBITavg = this.EVtoEBIT.reduce((a, b) => a + b) / this.EVtoEBIT.length
-
-              // calulate median for each column
-              this.PEmedian = this.PEratio.length % 2 == 0 ? 
-              (this.PEratio.sort()[Math.ceil(this.PEratio.length / 2)] + 
-              this.PEratio.sort()[this.PEratio.length - 1]) / 2 : this.PEratio.sort()[this.PEratio.length - 1];
-
-              this.EVEBITDAmedian = this.EVebitda.length % 2 == 0 ? 
-              (this.EVebitda.sort()[Math.ceil(this.EVebitda.length / 2)] + 
-              this.EVebitda.sort()[this.EVebitda.length - 1]) / 2 : this.EVebitda.sort()[this.EVebitda.length - 1];
-
-              this.PSalesMedian = this.Psales.length % 2 == 0 ? 
-              (this.Psales.sort()[Math.ceil(this.Psales.length / 2)] + 
-              this.Psales.sort()[this.Psales.length - 1]) / 2 : this.Psales.sort()[this.Psales.length - 1];
-
-              this.PBmedian = this.PBratio.length % 2 == 0 ? 
-              (this.PBratio.sort()[Math.ceil(this.PBratio.length / 2)] + 
-              this.PBratio.sort()[this.PBratio.length - 1]) / 2 : this.PBratio.sort()[this.PBratio.length - 1];
-
-              this.EVtoEBITmedian = this.EVtoEBIT.length % 2 == 0 ? 
-              (this.EVtoEBIT.sort()[Math.ceil(this.EVtoEBIT.length / 2)] + 
-              this.EVtoEBIT.sort()[this.EVtoEBIT.length - 1]) / 2 : this.EVtoEBIT.sort()[this.EVtoEBIT.length - 1];
-
-              this.EVtoFCFmedian = this.EVtoFCF.length % 2 == 0 ? 
-              (this.EVtoFCF.sort()[Math.ceil(this.EVtoFCF.length / 2)] + 
-              this.EVtoFCF.sort()[this.EVtoFCF.length - 1]) / 2 : this.EVtoFCF.sort()[this.EVtoFCF.length - 1];
-
-              this.EVtoOCFmedian = this.EVtoOCF.length % 2 == 0 ? 
-              (this.EVtoOCF.sort()[Math.ceil(this.EVtoOCF.length / 2)] + 
-              this.EVtoOCF.sort()[this.EVtoOCF.length - 1]) / 2 : this.EVtoOCF.sort()[this.EVtoOCF.length - 1];
-            }
-          }
-      },
-        },
+            this.calcmetrics()
+        }
+    },
 
     mounted() {
-        this.getcompanyComps();
-        this.getallComps();
-
+        this.getComps();
     }
-
 }
 </script>
 
+<style scoped>
+.table-head {
+    font-weight: bold;
+    color: #fff;
+    font-size: 10%;
+}
+</style>

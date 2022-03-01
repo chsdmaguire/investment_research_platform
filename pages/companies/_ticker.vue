@@ -1,17 +1,19 @@
 <template>
 <v-container fluid>
     <v-row align="center" justify="center">
-        <v-col sm="3">
-            <h2 class="text-left">
+        <!-- <v-col sm="3"> -->
+            <h2 class="text-left my-4">
               {{ head.ticker }}  
             </h2>
-            
-        </v-col>   
-        <v-col sm="3">
+            <v-divider vertical class="mx-3" inset>
+
+            </v-divider>
+        <!-- </v-col>   
+        <v-col sm="3"> -->
             <h2 class="text-right">
             {{ head.name }}
             </h2>
-        </v-col>
+        <!-- </v-col> -->
     </v-row>
     
     <v-container>
@@ -23,12 +25,12 @@
             <v-tab>Analyst Recs</v-tab>
             <v-tab-item><AdvancedChart /></v-tab-item>
             <v-tab-item>
-                <v-row>
+                <v-row justify="center" align="center">
                     <v-col cols="12">
                      <Financials />   
                     </v-col>
                 </v-row>
-                <v-row>
+                <v-row justify="center" align="center">
                     <v-col cols="12">
                      <EarningsSurprise />   
                     </v-col>

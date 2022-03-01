@@ -1,5 +1,5 @@
 <template>
-<v-container fluid>
+<v-container>
     <template v-if="loading">
         <v-skeleton-loader dark type="date-picker">
         </v-skeleton-loader>         

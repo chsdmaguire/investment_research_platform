@@ -32,7 +32,7 @@ router.get('/insider/transactions/:ticker', controller.insideTransactions)
 router.get('/earnings/surpises/:ticker', controller.earningsSurprise)
 
 // STOCK CANDELSTICK CHART 
-router.get('/stock/candlestick/chart/:ticker/:date', controller.stockCandleStick)
+router.get('/stock/candlestick/chart/:ticker/:date/:freq', controller.stockCandleStick)
 
 // STOCK BASIC INFO
 router.get('/stock/basic/info/:ticker', controller.basicInfo)
@@ -68,5 +68,7 @@ router.get('/similar/companies/:ticker', controller.similarCompanies)
 
 // PATENTS
 router.get('/stocks/patents/:ticker', controller.patents)
+
+router.get('/stocks/comps', controller.comp)
 
 module.exports = router;

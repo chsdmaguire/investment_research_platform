@@ -16,12 +16,11 @@
     :headers="fields"
     :items="cryptoData"
     dense
+    :items-per-page="100"
+    hide-default-footer
     class="elevation-1"
     :search="search"
     >
-    <template v-slot:[`item.price`]="{ item }">
-        <span>{{ item.price.toFixed(2)  }}</span>
-    </template>
 
     <template v-slot:[`item.percent_change_24h`]="{ item }">
         <span v-if="item.percent_change_24h > 0" style="color: green;">{{ item.percent_change_24h.toFixed(2) }}%</span>
@@ -50,6 +49,10 @@
 
     <template v-slot:[`item.volume_24h`]="{ item }">
         <span>{{ abbreviate(item.volume_24h) }}</span>
+    </template>
+
+    <template v-slot:[`item.price`]="{ item }">
+        <span>{{ priceChange(item.price) }}</span>
     </template>
 
      <template v-slot:[`item.market_cap`]="{ item }">
@@ -100,19 +103,19 @@ export default {
         fields: [
             {text: 'Symbol', value: 'symbol'},
             {text: 'Name', value: 'name'},
-            {text: 'Date Added', value: 'date_added'},
+            {text: 'Date Added', value: 'date_added', width: '10%'},
             {text: 'Price', value: 'price'},
-            {text: ' Rank', value: 'cmc_rank'},
+            {text: ' CoinMarketCap Rank', value: 'cmc_rank'},
             {text: '24H Volume', value: 'volume_24h'},
-            {text: 'Max Supply', value: 'max_supply'},
-            {text: 'Circulating Supply', value: 'circulating_supply'},
+            // {text: 'Max Supply', value: 'max_supply'},
+            {text: 'Supply', value: 'circulating_supply'},
             {text: '24H Price Change', value: 'percent_change_24h'},
             {text: '7D Price Change', value: 'percent_change_7d'},
             {text: '30 Day Price Change', value: 'percent_change_30d'},
-            {text: '60 Day Price Change', value: 'percent_change_60d'},
-            {text: '90 Day Price Change', value: 'percent_change_90d'},
+            // {text: '60 Day Price Change', value: 'percent_change_60d'},
+            // {text: '90 Day Price Change', value: 'percent_change_90d'},
             {text: 'Market Cap', value: 'market_cap'},
-            {text: 'Market Cap Dominance', value: 'mark_cap_dominance'},
+            // {text: 'Market Cap Dominance', value: 'mark_cap_dominance'},
         ],
       
     };
@@ -127,6 +130,10 @@ export default {
     },
     percentify(num) {
       return numeral(num).format('0.00%');
+    },
+
+    priceChange(num) {
+      return numeral(num).format('0,0.00')
     }
   },
 

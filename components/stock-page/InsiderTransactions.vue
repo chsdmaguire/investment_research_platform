@@ -2,7 +2,7 @@
   <!-- <v-app> -->
     <v-container>
       <v-layout row wrap justify-space-between>
-        <v-flex lg7 class="my-6">
+        <v-flex class="my-6">
           <v-card>
               <v-row>
                 <v-col cols="7">
@@ -45,16 +45,20 @@
                         <v-divider></v-divider>
 
                         <v-card-actions>
-                            <v-row>
-                              <p>For more detail, click <a href="https://www.sec.gov/about/forms/form4data.pdf" target="_blank">here</a> </p>
-                              <v-spacer></v-spacer>
-                              <v-btn
+                            <v-row align="center">
+                              <v-col cols="9">
+                                <v-card-text>For more detail, click <a href="https://www.sec.gov/about/forms/form4data.pdf" target="_blank">here</a> </v-card-text>
+                              </v-col>
+                          <v-col cols="3">
+                            <v-btn
                                 color="primary"
                                 text
                                 @click="dialog = false"
                               >
                                 Close
-                              </v-btn>                
+                              </v-btn> 
+                          </v-col>
+                                             
                             </v-row>
 
                         </v-card-actions>
@@ -87,9 +91,6 @@
                 <template v-slot:[`item.transaction_price`]= "{ item }">
                     {{ sharePrice(item.transaction_price) }}
                 </template> 
-                <template v-slot:[`item.share`]= "{ item }">
-                      {{ item.share.toLocaleString() }}
-                </template> 
                 <template v-slot:[`item.change`]= "{ item }">
                     <span v-if="item.change > 0" style="color: green;"> {{ numberShares(item.change) }}</span>
                     <span v-else style="color: red;"> {{ numberShares(item.change) }}</span>
@@ -97,8 +98,11 @@
 
                 <template v-slot:[`item.total_value`]= "{ item }">
                     <span v-if="item.total_value > 0" style="color: green;">{{ abbreviate(item.transaction_price * item.change) }} </span>
-                    <span v-else style="color: red;">{{ abbreviate(item.transaction_price * item.change) }}</span>
-                      
+                    <span v-else style="color: red;">{{ abbreviate(item.transaction_price * item.change) }}</span>                      
+                </template> 
+
+                <template v-slot:[`item.share`]= "{ item }">
+                    <span >{{ numberShares(item.share) }} </span>             
                 </template>        
 
                 <template v-slot:[`item.percent_value`]= "{ item }">
@@ -108,9 +112,9 @@
             </v-data-table>
           </v-card>
         </v-flex>
-        <v-flex lg5 class="my-6">
+        <!-- <v-flex lg5 class="my-6">
           <InsideTransBase :chart-data="chartData" :options="chartOptions" />
-        </v-flex>
+        </v-flex> -->
       </v-layout>
     </v-container>
   <!-- </v-app> -->
@@ -149,15 +153,15 @@ export default {
             align: 'start',
             sortable: false,
             value: 'name',
-            width: '100%',
+            
           },
-          { text: 'Date', value: 'transaction_date', width: '130%' },
+          { text: 'Date', value: 'transaction_date'},
           { text: 'Code', value: 'transaction_code' },
           { text: 'Avg Price', value: 'transaction_price' },
           { text: 'Number of Shares', value: 'change' },
-         { text: 'Number Shares Held After', value: 'share' },
+         { text: 'Shares Held After', value: 'share' },
          { text: 'Transaction Value', value: 'total_value' },
-         { text: 'Transaction Percent of Total Ownership', value: 'percent_value' },
+         { text: '% of Total Ownership', value: 'percent_value' },
          
         ],
         chartData: null,
@@ -171,7 +175,7 @@ export default {
       return numeral(num).format('(0.00 a)');
     },
     percentify(num) {
-      return numeral(num).format('0.00%');
+      return numeral(num).format('0.0%');
     },
     sharePrice(num) {
       return numeral(num).format('(0.00 a)');
@@ -190,7 +194,16 @@ export default {
             if (this.totalTransactions.length > 0) {
             this.totalTransactions.forEach(transaction => {
               const date = transaction.filing_date.split('T')[0];
-              const transactAmount = Number(transaction.change) * Number(transaction.transaction_price)
+              const transactAmount = Number(transaction.change) * Number(transaction.transaction_price);
+
+              if(transaction.transaction_price == 0 && transaction.change > 0) {
+                this.totalTransactions.forEach(item => {
+                  if (item.filing_date == transaction.filing_date && item.transaction_price > 0) {
+                    transaction.transaction_price = item.transaction_price
+                  }
+                })
+              }
+
               if(this.xAxis.includes(date)) {
                 const dateIndex = this.xAxis.indexOf(date)
                 const newValue = transactAmount + this.yAxis[dateIndex]

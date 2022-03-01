@@ -7,7 +7,7 @@
       <v-data-table
         :headers="headers"
         :items="items"
-        calculate-widths
+        hide-default-header
         class="elevation-1">
         <template v-slot:[`item.patent_number`]="{ item }">
             <a target="_blank" :href="item.url">

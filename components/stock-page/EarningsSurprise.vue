@@ -1,17 +1,13 @@
 <template>
 <v-container>
-    <v-layout row wrap justify-center>
-        <v-flex lg12>
-            <h3>Actual EPS vs Concensus Analyst Expectations</h3>
-        </v-flex>
-    </v-layout>
-     <v-layout row wrap justify-center>
-        <v-flex lg12>   
-            <div class="combo-chart">
+    <v-row justify="center" align="center">
+         <h3>Actual EPS vs Concensus Analyst Expectations</h3>
+    </v-row>
+    <v-row justify="center" align="center">
+        <div class="combo-chart">
             <MixedChartBase :chart-data="letTry" :options="options"/>
-            </div> 
-        </v-flex>
-     </v-layout>
+        </div>
+    </v-row>
 </v-container>
 </template>
 

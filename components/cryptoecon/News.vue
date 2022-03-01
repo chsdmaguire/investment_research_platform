@@ -1,19 +1,11 @@
 <template>
-<v-container fluid>
+<v-container>
     <template v-if="loading">
         <v-skeleton-loader dark type="date-picker">
         </v-skeleton-loader>
       </template>
       <template v-else>
-        <v-row align="center" justify="center">
-            <v-btn-toggle mandatory group v-model="newsCat" v-on:change="changeNews">
-                <v-btn >Top News</v-btn>
-                <v-btn>Business</v-btn>
-                <v-btn>Mergers</v-btn>
-                <v-btn>Crypto</v-btn>
-            </v-btn-toggle>
-        </v-row>
-        <v-row v-for="(slide, i) in topNewsSlides" :key="i" class="py-2" align="center" justify="center">
+          <v-row v-for="(slide, i) in topNewsSlides" :key="i" class="py-2" align="center" justify="center">
             <v-card height="100%" width="100%" :href="slide.url" target="_blank">
                 <v-row justify="center" align="center">
                     <v-col cols="12" md="8" sm="7" xs="12">
@@ -46,80 +38,38 @@
             </v-card>
         </v-row>
       </template>
-
 </v-container>
 </template>
 
 <script>
-  export default {
-      data () {
-          return {
-              newsCat: null,
+export default {
+    data() {
+        return {
+            newsCat: null,
               topNewsSlides: [],
               loading: true,
-          }
-      },
-      computed: {
+        }
+    },
+    computed: {
         imageSize() {
             switch(this.$vuetify.breakpoint.name) {
                 case 'xs': return 500;
             }
         }
         },
-
-          methods: {
+        methods: {
             async getTopNews() {
-                this.topNewsSlides = await this.$axios.$get('/news/top/top news');
+                this.topNewsSlides = await this.$axios.$get('/news/top/crypto');
                 this.loading = false;
                 },
-
-            changeNews() {
-                switch(this.newsCat) {
-                    case 0:
-                        this.loading = true;
-                        this.topNewsSlides.length = 0;
-                        this.$axios.$get('/news/top/top news').then(res => {
-                            this,this.topNewsSlides = res
-                        });
-                        this.loading = false;
-                        break;
-                    case 1:
-                        this.loading = true;
-                        this.topNewsSlides.length = 0;
-                        this.$axios.$get('/news/top/business').then(res => {
-                            this,this.topNewsSlides = res
-                        });
-                        this.loading = false;
-                        break;
-                    case 2:
-                        this.loading = true;
-                        this.topNewsSlides.length = 0;
-                         this.$axios.$get('/news/top/merger').then(res => {
-                            this,this.topNewsSlides = res
-                        });
-                        this.loading = false;
-                        break;
-                    case 3:
-                        this.loading = true;
-                        this.topNewsSlides.length = 0;
-                        this.$axios.$get('/news/top/crypto').then(res => {
-                            this.topNewsSlides = res
-                        });
-                        this.loading = false;
-                        break;
-                }
-            }
-    },
-
-    mounted() {
+        },
+        mounted() {
         this.getTopNews();
     }
-
-  }
+}
 </script>
 
 <style scoped>
-
  @media screen and (max-width: 600px) {
     .majorHeadline {
         font-size: 12px;

@@ -81,7 +81,7 @@
                   </v-btn-toggle>
               </v-col>
               <v-spacer> </v-spacer>
-                  <v-btn-toggle mandatory v-model="scaler" dense v-on:change="changeScale">
+                  <v-btn-toggle mandatory v-model="scaler" dense v-on:change="changeScale" class="pr-3">
                     <v-btn >Auto Scale</v-btn>
                     <v-btn>Log Scale</v-btn>
                     <v-btn>% Scale</v-btn>
@@ -126,7 +126,7 @@ export default {
             this.candlesX.length = 0;
             this.candlesY.length = 0;
             const startDate = new Date();
-            startDate.setDate(startDate.getDate())
+            startDate.setDate(startDate.getDate());
             switch(this.timeFrame) {
                 case 0:
                     startDate.setDate(startDate.getDate() - 7);
@@ -151,9 +151,11 @@ export default {
                     break
             }
             
+        
+            const freq = 'D';
             const ticker = this.$route.params.ticker.toUpperCase();
             const date = startDate.toLocaleDateString().toString().replaceAll('/', '-');
-            const res = await this.$axios.get(`/stock/candlestick/chart/${ticker}/${date}`);
+            const res = await this.$axios.get(`/stock/candlestick/chart/${ticker}/${date}/${freq}`);
                 if(res.data.length > 0) {
                     const arr = res.data.sort((a, b) => (a.time > b.time) ? 1: -1)
                     arr.forEach(bar => {

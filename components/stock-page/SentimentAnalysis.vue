@@ -1,18 +1,27 @@
 <template>
 <v-container>
-  <v-layout row wrap justify-center>
-    <v-flex lg6 class="my-6">
-        <div>
+  <v-row justify="center" align="center">
+    <v-col lg="6" class="my-6">
+      <v-row justify="center" align="center">
+        <h3>Twitter Sentiment</h3>
+      </v-row>
+      <v-row justify="center" align="center" no-gutters>
+         <div>
           <SentiChartBase :chart-data="twitterData" :options="twitterOptions" />
         </div>
-    </v-flex>
-    <v-flex lg6 class="my-6">
-        <div>
-          <RedditChartBase :chart-data="redditData" :options="redditOptions" />
+      </v-row>
+    </v-col>
+    <v-col lg="6" class="my-6">
+      <v-row justify="center" align="center">
+        <h3>Reddit Sentiment</h3>
+      </v-row>
+      <v-row justify="center" align="center" no-gutters>
+         <div>
+           <RedditChartBase :chart-data="redditData" :options="redditOptions" />
         </div>
-    </v-flex>
-
-  </v-layout>
+      </v-row>
+    </v-col>
+  </v-row>
 </v-container>
 
 </template>
@@ -132,10 +141,10 @@ export default {
             legend: {
                 display: true
               },
-              title: {
-                display: true,
-                text: 'Twitter Sentimnent Analysis'
-              },
+              // title: {
+              //   display: true,
+              //   text: 'Twitter Sentimnent Analysis'
+              // },
               responsive: true,
               maintainAspectRatio: false,
               height: 800,
@@ -213,10 +222,10 @@ export default {
             legend: {
                 display: true
               },
-              title: {
-                display: true,
-                text: 'Reddit Sentimnent Analysis'
-              },
+              // title: {
+              //   display: true,
+              //   text: 'Reddit Sentimnent Analysis'
+              // },
               responsive: true,
               maintainAspectRatio: false,
               height: 800,

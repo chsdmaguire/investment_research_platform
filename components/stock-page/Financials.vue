@@ -528,7 +528,7 @@ export default {
 
     methods: {
     abbreviate(num) {
-      return numeral(num).format('(0.00a)');
+      return numeral(num).format('(0.0a)');
     },
 
         async initialData() {

@@ -121,7 +121,7 @@ export default {
       this.mostRecent = await this.$axios.get(`/analyst/recs/mostrecent/${ticker}`);
       const pie_labels = [];
       const pie_values = [];
-      for(const [key, value] of Object.entries(this.mostRecent[0])) {
+      for(const [key, value] of Object.entries(this.mostRecent.data[0])) {
         if(key !== 'ticker' && key !== 'period') {
         pie_labels.push(key)
         pie_values.push(value)          

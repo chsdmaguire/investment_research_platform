@@ -1,7 +1,7 @@
 <template>    
 <div data-app>
   <h1 class="title">Macroeconomic Data Plotting</h1>
-  <v-card class="d-flex align-content-start flex-wrap flex-column">
+  <v-card class="d-flex align-content-start flex-wrap flex-column mb-4">
       <v-select
         :items="economy"
         v-on:change="replaceChart"
@@ -18,7 +18,7 @@
         :v-model="selectedMetric"
         v-on:change="replaceChart" />        
       </div>
-      <v-card class="mx-auto my-12" >
+      <v-card class="mx-auto my-12" flat>
         <v-row no-gutters style="margin-bottom:2%;height:5vh">
          <v-card-title> <b>Title:</b>  {{ title }}</v-card-title> 
         </v-row>

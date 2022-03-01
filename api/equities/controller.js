@@ -94,7 +94,8 @@ const earningsSurprise = async (req, res) => {
 const stockCandleStick = async (req, res) => {
     ticker = req.params.ticker;
     date = req.params.date;
-    pool.query(queries.stockCandleStick, [ticker, date],  (error, results) => {
+    freq = req.params.freq;
+    pool.query(queries.stockCandleStick, [ticker, date, freq],  (error, results) => {
         if(error) throw error;
         return res.status(200).json(results.rows);
         })
@@ -268,6 +269,15 @@ const patents = async(req, res) => {
 });
 }
 
+const comp = async(req, res) => {
+    pool.query(queries.comp, (error, results) => {
+        if (error) {
+            console.log(error)
+        };
+        res.status(200).json(results.rows);
+});
+}
+
 module.exports = {
     basicSearch,
     topNews,
@@ -296,5 +306,6 @@ module.exports = {
     topTrending,
     similarCompanies,
     bigMovers,
-    patents
+    patents,
+    comp
 }

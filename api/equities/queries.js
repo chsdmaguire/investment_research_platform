@@ -27,7 +27,10 @@ const insideTransactions = 'select distinct * from equities.inside_transactions 
 const earningsSurprise = 'select DISTINCT * from equities.earnings_estimate where ticker = $1 ORDER BY period desc limit 40';
 
 // STOCK CANDLESTICK CHART API
-const stockCandleStick = 'select distinct * from equities.candlestick_data where ticker = $1 and date in (select date from (select ticker, date, count(*) from equities.candlestick_data where ticker = $1 and date > $2 group by ticker, date having count(*) = 1) as foo) ORDER BY date desc limit 1200';
+// const stockCandleStick = 'select distinct * from equities.candlestick_data where ticker = $1 ' + 
+// 'and date in (select date from (select ticker, date, count(*) from equities.candlestick_data where ticker = $1 ' +
+// 'and date > $2 group by ticker, date having count(*) = 1) as foo) ORDER BY date desc limit 1200';
+const stockCandleStick = "select distinct date, open from equities.candlestick_data where ticker = $1 and date > $2 and frequency = $3 order by date desc limit 1200";
 
 // STOCK BASIC INFO API
 const basicInfo = 'select * from equities.basic_info where ticker = $1';
@@ -77,6 +80,26 @@ const similarCompanies = "with similar_companies as (select * from equities.peer
 // PATENTS
 const patents = "select distinct * from equities.patents where ticker = $1"
 
+const comp = "with fin as (select distinct ticker, fsli, date, value from equities.normalized_financials where " +
+"(fsli = 'totalRevenue' or fsli = 'ebit' or fsli = 'ebitda' or fsli = 'netIncome' " +
+"or fsli = 'totalShareholderEquity' or fsli = 'operatingCashflow' " +
+"or fsli = 'shortLongTermDebtTotal') and fp = 'annual' and value is not null " +
+"group by ticker, fsli, date, value order by date desc, ticker asc, fsli desc limit 50000), " +
+"price as (select distinct ticker, open, date from equities.candlestick_data " +
+"group by ticker, open, date order by date desc, ticker asc limit 60000), " +
+"name as (select distinct ticker, name, market_cap from equities.basic_info order by ticker asc)  " +
+'select fin.ticker, name.name, max(price.open) as "price",' +
+`max(fin.value) filter (where fin.fsli = 'totalRevenue') as "revenue", ` +
+`max(fin.value) filter (where fin.fsli = 'ebit') as "ebit", ` +
+`max(fin.value) filter (where fin.fsli = 'ebitda') as "ebitda", ` +
+`max(fin.value) filter (where fin.fsli = 'netIncome') as "netincome", ` +
+`max(fin.value) filter (where fin.fsli = 'totalShareholderEquity') as "bookvalue", ` +
+`max(fin.value) filter (where fin.fsli = 'shortLongTermDebtTotal') as "debt", ` +
+`max(fin.value) filter (where fin.fsli = 'operatingCashflow') as "ocf", `  +
+'max(name.market_cap) as "market_cap" ' + 
+"from fin, name, price where fin.ticker = name.ticker  and fin.ticker = price.ticker " +
+ "group by fin.ticker, name.name order by fin.ticker asc"
+
 module.exports = {
     topNews,
     getIpos,
@@ -105,5 +128,6 @@ module.exports = {
     topTrending,
     similarCompanies,
     bigMovers,
-    patents
+    patents,
+    comp
 }
