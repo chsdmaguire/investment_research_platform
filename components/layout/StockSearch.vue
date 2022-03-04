@@ -17,6 +17,7 @@
       solo
     >
       <template v-slot:item="{ item }">
+        <v-list-item>
         <v-list-item-avatar
           color="indigo"
           class="white--text text-uppercase"
@@ -30,6 +31,8 @@
         <v-list-item-action>
           <v-icon>mdi-finance</v-icon>
         </v-list-item-action>
+        </v-list-item>  
+        <v-divider></v-divider>
       </template>
     </v-autocomplete>
 

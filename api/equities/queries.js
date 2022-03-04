@@ -128,6 +128,10 @@ const comp = "with fin as (select distinct ticker, fsli, date, value from equiti
 `(where fsli = 'cashAndCashEquivalentsAtCarryingValue'))) / (max(fin.value) filter (where fsli = 'ebitda'))) as "ev_ebitda", ` +
  ` max(tyield.value) as "tyield" from price, tyield, cap, fin`
  
+const newSearch = "with name as (select distinct ticker, name, sector from equities.basic_info " +
+"  group by ticker, name, sector order by ticker asc) select " +
+`name.ticker as "ticker",  concat(name.name, ' ', '(', name.ticker, ')') as "name", name.sector as "industry" from name`
+
 module.exports = {
     topNews,
     getIpos,
@@ -160,5 +164,6 @@ module.exports = {
     comp,
     dcf,
     betaCalc,
-    otherDcfAss
+    otherDcfAss,
+    newSearch
 }

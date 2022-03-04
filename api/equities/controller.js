@@ -5,7 +5,7 @@ const queries = require("./queries");
 
 // search query
 const basicSearch = async(req, res) => {
-    pool.query(queries.basicSearch, (error, results) => {
+    pool.query(queries.newSearch, (error, results) => {
         if (error) throw error;
         res.status(200).json(results.rows);
 });
