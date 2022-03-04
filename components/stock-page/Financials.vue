@@ -1,10 +1,10 @@
 <template>
-<v-container> 
-    <v-card class="mx-auto justify-center" flat >
+<v-container fluid> 
+    <v-card class="mx-auto justify-center" flat dark color="rgba(255, 0, 0, 0.0)">
         <template v-if="periodType == 'annual'">
             <v-row align="center" justify="center"> 
                 <v-container>      
-                <v-tabs>
+                <v-tabs background-color="rgba(255, 0, 0, 0.0)">
                     <v-tab>Income Statement</v-tab>
                     <v-tab>Balance Sheet</v-tab>
                     <v-tab>Cash Flow Statement</v-tab>
@@ -28,6 +28,7 @@
                     disable-pagination
                     disable-filtering
                     disable-sort
+                    color="rgba(255, 0, 0, 0.0)"
                     class="elevation-1">
                     </v-data-table>
                 </v-tab-item>
@@ -886,6 +887,8 @@ this.QuartRepayShortDebt, this.QuartRepurchEquityProceed, this.QuartSaleTreasury
 }
 </script>
 
-<style>
-
+<style scoped>
+* {
+    background-color: #121212;
+    }
 </style>

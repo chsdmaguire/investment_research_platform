@@ -278,6 +278,35 @@ const comp = async(req, res) => {
 });
 }
 
+const dcf = async(req, res) => {
+    ticker = req.params.ticker;
+    pool.query(queries.dcf, [ticker], (error, results) => {
+        if (error) throw error;
+        res.status(200).json(results.rows);
+});
+}
+
+const betaCalc = async(req, res) => {
+    ticker = req.params.ticker;
+    pool.query(queries.betaCalc, [ticker], (error, results) => {
+        if (error) throw error;
+        res.status(200).json(results.rows);
+});
+}
+
+const otherDcfAss = async(req, res) => {
+    ticker = req.params.ticker;
+    pool.query(queries.otherDcfAss, [ticker], (error, results) => {
+        if (error) {
+            console.log(error.message);
+            throw error;
+        } 
+        res.status(200).json(results.rows);
+});
+}
+
+
+
 module.exports = {
     basicSearch,
     topNews,
@@ -307,5 +336,8 @@ module.exports = {
     similarCompanies,
     bigMovers,
     patents,
-    comp
+    comp,
+    dcf,
+    betaCalc,
+    otherDcfAss
 }

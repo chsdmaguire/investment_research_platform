@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <v-container class="mt-4">
     <v-row justify="center" align="center">
        <h3>Analyst Recommendations</h3>
     </v-row>
@@ -169,5 +169,7 @@ export default {
 </script>
 
 <style scoped>
-
+* {
+    background-color: #121212;
+    }
 </style>

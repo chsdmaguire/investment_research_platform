@@ -70,5 +70,9 @@ router.get('/similar/companies/:ticker', controller.similarCompanies)
 router.get('/stocks/patents/:ticker', controller.patents)
 
 router.get('/stocks/comps', controller.comp)
+router.get('/stocks/dcf/:ticker', controller.dcf)
+
+router.get('/stocks/betacalc/:ticker', controller.betaCalc)
+router.get('/stocks/otherdcfassump/:ticker', controller.otherDcfAss)
 
 module.exports = router;

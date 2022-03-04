@@ -161,5 +161,7 @@ export default {
     max-height: 500px;
     width: 80%;
 }
-
+* {
+    background-color: #121212;
+    }
 </style>

@@ -63,7 +63,7 @@
                   </v-dialog>
               </v-col>
           </v-row> -->
-          <v-row align="center" justify="center">
+          <v-row align="center" justify="center">             
               <v-col cols="12">
                   <IndiceChartBase :chart-data="chartData" :chart-options="chartOptions"  v-on:change="render()" id="indice-chart"/>
               </v-col>
@@ -85,7 +85,8 @@
                     <v-btn >Auto Scale</v-btn>
                     <v-btn>Log Scale</v-btn>
                     <v-btn>% Scale</v-btn>
-                  </v-btn-toggle>            
+                  </v-btn-toggle>  
+            
           </v-row>
       </template>
   </v-container>
@@ -166,6 +167,7 @@ export default {
             
             this.chartData = {
                 labels: this.candlesX,
+                backgroundColor: "rgba(255, 0, 0, 0.0)",
                 datasets: [
                     {
                     type: 'line',
@@ -423,6 +425,8 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
+* {
+    background-color: #121212;
+    }
 </style>

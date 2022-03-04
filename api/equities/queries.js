@@ -75,7 +75,7 @@ const bigMovers = "with top as (select distinct ticker, open, close, date, volum
     "order by top.ticker asc, date asc"
 
 // SIMILAR COMPANIES
-const similarCompanies = "with similar_companies as (select * from equities.peers where ticker = $1)  select a.ticker, a.date, a.open, a.close, b.name from  equities.candlestick_data a, equities.basic_info b  where a.ticker in (select peers from similar_companies) and a.ticker = b.ticker group by a.ticker, b.ticker, b.name, date, open, close order by date desc limit 6"
+const similarCompanies = "with similar_companies as (select distinct * from equities.peers where ticker = $1)  select a.ticker, a.date, a.open, a.close, b.name from  equities.candlestick_data a, equities.basic_info b  where a.ticker in (select peers from similar_companies) and a.ticker = b.ticker group by a.ticker, b.ticker, b.name, date, open, close order by date desc limit 6"
 
 // PATENTS
 const patents = "select distinct * from equities.patents where ticker = $1"
@@ -100,6 +100,34 @@ const comp = "with fin as (select distinct ticker, fsli, date, value from equiti
 "from fin, name, price where fin.ticker = name.ticker  and fin.ticker = price.ticker " +
  "group by fin.ticker, name.name order by fin.ticker asc"
 
+ const dcf = "select distinct date, fsli, value from equities.normalized_financials where ticker = $1 and " +
+ "fp = 'annual' and (fsli = 'totalRevenue' or fsli = 'costofGoodsAndServicesSold' or fsli = 'researchAndDevelopment' " +
+ "or fsli = 'sellingGeneralAndAdministrative' or fsli = 'depreciationAndAmortization' or fsli = 'incomeBeforeTax' or " + 
+ "fsli = 'incomeTaxExpense' or fsli = 'changeInOperatingAssets' or fsli = 'changeInOperatingLiabilities' " +
+ "or fsli = 'capitalExpenditures' or fsli = 'dividendPayoutCommonStock') order by date desc"
+
+ const betaCalc = "with stock as (select distinct ticker, date, close from equities.candlestick_data where " +
+ "ticker = $1 and frequency = 'D' group by ticker, date, close order by date desc limit 300), " +
+ "spy as (select distinct * from econ.indice_data where series_id = 'SP500'  " +
+ "group by series_id, time, value order by time desc limit 300) " +
+ 'select stock.date as "date", stock.close as "stock", spy.value as "spy" ' +
+ "from stock, spy where stock.date = spy.time"
+
+ const otherDcfAss = "with price as (select distinct date, close from equities.candlestick_data where ticker = $1 " + 
+ "order by date desc limit 1), tyield as (select distinct date, value from econ.timeseries_data  where series_id = 'DGS30' " +
+ "order by date desc limit 1), " +
+ "cap as (select distinct market_cap from equities.basic_info where ticker = $1), " +
+ "fin as (select distinct * from equities.normalized_financials where ticker = $1 and " +
+ "fp = 'annual' and (fsli = 'totalShareholderEquity' or fsli = 'ebitda' or fsli = 'shortLongTermDebtTotal' " + 
+ "or fsli = 'cashAndCashEquivalentsAtCarryingValue'  or fsli = 'interestExpense') order by date desc, fsli desc limit 7) " +
+ 'select max(price.close) as "price", ROUND((max(cap.market_cap) * 1000000) / max(price.close)) as "shares_outs", ' +
+ `(max(fin.value) filter( where fsli = 'interestExpense') / (max(fin.value) filter( where fsli = 'shortLongTermDebtTotal'))) as "debt_cost", ` +
+ `max(fin.value) filter( where fsli = 'shortLongTermDebtTotal') as "total_debt", ` +
+ `max(fin.value) filter( where fsli = 'cashAndCashEquivalentsAtCarryingValue') as "total_cash", ` +
+`(((max(fin.value) filter (where fsli = 'shortLongTermDebtTotal')) + (max(cap.market_cap) * 1000000) - (max(fin.value) filter ` + 
+`(where fsli = 'cashAndCashEquivalentsAtCarryingValue'))) / (max(fin.value) filter (where fsli = 'ebitda'))) as "ev_ebitda", ` +
+ ` max(tyield.value) as "tyield" from price, tyield, cap, fin`
+ 
 module.exports = {
     topNews,
     getIpos,
@@ -129,5 +157,8 @@ module.exports = {
     similarCompanies,
     bigMovers,
     patents,
-    comp
+    comp,
+    dcf,
+    betaCalc,
+    otherDcfAss
 }
