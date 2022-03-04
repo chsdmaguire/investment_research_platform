@@ -1,5 +1,6 @@
 <template>
-  <v-container fluid>     
+  <v-container fluid>
+      <div>     
               <v-row no-gutters justify="center">            
                   <h4>Discounted Cash Flow Valuation </h4>
               </v-row>
@@ -13,6 +14,7 @@
               <v-col cols="3">
                   <v-row  justify="center" align="center">
                       <v-col cols="12">
+                          <div class="assumptions">
                         <v-simple-table dense>
                             <thead>
                                 <tr>
@@ -27,7 +29,7 @@
                                     <td>
                                         <v-tooltip bottom color="light-blue darken-">
                                             <template v-slot:activator="{ on }">
-                                            <span v-on="on">
+                                            <span v-on="on" class="fsli-name">
                                                 Revenue Growth Rate
                                             </span>
                                         </template>
@@ -39,7 +41,7 @@
                                     </td>
                                     <td align="left">
                                         <div class="parent">
-                                            <div class='child float-left-child' style="padding-right:3px;">{{ formatPercent(this.RevRate) }} </div>
+                                            <div class='child float-left-child input' style="padding-right:3px;">{{ formatPercent(this.RevRate) }} </div>
                                             <div class='child float-left-child'>
                                                 <v-text-field
                                                     v-model="RevRate"
@@ -59,7 +61,7 @@
                                     <td>
                                         <v-tooltip bottom color="light-blue darken-">
                                             <template v-slot:activator="{ on }">
-                                            <span v-on="on">
+                                            <span v-on="on" class="fsli-name">
                                                Gross Margin
                                             </span>
                                         </template>
@@ -68,7 +70,7 @@
                                     </td>
                                     <td>
                                         <div class="parent">
-                                            <div class='child float-left-child' style="padding-right:3px;">{{ formatPercent(this.grossProfitRate) }} </div>
+                                            <div class='child float-left-child input' style="padding-right:3px;">{{ formatPercent(this.grossProfitRate) }} </div>
                                             <div class='child float-left-child'>
                                                 <v-text-field
                                                     v-model="grossProfitRate"
@@ -88,7 +90,7 @@
                                     <td>
                                         <v-tooltip bottom color="light-blue darken-">
                                             <template v-slot:activator="{ on }">
-                                            <span v-on="on">
+                                            <span v-on="on" class="fsli-name">
                                                 R&D Margin
                                             </span>
                                         </template>
@@ -97,7 +99,7 @@
                                     </td>
                                     <td>
                                         <div class="parent">
-                                            <div class='child float-left-child' style="padding-right:3px;">{{ formatPercent(this.RdRate) }} </div>
+                                            <div class='child float-left-child input' style="padding-right:3px;">{{ formatPercent(this.RdRate) }} </div>
                                             <div class='child float-left-child'>
                                                 <v-text-field
                                                     v-model="RdRate"
@@ -117,7 +119,7 @@
                                     <td>
                                         <v-tooltip bottom color="light-blue darken-">
                                             <template v-slot:activator="{ on }">
-                                            <span v-on="on">
+                                            <span v-on="on" class="fsli-name">
                                                 SG&A Margin
                                             </span>
                                         </template>
@@ -126,7 +128,7 @@
                                     </td>
                                     <td>
                                         <div class="parent">
-                                            <div class='child float-left-child' style="padding-right:3px;">{{ formatPercent(this.SgaRate) }} </div>
+                                            <div class='child float-left-child input' style="padding-right:3px;">{{ formatPercent(this.SgaRate) }} </div>
                                             <div class='child float-left-child'>
                                                 <v-text-field
                                                     v-model="SgaRate"
@@ -146,7 +148,7 @@
                                     <td>
                                         <v-tooltip bottom color="light-blue darken-">
                                             <template v-slot:activator="{ on }">
-                                            <span v-on="on">
+                                            <span v-on="on" class="fsli-name">
                                                 Tax Rate
                                             </span>
                                         </template>
@@ -155,7 +157,7 @@
                                     </td>
                                     <td>
                                         <div class="parent">
-                                            <div class='child float-left-child' style="padding-right:3px;">{{ formatPercent(this.TaxRate) }} </div>
+                                            <div class='child float-left-child input' style="padding-right:3px;">{{ formatPercent(this.TaxRate) }} </div>
                                             <div class='child float-left-child'>
                                                 <v-text-field
                                                     v-model="TaxRate"
@@ -175,7 +177,7 @@
                                     <td>
                                         <v-tooltip bottom color="light-blue darken-">
                                             <template v-slot:activator="{ on }">
-                                            <span v-on="on">
+                                            <span v-on="on" class="fsli-name">
                                                 D&A Margin
                                             </span>
                                         </template>
@@ -184,7 +186,7 @@
                                     </td>
                                     <td>
                                         <div class="parent">
-                                            <div class='child float-left-child' style="padding-right:3px;">{{ formatPercent(this.DeprRate) }} </div>
+                                            <div class='child float-left-child input' style="padding-right:3px;">{{ formatPercent(this.DeprRate) }} </div>
                                             <div class='child float-left-child'>
                                                 <v-text-field
                                                     v-model="DeprRate"
@@ -204,7 +206,7 @@
                                     <td>
                                         <v-tooltip bottom color="light-blue darken-">
                                             <template v-slot:activator="{ on }">
-                                            <span v-on="on">
+                                            <span v-on="on" class="fsli-name">
                                                Change in COA Margin
                                             </span>
                                         </template>
@@ -213,7 +215,7 @@
                                     </td>
                                     <td>
                                         <div class="parent">
-                                            <div class='child float-left-child' style="padding-right:3px;">{{ formatPercent(this.OpAssetRate) }} </div>
+                                            <div class='child float-left-child input' style="padding-right:3px;">{{ formatPercent(this.OpAssetRate) }} </div>
                                             <div class='child float-left-child'>
                                                 <v-text-field
                                                     v-model="OpAssetRate"
@@ -233,7 +235,7 @@
                                     <td>
                                         <v-tooltip bottom color="light-blue darken-">
                                             <template v-slot:activator="{ on }">
-                                            <span v-on="on">
+                                            <span v-on="on" class="fsli-name">
                                                 Change in COL Margin
                                             </span>
                                         </template>
@@ -242,7 +244,7 @@
                                     </td>
                                     <td>
                                         <div class="parent">
-                                            <div class='child float-left-child' style="padding-right:3px;">{{ formatPercent(this.OpLiabRate) }} </div>
+                                            <div class='child float-left-child input' style="padding-right:3px;">{{ formatPercent(this.OpLiabRate) }} </div>
                                             <div class='child float-left-child'>
                                                 <v-text-field
                                                     v-model="OpLiabRate"
@@ -262,7 +264,7 @@
                                     <td>
                                         <v-tooltip bottom color="light-blue darken-">
                                             <template v-slot:activator="{ on }">
-                                            <span v-on="on">
+                                            <span v-on="on" class="fsli-name">
                                                 Capex Margin
                                             </span>
                                         </template>
@@ -271,7 +273,7 @@
                                     </td>
                                     <td>
                                         <div class="parent">
-                                            <div class='child float-left-child' style="padding-right:3px;">{{ formatPercent(this.CapexRate) }} </div>
+                                            <div class='child float-left-child input' style="padding-right:3px;">{{ formatPercent(this.CapexRate) }} </div>
                                             <div class='child float-left-child'>
                                                 <v-text-field
                                                     v-model="CapexRate"
@@ -289,10 +291,12 @@
                                 </tr>
                             </tbody>
                         </v-simple-table>
+                          </div>
                       </v-col>
                   </v-row>
                   <v-row  justify="center" align="center">
                       <v-col cols="12">
+                          <div class="assumptions">
                         <v-simple-table dense>
                             <thead>
                                 <tr>
@@ -307,7 +311,7 @@
                                     <td>
                                         <v-tooltip bottom color="light-blue darken-">
                                             <template v-slot:activator="{ on }">
-                                            <span v-on="on">
+                                            <span v-on="on" class="fsli-name">
                                                 Price
                                             </span>
                                         </template>
@@ -316,7 +320,7 @@
                                     </td>
                                     <td>
                                         <div class="parent">
-                                            <div class='child float-left-child' style="padding-right:3px;">{{ formatVal(this.price) }} </div>
+                                            <div class='child float-left-child input' style="padding-right:3px;">{{ formatVal(this.price) }} </div>
                                             <div class='child float-left-child'>
                                                 <v-text-field
                                                     v-model="price"
@@ -336,7 +340,7 @@
                                     <td>
                                         <v-tooltip bottom color="light-blue darken-">
                                             <template v-slot:activator="{ on }">
-                                            <span v-on="on">
+                                            <span v-on="on" class="fsli-name">
                                                Shares Outstanding
                                             </span>
                                         </template>
@@ -345,7 +349,7 @@
                                     </td>
                                     <td>
                                         <div class="parent">
-                                            <div class='child float-left-child' style="padding-right:3px;">{{ formatNumber(this.sharesOuts) }} </div>
+                                            <div class='child float-left-child input' style="padding-right:3px;">{{ formatNumber(this.sharesOuts) }} </div>
                                             <div class='child float-left-child'>
                                                 <v-text-field
                                                     v-model="sharesOuts"
@@ -365,14 +369,14 @@
                                     <td>
                                         <v-tooltip bottom color="light-blue darken-">
                                             <template v-slot:activator="{ on }">
-                                            <span v-on="on">
+                                            <span v-on="on" class="fsli-name">
                                                Market Cap
                                             </span>
                                         </template>
                                        The total market value of a company's publicly traded shares.
                                         </v-tooltip>
                                     </td>
-                                    <td>
+                                    <td  class="output">
                                         {{formatNumber(this.price * this.sharesOuts) }}                                     
                                     </td>
                                 </tr>
@@ -380,7 +384,7 @@
                                     <td>
                                         <v-tooltip bottom color="light-blue darken-">
                                             <template v-slot:activator="{ on }">
-                                            <span v-on="on">
+                                            <span v-on="on" class="fsli-name">
                                                 Total Debt
                                             </span>
                                         </template>
@@ -389,7 +393,7 @@
                                     </td>
                                     <td>
                                         <div class="parent">
-                                            <div class='child float-left-child' style="padding-right:3px;">{{ formatNumber(this.totalDebt) }} </div>
+                                            <div class='child float-left-child input' style="padding-right:3px;">{{ formatNumber(this.totalDebt) }} </div>
                                             <div class='child float-left-child'>
                                                 <v-text-field
                                                     v-model="totalDebt"
@@ -409,7 +413,7 @@
                                     <td>
                                         <v-tooltip bottom color="light-blue darken-">
                                             <template v-slot:activator="{ on }">
-                                            <span v-on="on">
+                                            <span v-on="on" class="fsli-name">
                                                 Total Cash
                                             </span>
                                         </template>
@@ -418,7 +422,7 @@
                                     </td>
                                     <td>
                                         <div class="parent">
-                                            <div class='child float-left-child' style="padding-right:3px;">{{ formatNumber(this.totalCash) }} </div>
+                                            <div class='child float-left-child input' style="padding-right:3px;">{{ formatNumber(this.totalCash) }} </div>
                                             <div class='child float-left-child'>
                                                 <v-text-field
                                                     v-model="totalCash"
@@ -438,14 +442,14 @@
                                     <td>
                                         <v-tooltip bottom color="light-blue darken-">
                                             <template v-slot:activator="{ on }">
-                                            <span v-on="on">
+                                            <span v-on="on" class="fsli-name">
                                                 Net Debt
                                             </span>
                                         </template>
                                         The total value of a company's debt after subtracting the total value of its cash.
                                         </v-tooltip>
                                     </td>
-                                    <td>
+                                    <td class="output">
                                         {{ formatNumber(this.totalDebt - this.totalCash) }}
                                     </td>
                                 </tr>
@@ -453,14 +457,14 @@
                                     <td>
                                         <v-tooltip bottom color="light-blue darken-">
                                             <template v-slot:activator="{ on }">
-                                            <span v-on="on">
+                                            <span v-on="on" class="fsli-name">
                                                 Enterprise Value
                                             </span>
                                         </template>
                                         The total value of the company owned by shareholders and lenders. Calculated by adding the current market cap and net debt.
                                         </v-tooltip>
                                     </td>
-                                    <td>
+                                    <td class="output">
                                         {{ formatNumber((this.sharesOuts * this.price) + (this.totalDebt - this.totalCash)) }}
                                     </td>
                                 </tr>
@@ -468,14 +472,14 @@
                                     <td>
                                         <v-tooltip bottom color="light-blue darken-">
                                             <template v-slot:activator="{ on }">
-                                            <span v-on="on">
+                                            <span v-on="on" class="fsli-name">
                                                 % Equity
                                             </span>
                                         </template>
                                         The percentage of the company's enterprise value represented by shareholder ownership.
                                         </v-tooltip>
                                     </td>
-                                    <td>
+                                    <td class="output">
                                          {{ formatPercent( ((this.sharesOuts * this.price) / ((this.sharesOuts * this.price) + (this.totalDebt - this.totalCash))) * 100 ) }}
                                     </td>
                                 </tr>
@@ -483,24 +487,26 @@
                                     <td>
                                         <v-tooltip bottom color="light-blue darken-">
                                             <template v-slot:activator="{ on }">
-                                            <span v-on="on">
+                                            <span v-on="on" class="fsli-name">
                                                 % Debt
                                             </span>
                                         </template>
                                          The percentage of the company's enterprise value represented by creditor ownership.
                                         </v-tooltip>
                                     </td>
-                                    <td>
+                                    <td class="output">
                                          {{ formatPercent( ((this.totalDebt - this.totalCash) / ((this.sharesOuts * this.price) + (this.totalDebt - this.totalCash))) * 100 ) }}
                                     </td>
                                 </tr>
                             </tbody>
                         </v-simple-table>
+                          </div>    
                       </v-col>
                   </v-row>
                   <v-row  justify="center" align="center">
                       <v-col cols="12">
-                        <v-simple-table dense>
+                          <div>
+                        <v-simple-table dense class="assumptions">
                             <thead>
                                 <tr>
                                     <th>
@@ -514,7 +520,7 @@
                                     <td>
                                         <v-tooltip bottom color="light-blue darken-">
                                             <template v-slot:activator="{ on }">
-                                            <span v-on="on">
+                                            <span v-on="on" class="fsli-name">
                                                 Beta
                                             </span>
                                         </template>
@@ -523,7 +529,7 @@
                                     </td>
                                     <td>
                                         <div class="parent">
-                                            <div class='child float-left-child' style="padding-right:3px;">{{ formatVal(this.beta) }} </div>
+                                            <div class='child float-left-child input' style="padding-right:3px;">{{ formatVal(this.beta) }} </div>
                                             <div class='child float-left-child'>
                                                 <v-text-field
                                                     v-model="beta"
@@ -543,7 +549,7 @@
                                     <td>
                                         <v-tooltip bottom color="light-blue darken-">
                                             <template v-slot:activator="{ on }">
-                                            <span v-on="on">
+                                            <span v-on="on" class="fsli-name">
                                                 Risk Free Rate
                                             </span>
                                         </template>
@@ -552,7 +558,7 @@
                                     </td>
                                     <td>
                                         <div class="parent">
-                                            <div class='child float-left-child' style="padding-right:3px;">{{ formatPercent(this.riskFreeRate) }} </div>
+                                            <div class='child float-left-child input' style="padding-right:3px;">{{ formatPercent(this.riskFreeRate) }} </div>
                                             <div class='child float-left-child'>
                                                 <v-text-field
                                                     v-model="riskFreeRate"
@@ -572,7 +578,7 @@
                                     <td>
                                         <v-tooltip bottom color="light-blue darken-">
                                             <template v-slot:activator="{ on }">
-                                            <span v-on="on">
+                                            <span v-on="on" class="fsli-name">
                                                 Market Return
                                             </span>
                                         </template>
@@ -581,7 +587,7 @@
                                     </td>
                                     <td>
                                         <div class="parent">
-                                            <div class='child float-left-child' style="padding-right:3px;">{{ formatPercent(this.marketReturn) }} </div>
+                                            <div class='child float-left-child input' style="padding-right:3px;">{{ formatPercent(this.marketReturn) }} </div>
                                             <div class='child float-left-child'>
                                                 <v-text-field
                                                     v-model="marketReturn"
@@ -601,14 +607,14 @@
                                     <td>
                                         <v-tooltip bottom color="light-blue darken-">
                                             <template v-slot:activator="{ on }">
-                                            <span v-on="on">
+                                            <span v-on="on" class="fsli-name">
                                                 Cost of Equity
                                             </span>
                                         </template>
                                         The expected return for shareholders. It's calculated using the CAPM formula: risk-free rate + (market return - risk-free rate)*beta
                                         </v-tooltip>
                                     </td>
-                                    <td>
+                                    <td class="output">
                                         {{ formatPercent(this.riskFreeRate + ((this.marketReturn - this.riskFreeRate) * this.beta)) }}
                                     </td>
                                 </tr>
@@ -616,7 +622,7 @@
                                     <td>
                                         <v-tooltip bottom color="light-blue darken-">
                                             <template v-slot:activator="{ on }">
-                                            <span v-on="on">
+                                            <span v-on="on" class="fsli-name">
                                                 Cost of Debt
                                             </span>
                                         </template>
@@ -625,7 +631,7 @@
                                     </td>
                                     <td>
                                         <div class="parent">
-                                            <div class='child float-left-child' style="padding-right:3px;">{{ formatPercent(this.costDebt) }} </div>
+                                            <div class='child float-left-child input' style="padding-right:3px;">{{ formatPercent(this.costDebt) }} </div>
                                             <div class='child float-left-child'>
                                                 <v-text-field
                                                     v-model="costDebt"
@@ -645,14 +651,14 @@
                                     <td>
                                         <v-tooltip bottom color="light-blue darken-">
                                             <template v-slot:activator="{ on }">
-                                            <span v-on="on">
+                                            <span v-on="on" class="fsli-name">
                                                 WACC
                                             </span>
                                         </template>
                                         Weight Average Cost of Capital. The weighted average return the company expects based on its cost of equity and cost of debt.                               
                                         </v-tooltip>
                                     </td>
-                                    <td>
+                                    <td class="output">
                                         {{ formatPercent((((this.sharesOuts * this.price) / ((this.sharesOuts * this.price) + (this.totalDebt - this.totalCash)) ) * 
                                         (this.riskFreeRate + ((this.marketReturn - this.riskFreeRate) * this.beta))) + (
                                             this.costDebt * (1 - this.TaxRate) * ( (this.totalDebt - this.totalCash) / ((this.sharesOuts * this.price) + (this.totalDebt - this.totalCash)) )))
@@ -662,13 +668,15 @@
                                 </tr>
                             </tbody>
                         </v-simple-table>
+                          </div>
                       </v-col>
                   </v-row>
               </v-col>
               <v-col cols="8">
                 <v-row justify="center" align="center">
                     <v-col cols="12">
-                    <v-simple-table dense>
+                        <div class="dcf">
+                    <v-simple-table dense class="dcf-table">
                             <thead>
                             <tr>
                                 <th>Line Items</th>
@@ -681,14 +689,14 @@
                             </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                <td>
+                                <tr >
+                                <td class="zebra">
                                     <v-tooltip
                                         bottom
                                         color="light-blue darken-4"
                                     >
                                     <template v-slot:activator="{ on }">
-                                    <span v-on="on">
+                                    <span v-on="on" class="zebra fsli-name">
                                         Revenue
                                     </span>
                                     </template>
@@ -697,12 +705,12 @@
                                     last 4 quarters of revenue.
                                     If you feel revenue growth should be different, feel free to change it!
                                 </v-tooltip> </td>
-                                <td > {{ formatNumber(this.revenue) }} </td> 
-                                <td> {{ formatNumber(Math.round((this.revenue * (1 + (this.RevRate / 100)) ))) }} </td> 
-                                <td> {{ formatNumber(Math.round((this.revenue * ((1 + (this.RevRate / 100)) ** 2) ))) }} </td>
-                                <td> {{ formatNumber(Math.round((this.revenue * ((1 + (this.RevRate / 100)) ** 3) )))  }} </td>
-                                <td> {{ formatNumber(Math.round((this.revenue * ((1 + (this.RevRate / 100)) ** 4) ))) }} </td>
-                                <td> {{ formatNumber(Math.round((this.revenue * ((1 + (this.RevRate / 100)) ** 5) ))) }} </td>                        
+                                <td class="zebra"> {{ formatNumber(this.revenue) }} </td> 
+                                <td class="zebra"> {{ formatNumber(Math.round((this.revenue * (1 + (this.RevRate / 100)) ))) }} </td> 
+                                <td class="zebra"> {{ formatNumber(Math.round((this.revenue * ((1 + (this.RevRate / 100)) ** 2) ))) }} </td>
+                                <td class="zebra"> {{ formatNumber(Math.round((this.revenue * ((1 + (this.RevRate / 100)) ** 3) )))  }} </td>
+                                <td class="zebra"> {{ formatNumber(Math.round((this.revenue * ((1 + (this.RevRate / 100)) ** 4) ))) }} </td>
+                                <td class="zebra"> {{ formatNumber(Math.round((this.revenue * ((1 + (this.RevRate / 100)) ** 5) ))) }} </td>                        
                                 </tr>
                                 <tr>
                                     <td> 
@@ -711,7 +719,7 @@
                                         color="light-blue darken-4"
                                     >
                                     <template v-slot:activator="{ on }">
-                                    <span v-on="on">
+                                    <span v-on="on" class="fsli-name">
                                         COGS
                                     </span>
                                     </template>
@@ -726,25 +734,25 @@
                                     <td> {{ formatNumber(Math.round(((-this.revenue * ((1 + (this.RevRate / 100))) ** 5) * (1 - (this.grossProfitRate / 100)) ))) }} </td>
                                 </tr>
                                 <tr>
-                                    <td> 
+                                    <td class="zebra"> 
                                         <v-tooltip
                                         bottom
                                         color="light-blue darken-4"
                                     >
                                     <template v-slot:activator="{ on }">
-                                    <span v-on="on">
+                                    <span v-on="on" class="zebra fsli-name">
                                         Gross Profit
                                     </span>
                                     </template>
                                     The estimated Gross Profit Margin based on the average gross profit as a percentage of revenue over the last 5 years (or however long data is available depending on the company's age).
                                     If you feel that its gross margin will be different in the future, feel free to change it!
                                 </v-tooltip>  </td>
-                                    <td> {{ formatNumber(Math.round((this.revenue - this.costOfGoods) )) }} </td> 
-                                    <td > {{ formatNumber(Math.round(((this.revenue * (1 + (this.RevRate / 100))) * (this.grossProfitRate / 100)) )) }} </td> 
-                                    <td> {{ formatNumber(Math.round(((this.revenue * ((1 + (this.RevRate / 100))) ** 2) *  (this.grossProfitRate / 100)) )) }} </td>
-                                    <td> {{ formatNumber(Math.round(((this.revenue * ((1 + (this.RevRate / 100))) ** 3) * (this.grossProfitRate / 100)) )) }} </td>
-                                    <td> {{ formatNumber(Math.round(((this.revenue * ((1 + (this.RevRate / 100))) ** 4) * (this.grossProfitRate / 100)) )) }} </td>
-                                    <td> {{ formatNumber(Math.round(((this.revenue * ((1 + (this.RevRate / 100))) ** 5) * (this.grossProfitRate / 100)) )) }} </td>
+                                    <td class="zebra"> {{ formatNumber(Math.round((this.revenue - this.costOfGoods) )) }} </td> 
+                                    <td class="zebra"> {{ formatNumber(Math.round(((this.revenue * (1 + (this.RevRate / 100))) * (this.grossProfitRate / 100)) )) }} </td> 
+                                    <td class="zebra"> {{ formatNumber(Math.round(((this.revenue * ((1 + (this.RevRate / 100))) ** 2) *  (this.grossProfitRate / 100)) )) }} </td>
+                                    <td class="zebra"> {{ formatNumber(Math.round(((this.revenue * ((1 + (this.RevRate / 100))) ** 3) * (this.grossProfitRate / 100)) )) }} </td>
+                                    <td class="zebra"> {{ formatNumber(Math.round(((this.revenue * ((1 + (this.RevRate / 100))) ** 4) * (this.grossProfitRate / 100)) )) }} </td>
+                                    <td class="zebra"> {{ formatNumber(Math.round(((this.revenue * ((1 + (this.RevRate / 100))) ** 5) * (this.grossProfitRate / 100)) )) }} </td>
                             </tr>
                             <tr>
                                 <td> 
@@ -753,7 +761,7 @@
                                         color="light-blue darken-4"
                                     >
                                     <template v-slot:activator="{ on }">
-                                    <span v-on="on">
+                                    <span v-on="on" class="fsli-name">
                                         R&D Expense
                                     </span>
                                     </template>
@@ -771,13 +779,13 @@
                                 <td> {{ formatNumber(Math.round(((-this.revenue * ((1 + (this.RevRate / 100))) ** 5) * (this.RdRate / 100)) )) }} </td>
                             </tr>
                             <tr>
-                                <td> 
+                                <td class="zebra"> 
                                     <v-tooltip
                                         bottom
                                         color="light-blue darken-4"
                                     >
                                     <template v-slot:activator="{ on }">
-                                    <span v-on="on">
+                                    <span v-on="on" class="zebra fsli-name">
                                         SG&A Expense
                                     </span>
                                     </template>
@@ -788,12 +796,12 @@
                                 expenses, Internet, and postal charges. General and administrative expenses include salaries of non-sales personnel, rent, utilities, communication, etc.
                                 </v-tooltip>
                                 </td>
-                            <td> {{ formatNumber(-this.salesGenExpense) }} </td> 
-                                <td > {{ formatNumber(Math.round(((-this.revenue * (1 + (this.RevRate / 100))) * (this.SgaRate / 100)) )) }} </td> 
-                                <td> {{ formatNumber(Math.round(((-this.revenue * ((1 + (this.RevRate / 100))) ** 2) *  (this.SgaRate / 100)) )) }} </td>
-                                <td> {{ formatNumber(Math.round(((-this.revenue * ((1 + (this.RevRate / 100))) ** 3) * (this.SgaRate / 100)) )) }} </td>
-                                <td> {{ formatNumber(Math.round(((-this.revenue * ((1 + (this.RevRate / 100))) ** 4) * (this.SgaRate / 100)) )) }} </td>
-                                <td> {{ formatNumber(Math.round(((-this.revenue * ((1 + (this.RevRate / 100))) ** 5) * (this.SgaRate / 100)) )) }} </td>
+                            <td class="zebra"> {{ formatNumber(-this.salesGenExpense) }} </td> 
+                                <td class="zebra"> {{ formatNumber(Math.round(((-this.revenue * (1 + (this.RevRate / 100))) * (this.SgaRate / 100)) )) }} </td> 
+                                <td class="zebra"> {{ formatNumber(Math.round(((-this.revenue * ((1 + (this.RevRate / 100))) ** 2) *  (this.SgaRate / 100)) )) }} </td>
+                                <td class="zebra"> {{ formatNumber(Math.round(((-this.revenue * ((1 + (this.RevRate / 100))) ** 3) * (this.SgaRate / 100)) )) }} </td>
+                                <td class="zebra"> {{ formatNumber(Math.round(((-this.revenue * ((1 + (this.RevRate / 100))) ** 4) * (this.SgaRate / 100)) )) }} </td>
+                                <td class="zebra"> {{ formatNumber(Math.round(((-this.revenue * ((1 + (this.RevRate / 100))) ** 5) * (this.SgaRate / 100)) )) }} </td>
                             </tr>
                             <tr>
                                 <td> 
@@ -802,7 +810,7 @@
                                         color="light-blue darken-4"
                                     >
                                     <template v-slot:activator="{ on }">
-                                    <span v-on="on">
+                                    <span v-on="on" class="fsli-name">
                                         EBIT
                                     </span>
                                     </template>
@@ -826,32 +834,32 @@
                                 - ((this.revenue * ((1 + (this.RevRate / 100)) **5)) * (this.SgaRate/100))) }}</td>
                             </tr>                     
                             <tr>
-                                <td>  
+                                <td class="zebra">  
                                     <v-tooltip
                                         bottom
                                         color="light-blue darken-4"
                                     >
                                     <template v-slot:activator="{ on }">
-                                    <span v-on="on">
+                                    <span v-on="on" class="zebra fsli-name">
                                         Tax Expense
                                     </span>
                                     </template>
                                     Amount of current income tax expense (benefit) and deferred income tax expense (benefit) pertaining to continuing operations.
                                 </v-tooltip> </td>
-                            <td> {{ formatNumber(-this.taxExpense) }} </td> 
-                                <td>{{ formatNumber((((this.revenue * (1 + (this.RevRate / 100))) * (this.grossProfitRate/100))
+                            <td class="zebra"> {{ formatNumber(-this.taxExpense) }} </td> 
+                                <td class="zebra">{{ formatNumber((((this.revenue * (1 + (this.RevRate / 100))) * (this.grossProfitRate/100))
                                 - ((this.revenue * (1 + (this.RevRate / 100))) * (this.RdRate/100))
                                 - ((this.revenue * (1 + (this.RevRate / 100))) * (this.SgaRate/100))) * (-this.TaxRate / 100)) }}</td>
-                            <td>{{ formatNumber((((this.revenue * ((1 + (this.RevRate / 100)) **2)) * (this.grossProfitRate/100))
+                            <td class="zebra">{{ formatNumber((((this.revenue * ((1 + (this.RevRate / 100)) **2)) * (this.grossProfitRate/100))
                                 - ((this.revenue * ((1 + (this.RevRate / 100)) **2)) * (this.RdRate/100))
                                 - ((this.revenue * ((1 + (this.RevRate / 100)) **2)) * (this.SgaRate/100))) * (-this.TaxRate / 100)) }}</td>
-                                <td>{{ formatNumber((((this.revenue * ((1 + (this.RevRate / 100)) **3)) * (this.grossProfitRate/100))
+                                <td class="zebra">{{ formatNumber((((this.revenue * ((1 + (this.RevRate / 100)) **3)) * (this.grossProfitRate/100))
                                 - ((this.revenue * ((1 + (this.RevRate / 100)) **3)) * (this.RdRate/100))
                                 - ((this.revenue * ((1 + (this.RevRate / 100)) **3)) * (this.SgaRate/100))) * (-this.TaxRate / 100)) }}</td>
-                                <td>{{ formatNumber((((this.revenue * ((1 + (this.RevRate / 100)) **4)) * (this.grossProfitRate/100))
+                                <td class="zebra">{{ formatNumber((((this.revenue * ((1 + (this.RevRate / 100)) **4)) * (this.grossProfitRate/100))
                                 - ((this.revenue * ((1 + (this.RevRate / 100)) **4)) * (this.RdRate/100))
                                 - ((this.revenue * ((1 + (this.RevRate / 100)) **4)) * (this.SgaRate/100))) * (-this.TaxRate / 100)) }}</td>
-                                <td>{{ formatNumber((((this.revenue * ((1 + (this.RevRate / 100)) **5)) * (this.grossProfitRate/100))
+                                <td class="zebra">{{ formatNumber((((this.revenue * ((1 + (this.RevRate / 100)) **5)) * (this.grossProfitRate/100))
                                 - ((this.revenue * ((1 + (this.RevRate / 100)) **5)) * (this.RdRate/100))
                                 - ((this.revenue * ((1 + (this.RevRate / 100)) **5)) * (this.SgaRate/100))) *( -this.TaxRate /100)) }}</td>
                             </tr>
@@ -862,7 +870,7 @@
                                         color="light-blue darken-4"
                                     >
                                     <template v-slot:activator="{ on }">
-                                    <span v-on="on">
+                                    <span v-on="on" class="fsli-name">
                                         NOPAT
                                     </span>
                                     </template>
@@ -907,13 +915,13 @@
                             </tr>
 
                             <tr>
-                                    <td>
+                                    <td class="zebra">
                                     <v-tooltip
                                         bottom
                                         color="light-blue darken-4"
                                     >
                                     <template v-slot:activator="{ on }">
-                                    <span v-on="on">
+                                    <span v-on="on" class="zebra fsli-name">
                                         D&A Expense
                                     </span>
                                     </template>
@@ -922,12 +930,12 @@
                                     reduction in book value of an intangible asset over the benefit period of such asset; or to reflect consumption during the 
                                     period of an asset that is not used in production.
                                 </v-tooltip> </td>
-                                    <td> {{ formatNumber(this.deprExpense) }} </td> 
-                                    <td > {{ formatNumber(((this.revenue * (1 + (this.RevRate / 100))) * (this.DeprRate / 100)) ) }} </td> 
-                                    <td> {{ formatNumber(((this.revenue * ((1 + (this.RevRate / 100))) ** 2) *  (this.DeprRate / 100)) ) }} </td>
-                                    <td> {{ formatNumber(((this.revenue * ((1 + (this.RevRate / 100))) ** 3) * (this.DeprRate / 100)) ) }} </td>
-                                    <td> {{ formatNumber(((this.revenue * ((1 + (this.RevRate / 100))) ** 4) * (this.DeprRate / 100)) ) }} </td>
-                                    <td> {{ formatNumber(((this.revenue * ((1 + (this.RevRate / 100))) ** 5) * (this.DeprRate / 100)) ) }} </td>
+                                    <td class="zebra"> {{ formatNumber(this.deprExpense) }} </td> 
+                                    <td class="zebra"> {{ formatNumber(((this.revenue * (1 + (this.RevRate / 100))) * (this.DeprRate / 100)) ) }} </td> 
+                                    <td class="zebra"> {{ formatNumber(((this.revenue * ((1 + (this.RevRate / 100))) ** 2) *  (this.DeprRate / 100)) ) }} </td>
+                                    <td class="zebra"> {{ formatNumber(((this.revenue * ((1 + (this.RevRate / 100))) ** 3) * (this.DeprRate / 100)) ) }} </td>
+                                    <td class="zebra"> {{ formatNumber(((this.revenue * ((1 + (this.RevRate / 100))) ** 4) * (this.DeprRate / 100)) ) }} </td>
+                                    <td class="zebra"> {{ formatNumber(((this.revenue * ((1 + (this.RevRate / 100))) ** 5) * (this.DeprRate / 100)) ) }} </td>
                             </tr>
                             <tr>
                                     <td>
@@ -936,7 +944,7 @@
                                         color="light-blue darken-4"
                                     >
                                     <template v-slot:activator="{ on }">
-                                    <span v-on="on">
+                                    <span v-on="on" class="fsli-name">
                                         Change in COA
                                     </span>
                                     </template>
@@ -952,25 +960,25 @@
                             </tr>
                             <tr>
                                 
-                                    <td> 
+                                    <td class="zebra"> 
                                     <v-tooltip
                                         bottom
                                         color="light-blue darken-4"
                                     >
                                     <template v-slot:activator="{ on }">
-                                    <span v-on="on">
+                                    <span v-on="on" class="zebra fsli-name">
                                         Change in COL
                                     </span>
                                     </template>
                                     Cange in Current Operating Liabilities. The increase (decrease) during the reporting period in the aggregate amount of short-term liabilities used to generate operating income such accounts payable.
                                 </v-tooltip>
                                     </td>
-                                    <td> {{ formatNumber(this.changeOperLiab) }} </td> 
-                                    <td > {{ formatNumber(((this.revenue * (1 + (this.RevRate / 100))) * (this.OpLiabRate / 100)) ) }} </td> 
-                                    <td> {{ formatNumber(((this.revenue * ((1 + (this.RevRate / 100))) ** 2) *  (this.OpLiabRate / 100)) ) }} </td>
-                                    <td> {{ formatNumber(((this.revenue * ((1 + (this.RevRate / 100))) ** 3) * (this.OpLiabRate / 100)) ) }} </td>
-                                    <td> {{ formatNumber(((this.revenue * ((1 + (this.RevRate / 100))) ** 4) * (this.OpLiabRate / 100)) ) }} </td>
-                                    <td> {{ formatNumber(((this.revenue * ((1 + (this.RevRate / 100))) ** 5) * (this.OpLiabRate / 100)) ) }} </td>
+                                    <td class="zebra"> {{ formatNumber(this.changeOperLiab) }} </td> 
+                                    <td class="zebra"> {{ formatNumber(((this.revenue * (1 + (this.RevRate / 100))) * (this.OpLiabRate / 100)) ) }} </td> 
+                                    <td class="zebra"> {{ formatNumber(((this.revenue * ((1 + (this.RevRate / 100))) ** 2) *  (this.OpLiabRate / 100)) ) }} </td>
+                                    <td class="zebra"> {{ formatNumber(((this.revenue * ((1 + (this.RevRate / 100))) ** 3) * (this.OpLiabRate / 100)) ) }} </td>
+                                    <td class="zebra"> {{ formatNumber(((this.revenue * ((1 + (this.RevRate / 100))) ** 4) * (this.OpLiabRate / 100)) ) }} </td>
+                                    <td class="zebra"> {{ formatNumber(((this.revenue * ((1 + (this.RevRate / 100))) ** 5) * (this.OpLiabRate / 100)) ) }} </td>
                             </tr>
                             <tr>
                                     <td> 
@@ -979,7 +987,7 @@
                                         color="light-blue darken-4"
                                     >
                                     <template v-slot:activator="{ on }">
-                                    <span v-on="on">
+                                    <span v-on="on" class="fsli-name">
                                         Change in NWC
                                     </span>
                                     </template>
@@ -1002,25 +1010,25 @@
                             </tr>
 
                             <tr>
-                                    <td> 
+                                    <td class="zebra"> 
                                         <v-tooltip
                                         bottom
                                         color="light-blue darken-4"
                                     >
                                     <template v-slot:activator="{ on }">
-                                    <span v-on="on">
+                                    <span v-on="on" class="zebra fsli-name">
                                         Capital Expenditures
                                     </span>
                                     </template>
                                     The cash outflow for purchases of and capital improvements on property, plant and equipment (capital expenditures), software, and other intangible assets.
                                 </v-tooltip> 
                                     </td>
-                                    <td> {{ formatNumber(this.capitalExp) }} </td> 
-                                    <td > {{ formatNumber(((this.revenue * (1 + (this.RevRate / 100))) * (this.CapexRate / 100)) ) }} </td> 
-                                    <td> {{ formatNumber(((this.revenue * ((1 + (this.RevRate / 100))) ** 2) *  (this.CapexRate / 100)) ) }} </td>
-                                    <td> {{ formatNumber(((this.revenue * ((1 + (this.RevRate / 100))) ** 3) * (this.CapexRate / 100)) ) }} </td>
-                                    <td> {{ formatNumber(((this.revenue * ((1 + (this.RevRate / 100))) ** 4) * (this.CapexRate / 100)) ) }} </td>
-                                    <td> {{ formatNumber(((this.revenue * ((1 + (this.RevRate / 100))) ** 5) * (this.CapexRate / 100)) ) }} </td>
+                                    <td class="zebra"> {{ formatNumber(this.capitalExp) }} </td> 
+                                    <td class="zebra" > {{ formatNumber(((this.revenue * (1 + (this.RevRate / 100))) * (this.CapexRate / 100)) ) }} </td> 
+                                    <td class="zebra"> {{ formatNumber(((this.revenue * ((1 + (this.RevRate / 100))) ** 2) *  (this.CapexRate / 100)) ) }} </td>
+                                    <td class="zebra"> {{ formatNumber(((this.revenue * ((1 + (this.RevRate / 100))) ** 3) * (this.CapexRate / 100)) ) }} </td>
+                                    <td class="zebra"> {{ formatNumber(((this.revenue * ((1 + (this.RevRate / 100))) ** 4) * (this.CapexRate / 100)) ) }} </td>
+                                    <td class="zebra"> {{ formatNumber(((this.revenue * ((1 + (this.RevRate / 100))) ** 5) * (this.CapexRate / 100)) ) }} </td>
                             </tr>
                             <tr>
                                     <td>
@@ -1098,23 +1106,23 @@
                                 
                             </tr>
                             <tr>
-                                    <td>
+                                    <td class="zebra">
                                         <v-tooltip
                                         bottom
                                         color="light-blue darken-4"
                                     >
                                     <template v-slot:activator="{ on }">
                                     <span
-                                        v-on="on"
+                                        v-on="on" class="zebra fsli-name"
                                         >PV FCFF</span>
                                     </template>
                                 free cash flow to firm discounted back to its present day value using WACC  
                                 </v-tooltip> 
                                     </td>
-                                    <td> {{ formatNumber( this.revenue - this.costOfGoods - this.RandDexpense - this.salesGenExpense - this.taxExpense + 
+                                    <td class="zebra"> {{ formatNumber( this.revenue - this.costOfGoods - this.RandDexpense - this.salesGenExpense - this.taxExpense + 
                                         this.deprExpense - (this.changeOperAssets - this.changeOperLiab) - this.capitalExp) }} </td> 
 
-                                    <td > {{ formatNumber(( ((((this.revenue * (1 + (this.RevRate / 100))) * (this.grossProfitRate/100))
+                                    <td class="zebra"> {{ formatNumber(( ((((this.revenue * (1 + (this.RevRate / 100))) * (this.grossProfitRate/100))
                                 - ((this.revenue * (1 + (this.RevRate / 100))) * (this.RdRate/100))
                                 - ((this.revenue * (1 + (this.RevRate / 100))) * (this.SgaRate/100))) - 
                                 ((((this.revenue * (1 + (this.RevRate / 100))) * (this.grossProfitRate/100))
@@ -1126,7 +1134,7 @@
                                 (this.totalDebt - this.totalCash)) ) * (this.riskFreeRate + ((this.marketReturn - this.riskFreeRate) * this.beta))) + (this.costDebt * (1 - this.TaxRate) * 
                                 ( (this.totalDebt - this.totalCash) / ((this.sharesOuts * this.price) + (this.totalDebt - this.totalCash)) ))) / 100)) ** 1)) }} </td>
 
-                                <td > {{ formatNumber((((((this.revenue * ((1 + (this.RevRate / 100)) **2)) * (this.grossProfitRate/100))
+                                <td class="zebra" > {{ formatNumber((((((this.revenue * ((1 + (this.RevRate / 100)) **2)) * (this.grossProfitRate/100))
                                         - ((this.revenue * ((1 + (this.RevRate / 100)) **2)) * (this.RdRate/100))
                                         - ((this.revenue * ((1 + (this.RevRate / 100)) **2)) * (this.SgaRate/100))) - 
                                         ((((this.revenue * ((1 + (this.RevRate / 100)) **2)) * (this.grossProfitRate/100))
@@ -1139,7 +1147,7 @@
                                 (this.totalDebt - this.totalCash)) ) * (this.riskFreeRate + ((this.marketReturn - this.riskFreeRate) * this.beta))) + (this.costDebt * (1 - this.TaxRate) * 
                                 ( (this.totalDebt - this.totalCash) / ((this.sharesOuts * this.price) + (this.totalDebt - this.totalCash)) ))) / 100)) ** 2)) }} </td>
 
-                                 <td > {{ formatNumber((((((this.revenue * ((1 + (this.RevRate / 100)) **3)) * (this.grossProfitRate/100))
+                                 <td class="zebra"> {{ formatNumber((((((this.revenue * ((1 + (this.RevRate / 100)) **3)) * (this.grossProfitRate/100))
                                         - ((this.revenue * ((1 + (this.RevRate / 100)) **3)) * (this.RdRate/100))
                                         - ((this.revenue * ((1 + (this.RevRate / 100)) **3)) * (this.SgaRate/100))) - 
                                         ((((this.revenue * ((1 + (this.RevRate / 100)) **3)) * (this.grossProfitRate/100))
@@ -1152,7 +1160,7 @@
                                 (this.totalDebt - this.totalCash)) ) * (this.riskFreeRate + ((this.marketReturn - this.riskFreeRate) * this.beta))) + (this.costDebt * (1 - this.TaxRate) * 
                                 ( (this.totalDebt - this.totalCash) / ((this.sharesOuts * this.price) + (this.totalDebt - this.totalCash)) ))) / 100)) ** 3)) }} </td>
 
-                                 <td > {{ formatNumber((((((this.revenue * ((1 + (this.RevRate / 100)) **4)) * (this.grossProfitRate/100))
+                                 <td class="zebra"> {{ formatNumber((((((this.revenue * ((1 + (this.RevRate / 100)) **4)) * (this.grossProfitRate/100))
                                         - ((this.revenue * ((1 + (this.RevRate / 100)) **4)) * (this.RdRate/100))
                                         - ((this.revenue * ((1 + (this.RevRate / 100)) **4)) * (this.SgaRate/100))) - 
                                         ((((this.revenue * ((1 + (this.RevRate / 100)) **4)) * (this.grossProfitRate/100))
@@ -1165,7 +1173,7 @@
                                 (this.totalDebt - this.totalCash)) ) * (this.riskFreeRate + ((this.marketReturn - this.riskFreeRate) * this.beta))) + (this.costDebt * (1 - this.TaxRate) * 
                                 ( (this.totalDebt - this.totalCash) / ((this.sharesOuts * this.price) + (this.totalDebt - this.totalCash)) ))) / 100)) ** 4)) }} </td>
 
-                                 <td > {{ formatNumber((((((this.revenue * ((1 + (this.RevRate / 100)) **5)) * (this.grossProfitRate/100))
+                                 <td class="zebra"> {{ formatNumber((((((this.revenue * ((1 + (this.RevRate / 100)) **5)) * (this.grossProfitRate/100))
                                         - ((this.revenue * ((1 + (this.RevRate / 100)) **5)) * (this.RdRate/100))
                                         - ((this.revenue * ((1 + (this.RevRate / 100)) **5)) * (this.SgaRate/100))) - 
                                         ((((this.revenue * ((1 + (this.RevRate / 100)) **5)) * (this.grossProfitRate/100))
@@ -1181,10 +1189,12 @@
 
                             </tbody>
                     </v-simple-table>
+                        </div>
                     </v-col>
                 </v-row>
                 <v-row justify="start">
-                    <v-col cols="4">
+                    <v-col xl="4" lg="5">
+                        <div class="methods">
                         <v-simple-table>
                             <thead>
                                 <tr>
@@ -1203,12 +1213,12 @@
                                         bottom
                                         color="light-blue darken-4">
                                         <template v-slot:activator="{ on }">
-                                            <span v-on="on">Sum of PV FCFF</span>
+                                            <span v-on="on" class="fsli-name">Sum of PV FCFF</span>
                                             </template>
                                            The sum of the present value of the forecasted free cash flows.
                                         </v-tooltip> 
                                     </td>
-                                    <td>
+                                    <td class="output">
                                         {{ formatNumber(( this.revenue - this.costOfGoods - this.RandDexpense - this.salesGenExpense - this.taxExpense + 
                                         this.deprExpense - (this.changeOperAssets - this.changeOperLiab) - this.capitalExp) + 
                                         (( ((((this.revenue * (1 + (this.RevRate / 100))) * (this.grossProfitRate/100))
@@ -1279,14 +1289,14 @@
                                         bottom
                                         color="light-blue darken-4">
                                         <template v-slot:activator="{ on }">
-                                            <span v-on="on">LT Growth Rate</span>
+                                            <span v-on="on" class="fsli-name">LT Growth Rate</span>
                                             </template>
                                           A company's sustainable long-term growth rate it could expect.
                                         </v-tooltip> 
                                     </td>
                                     <td>
                                          <div class="parent">
-                                            <div class='child float-left-child' style="padding-right:3px;">{{ formatPercent(this.ltGrowth) }} </div>
+                                            <div class='child float-left-child input' style="padding-right:3px;">{{ formatPercent(this.ltGrowth) }} </div>
                                             <div class='child float-left-child'>
                                                 <v-text-field
                                                     v-model="ltGrowth"
@@ -1308,12 +1318,12 @@
                                         bottom
                                         color="light-blue darken-4">
                                         <template v-slot:activator="{ on }">
-                                            <span v-on="on">PV Terminal Value</span>
+                                            <span v-on="on" class="fsli-name">PV Terminal Value</span>
                                             </template>
                                           The present value of the company's future cash flows when it reaches it's long-term growth rate. It's calculated by multipling the last year's cash flows in the dcf model by (1 + the lt growth rate), then dividing by (WACC - lt growth rate) and finally discounting back to present value.
                                         </v-tooltip>
                                     </td>
-                                    <td>
+                                    <td class="output">
                                         {{
                                           formatNumber(( ( ((((((this.revenue * ((1 + (this.RevRate / 100)) **5)) * (this.grossProfitRate/100))
                                         - ((this.revenue * ((1 + (this.RevRate / 100)) **5)) * (this.RdRate/100))
@@ -1340,14 +1350,14 @@
                                     <td>
                                          <v-tooltip bottom color="light-blue darken-">
                                             <template v-slot:activator="{ on }">
-                                            <span v-on="on">
+                                            <span v-on="on" class="fsli-name">
                                                 Enterprise Value
                                             </span>
                                         </template>
                                         The total value of the company owned by shareholders and lenders. Calculated by adding the sum of PV of FCFF with the PV of the terminal value.
                                         </v-tooltip>
                                     </td>
-                                    <td>
+                                    <td class="output">
                                         {{ 
                                             formatNumber((( this.revenue - this.costOfGoods - this.RandDexpense - this.salesGenExpense - this.taxExpense + 
                                         this.deprExpense - (this.changeOperAssets - this.changeOperLiab) - this.capitalExp) + 
@@ -1435,14 +1445,14 @@
                                     <td>
                                          <v-tooltip bottom color="light-blue darken-">
                                             <template v-slot:activator="{ on }">
-                                            <span v-on="on">
+                                            <span v-on="on" class="fsli-name">
                                                 Est. Market Cap
                                             </span>
                                         </template>
                                         The estimated market value of equity. It's estimated by subtracting net debt from the enterprise value calculated above.
                                         </v-tooltip>
                                     </td>
-                                    <td>
+                                    <td class="output">
                                         {{
                                             formatNumber(((( this.revenue - this.costOfGoods - this.RandDexpense - this.salesGenExpense - this.taxExpense + 
                                         this.deprExpense - (this.changeOperAssets - this.changeOperLiab) - this.capitalExp) + 
@@ -1531,14 +1541,14 @@
                                     <td>
                                          <v-tooltip bottom color="light-blue darken-">
                                             <template v-slot:activator="{ on }">
-                                            <span v-on="on">
+                                            <span v-on="on" class="fsli-name">
                                                 Est. Share Price
                                             </span>
                                         </template>
                                         The estimated price per share by dividing the market cap value above by the company's total shares outstanding.
                                         </v-tooltip>
                                     </td>
-                                    <td>
+                                    <td class="exp-price">
                                         {{
                                             formatNumber((((( this.revenue - this.costOfGoods - this.RandDexpense - this.salesGenExpense - this.taxExpense + 
                                         this.deprExpense - (this.changeOperAssets - this.changeOperLiab) - this.capitalExp) + 
@@ -1627,14 +1637,14 @@
                                     <td>
                                          <v-tooltip bottom color="light-blue darken-">
                                             <template v-slot:activator="{ on }">
-                                            <span v-on="on">
+                                            <span v-on="on" class="fsli-name">
                                                Target Price Upside
                                             </span>
                                         </template>
                                         The percentage difference between the estimated price per share calculated above and the company's actual current share price.
                                         </v-tooltip>
                                     </td>
-                                    <td>
+                                    <td class="exp-price">
                                         {{
                                             formatPercent(((((((( this.revenue - this.costOfGoods - this.RandDexpense - this.salesGenExpense - this.taxExpense + 
                                         this.deprExpense - (this.changeOperAssets - this.changeOperLiab) - this.capitalExp) + 
@@ -1721,8 +1731,10 @@
                                 </tr>
                             </tbody>
                         </v-simple-table>
+                        </div>
                     </v-col>
-                    <v-col cols="4">
+                    <v-col xl="4" lg="5">
+                        <div class="methods">
                         <v-simple-table>
                             <thead>
                                 <tr>
@@ -1741,12 +1753,12 @@
                                         bottom
                                         color="light-blue darken-4">
                                         <template v-slot:activator="{ on }">
-                                            <span v-on="on">Sum of PV FCFF</span>
+                                            <span v-on="on" class="fsli-name">Sum of PV FCFF</span>
                                             </template>
                                            The sum of the present value of the forecasted free cash flows.
                                         </v-tooltip> 
                                     </td>
-                                    <td>
+                                    <td class="output">
                                          {{ formatNumber(( this.revenue - this.costOfGoods - this.RandDexpense - this.salesGenExpense - this.taxExpense + 
                                         this.deprExpense - (this.changeOperAssets - this.changeOperLiab) - this.capitalExp) + 
                                         (( ((((this.revenue * (1 + (this.RevRate / 100))) * (this.grossProfitRate/100))
@@ -1817,14 +1829,14 @@
                                         bottom
                                         color="light-blue darken-4">
                                         <template v-slot:activator="{ on }">
-                                            <span v-on="on">EV/EBITDA</span>
+                                            <span v-on="on" class="fsli-name">EV/EBITDA</span>
                                             </template>
                                           Compares the total enterprise value of the company relative to its earnings before interest, taxes, depreciation, and amortization. 
                                         </v-tooltip> 
                                     </td>
                                     <td>
                                           <div class="parent">
-                                            <div class='child float-left-child' style="padding-right:3px;">{{ formatVal(this.evEbitda) }} </div>
+                                            <div class='child float-left-child input' style="padding-right:3px;">{{ formatVal(this.evEbitda) }} </div>
                                             <div class='child float-left-child'>
                                                 <v-text-field
                                                     v-model="evEbitda"
@@ -1846,12 +1858,12 @@
                                         bottom
                                         color="light-blue darken-4">
                                         <template v-slot:activator="{ on }">
-                                            <span v-on="on">PV Terminal Value</span>
+                                            <span v-on="on" class="fsli-name">PV Terminal Value</span>
                                             </template>
                                           The present value of the company's future cash flows when it reaches it's long-term growth rate. It's calculated by multipling the last year's cash flows in the dcf model by the company's EV/EBITDA multiple.
                                         </v-tooltip>
                                     </td>
-                                    <td>
+                                    <td class="output">
                                         {{
                                 formatNumber((((((this.revenue * ((1 + (this.RevRate / 100)) **5)) * (this.grossProfitRate/100))
                                 - ((this.revenue * ((1 + (this.RevRate / 100)) **5)) * (this.RdRate/100))
@@ -1867,14 +1879,14 @@
                                     <td>
                                         <v-tooltip bottom color="light-blue darken-">
                                             <template v-slot:activator="{ on }">
-                                            <span v-on="on">
+                                            <span v-on="on" class="fsli-name">
                                                 Enterprise Value
                                             </span>
                                         </template>
                                         The total value of the company owned by shareholders and lenders. Calculated by adding the sum of PV of FCFF with the PV of the terminal value.
                                         </v-tooltip>
                                     </td>
-                                    <td>
+                                    <td class="output">
                                         {{
                                             formatNumber((( this.revenue - this.costOfGoods - this.RandDexpense - this.salesGenExpense - this.taxExpense + 
                                         this.deprExpense - (this.changeOperAssets - this.changeOperLiab) - this.capitalExp) + 
@@ -1951,14 +1963,14 @@
                                     <td>
                                         <v-tooltip bottom color="light-blue darken-">
                                             <template v-slot:activator="{ on }">
-                                            <span v-on="on">
+                                            <span v-on="on" class="fsli-name">
                                                 Est. Market Cap
                                             </span>
                                         </template>
                                         The estimated market value of equity. It's estimated by subtracting net debt from the enterprise value calculated above.
                                         </v-tooltip>
                                     </td>
-                                    <td>
+                                    <td class="output">
                                         {{
                                             formatNumber(((( this.revenue - this.costOfGoods - this.RandDexpense - this.salesGenExpense - this.taxExpense + 
                                         this.deprExpense - (this.changeOperAssets - this.changeOperLiab) - this.capitalExp) + 
@@ -2035,14 +2047,14 @@
                                     <td>
                                         <v-tooltip bottom color="light-blue darken-">
                                             <template v-slot:activator="{ on }">
-                                            <span v-on="on">
+                                            <span v-on="on" class="fsli-name">
                                                 Est. Share Price
                                             </span>
                                         </template>
                                         The estimated price per share by dividing the market cap value above by the company's total shares outstanding.
                                         </v-tooltip>
                                     </td>
-                                    <td>
+                                    <td class="exp-price">
                                         {{
                                              formatVal((((( this.revenue - this.costOfGoods - this.RandDexpense - this.salesGenExpense - this.taxExpense + 
                                         this.deprExpense - (this.changeOperAssets - this.changeOperLiab) - this.capitalExp) + 
@@ -2119,14 +2131,14 @@
                                     <td>
                                         <v-tooltip bottom color="light-blue darken-">
                                             <template v-slot:activator="{ on }">
-                                            <span v-on="on">
+                                            <span v-on="on" class="fsli-name">
                                                Target Price Upside
                                             </span>
                                         </template>
                                         The percentage difference between the estimated price per share calculated above and the company's actual current share price.
                                         </v-tooltip>
                                     </td>
-                                    <td>
+                                    <td class="exp-price">
                                         {{
                                             formatPercent(((((((( this.revenue - this.costOfGoods - this.RandDexpense - this.salesGenExpense - this.taxExpense + 
                                         this.deprExpense - (this.changeOperAssets - this.changeOperLiab) - this.capitalExp) + 
@@ -2202,12 +2214,14 @@
                                 </tr>
                             </tbody>
                         </v-simple-table>
+                        </div>
                     </v-col>
                 </v-row>
               </v-col>
           </v-row>
           </template>   
       </v-container>
+      </div>
   </v-container>
 </template>
 
@@ -2491,4 +2505,71 @@ export default {
 * {
     background-color: #121212;
     }
+
+td {
+    font-family: 'Helvetica';
+}
+
+.assumptions {
+    border: 1px solid;
+    border-color: rgb(63, 81, 181);
+    background-color: rgb(63, 81, 181);
+    border-radius: 5px;
+    margin: 5px;
+    padding: 2px;
+}
+
+.assumptions th {
+    background-color: rgb(63, 81, 181);
+}
+
+
+.dcf {
+    border: 1px solid;
+    border-color: rgb(192, 152, 25);
+    background-color: rgb(192, 152, 25);
+    border-radius: 5px;
+    margin: 5px;
+    padding: 2px;
+}
+
+.dcf th {
+    background-color: rgb(192, 152, 25)
+}
+
+.zebra {
+    background-color: #20201f
+}
+
+
+
+.methods {
+    border: 1px solid;
+    border-color: rgb(46, 118, 111);
+    background-color: rgb(46, 118, 111);
+    border-radius: 5px;
+    margin: 5px;
+    padding: 2px;
+}
+
+.methods th {
+    background-color: rgb(46, 118, 111);
+}
+
+.input {
+    color: rgb(72, 150, 240)
+}
+
+.output {
+    color: rgba(83, 224, 111, 1)
+}
+
+.fsli-name {
+    font-weight: 600;
+}
+
+.exp-price {
+    color: rgba(240, 162, 72, 1)
+}
+
 </style>
