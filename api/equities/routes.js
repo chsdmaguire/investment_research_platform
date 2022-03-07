@@ -33,6 +33,7 @@ router.get('/earnings/surpises/:ticker', controller.earningsSurprise)
 
 // STOCK CANDELSTICK CHART 
 router.get('/stock/candlestick/chart/:ticker/:date/:freq', controller.stockCandleStick)
+router.get('/stock/candles/:ticker', controller.candles)
 
 // STOCK BASIC INFO
 router.get('/stock/basic/info/:ticker', controller.basicInfo)

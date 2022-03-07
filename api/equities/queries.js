@@ -27,9 +27,9 @@ const insideTransactions = 'select distinct * from equities.inside_transactions 
 const earningsSurprise = 'select DISTINCT * from equities.earnings_estimate where ticker = $1 ORDER BY period desc limit 40';
 
 // STOCK CANDLESTICK CHART API
-// const stockCandleStick = 'select distinct * from equities.candlestick_data where ticker = $1 ' + 
-// 'and date in (select date from (select ticker, date, count(*) from equities.candlestick_data where ticker = $1 ' +
-// 'and date > $2 group by ticker, date having count(*) = 1) as foo) ORDER BY date desc limit 1200';
+const candles = "select distinct * from equities.candlestick_data where ticker = $1 and frequency = 'D' " + 
+'and date in (select date from (select ticker, date, count(*) from equities.candlestick_data where ticker = $1 ' +
+'group by ticker, date having count(*) = 1) as foo) ORDER BY date desc limit 400';
 const stockCandleStick = "select distinct date, open from equities.candlestick_data where ticker = $1 and date > $2 and frequency = $3 order by date desc limit 1200";
 
 // STOCK BASIC INFO API
@@ -165,5 +165,6 @@ module.exports = {
     dcf,
     betaCalc,
     otherDcfAss,
-    newSearch
+    newSearch,
+    candles
 }

@@ -101,6 +101,15 @@ const stockCandleStick = async (req, res) => {
         })
 }
 
+const candles = async (req, res) => {
+    ticker = req.params.ticker;
+    date = req.params.date;
+    pool.query(queries.candles, [ticker],  (error, results) => {
+        if(error) throw error;
+        return res.status(200).json(results.rows);
+        })
+}
+
 // STOCK BASIC INFO
 const basicInfo = async (req, res) => {
     ticker = req.params.ticker;
@@ -339,5 +348,6 @@ module.exports = {
     comp,
     dcf,
     betaCalc,
-    otherDcfAss
+    otherDcfAss,
+    candles
 }

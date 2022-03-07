@@ -22,6 +22,9 @@ export default {
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: 'icon.png' },
+    ],
+    script: [
+      { src: '/datafeeds/udf/dist/bundle.js' }
     ]
   },
 
@@ -29,6 +32,10 @@ export default {
   css: [
 
   ],
+  plugins: [
+    { src: '~/plugins/TVChart.js', mode: 'client' }
+  ],
+
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
 
