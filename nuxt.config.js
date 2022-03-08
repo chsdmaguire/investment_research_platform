@@ -33,7 +33,11 @@ export default {
 
   ],
   plugins: [
-    { src: '~/plugins/TVChart.js', mode: 'client' }
+    { src: '~/plugins/TVChart.js', mode: 'client' },
+    {
+      src: '~/plugins/lightweightcharts.js',
+      ssr: false
+    },
   ],
 
 

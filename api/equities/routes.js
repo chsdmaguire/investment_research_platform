@@ -76,4 +76,6 @@ router.get('/stocks/dcf/:ticker', controller.dcf)
 router.get('/stocks/betacalc/:ticker', controller.betaCalc)
 router.get('/stocks/otherdcfassump/:ticker', controller.otherDcfAss)
 
+router.get('/stocks/insiders/:ticker', controller.newInsiders)
+
 module.exports = router;

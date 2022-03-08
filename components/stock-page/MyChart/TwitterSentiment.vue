@@ -1,9 +1,5 @@
 <template>
-<v-container>
-    <ChartContainer />
-
-</v-container>
-  	<!-- <span>
+  	<span>
         <trading-vue :data="chart" :width="width" :height="height"
             title-txt="₿TCUSD 🔥"
             :toolbar="true"
@@ -20,18 +16,14 @@
             <input type="checkbox" v-model="night">
             <label>Night Mode</label>
         </span>
-    </span> -->
-
+    </span>
 </template>
-
 <script>
-import ChartContainer from '~/components/stock-page/MyChart/ChartContainer';
-// import TwitterSentiment from '../components/stock-page/MyChart/TwitterSentiment.vue';
+
 import { DataCube } from 'trading-vue-js'
 import Data from '~/assets/data.json'
-import TradingVue from 'trading-vue-js'
+
 export default {
-    components: { TradingVue, ChartContainer },
     name: 'MainChart',
     props: ['width', 'height'],
   	computed: {

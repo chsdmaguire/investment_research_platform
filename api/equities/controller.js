@@ -314,6 +314,16 @@ const otherDcfAss = async(req, res) => {
 });
 }
 
+const newInsiders = async(req, res) => {
+    ticker = req.params.ticker;
+    pool.query(queries.newInsiders, [ticker], (error, results) => {
+        if (error) {
+            console.log(error.message);
+            throw error;
+        } 
+        res.status(200).json(results.rows);
+});
+}
 
 
 module.exports = {
@@ -349,5 +359,6 @@ module.exports = {
     dcf,
     betaCalc,
     otherDcfAss,
-    candles
+    candles,
+    newInsiders
 }

@@ -130,6 +130,10 @@ const newSearch = "with name as (select distinct ticker, name, sector from equit
 "  group by ticker, name, sector order by ticker asc) select " +
 `name.ticker as "ticker",  concat(name.name, ' ', '(', name.ticker, ')') as "name", name.sector as "industry" from name`
 
+const newInsiders = "with inside as (select distinct sum(change), transaction_date, max(transaction_price) from " +
+"equities.inside_transactions where ticker = $1 and transaction_price > 0 group by transaction_date order by transaction_date) " +
+`select inside.transaction_date as "date", (inside.max * inside.sum) as "amount" from inside order by date asc`
+
 module.exports = {
     topNews,
     getIpos,
@@ -164,5 +168,6 @@ module.exports = {
     betaCalc,
     otherDcfAss,
     newSearch,
-    candles
+    candles,
+    newInsiders
 }
