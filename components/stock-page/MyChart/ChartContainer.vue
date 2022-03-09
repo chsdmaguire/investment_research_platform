@@ -7,7 +7,7 @@
         :overlays="overlays"
         :width="this.width" :height="this.height"
         ref="tv"
-        :legend-buttons="['display', 'remove', 'settings']"
+        :legend-buttons="['remove', 'settings']"
         v-on:legend-button-click="on_button_click"
         :toolbar="true">
         </trading-vue> 
@@ -33,11 +33,16 @@ export default {
             width: window.innerWidth - 100,
             height: 400,
             ticker: '',
+            candles: {
+                ohlcv: [],
+                onchart: [],
+                offchart: [],
+            },
 
             twitPosMentions: [],
             insideTransactions: [],
 
-            overlays: [NewOverlay],
+            overlays: [NewOverlay, TestOverlay],
             candleStickData: [],
 
             
@@ -46,7 +51,11 @@ export default {
     methods: {
         on_button_click(event) {
             if(event.button == 'remove') {
-                console.log('remove', event)
+                if(event.type == 'offchart') {
+                    const arrNumber = event.dataIndex;
+                    this.candles.offchart.splice(arrNumber, 1);
+                    this.chart = new DataCube(this.candles)
+                }
             } else if(event.button == 'display') {
                 console.log('display', event)
             }
@@ -61,7 +70,19 @@ export default {
                     this.insideTransactions.push([date, Number(c.amount)])
                 })
             });
-
+            this.candles.offchart.push({
+            name: 'Insider Transactions',
+            type: "TestOverlay",
+            data: this.insideTransactions,
+            settings: {
+            upper: 10,
+            lower: 1,
+            backColor: "#9b9ba316",
+            bandColor: "#666"
+                }
+            })
+            console.log(this.candles)
+            this.chart = new DataCube(this.candles)
         },
         
         async getPriceData() {
@@ -71,18 +92,19 @@ export default {
             const arr = res.data.sort((a, b) => (a.date > b.date) ? 1: -1)
             arr.forEach(item => {
                 const date = new Date(item.date).getTime();
-                this.candleStickData.push([date, item.open, item.high, item.low, item.close, item.volume])
+                this.candles.ohlcv.push([date, item.open, item.high, item.low, item.close, item.volume])
             });
-            this.chart = new DataCube({
-                ohlcv: this.candleStickData,
-                onchart: [{
-                name: 'NewOverlay',
-                type: 'NewOverlay',
-                data: [],
-                settings: {}
-            }]
-            },
-            )
+            this.chart = new DataCube(this.candles)
+            // this.chart = new DataCube({
+            //     ohlcv: this.candleStickData,
+            //     onchart: [{
+            //     name: 'NewOverlay',
+            //     type: 'NewOverlay',
+            //     data: [],
+            //     settings: {}
+            // }]
+            // },
+            // )
         },
         onResize(event) {
             this.width = window.innerWidth - 100
