@@ -11,7 +11,7 @@ export default {
     mixins: [Overlay],
     methods: {
         meta_info() {
-            return { author: 'CyberFist', version: '1.0.0' }
+            return { author: 'Flibyrd', version: '1.0.0' }
         },
         // Here goes your code. You are provided with:
         // { All stuff is reactive }
