@@ -1,6 +1,149 @@
 <template>
-<v-container class="mt-4 mb-12 mx-2">
-        <v-row justify="center" align="center">
+<v-container class="mt-4 mb-12 mx-2" fluid>
+        <v-row justify="start" align="center">
+    <v-dialog v-model="dialog1" width="500">
+      <template v-slot:activator="{ on, attrs }">
+        <v-btn text v-bind="attrs" v-on="on">Technicals</v-btn>
+      </template>
+
+      <v-card tile>
+        <v-card-title class="justify-center">
+          Technical Indicators
+        </v-card-title>
+                <v-list>
+                    <v-list-item-group>
+                        <v-list-item>       
+                            <v-list-item-content>
+                                <v-list-item-title @click="showMA">Moving Average</v-list-item-title>
+                            </v-list-item-content>
+                        </v-list-item>
+                        <v-list-item>
+                            <v-list-item-content>
+                                <v-list-item-title @click="showMA">Exponential Moving Average</v-list-item-title>
+                            </v-list-item-content>
+                        </v-list-item>                            
+                    </v-list-item-group>
+                </v-list>                    
+        </v-card>
+    </v-dialog>
+
+    <v-dialog v-model="dialog2" width="500">
+        <template v-slot:activator="{ on, attrs }">
+            <v-btn text v-bind="attrs" v-on="on">Financials</v-btn>
+        </template>
+
+        <v-card tile>
+            <v-card-title class="justify-center">
+            Financial Metrics
+            </v-card-title>
+                    <v-list>
+                        <v-list-item-group>
+                            <v-list-item>       
+                                <v-list-item-content>
+                                    <v-list-item-title @click="showMA">Gross Margin</v-list-item-title>
+                                </v-list-item-content>
+                            </v-list-item>
+                            <v-list-item>
+                                <v-list-item-content>
+                                    <v-list-item-title @click="showMA">Operating Margin</v-list-item-title>
+                                </v-list-item-content>
+                            </v-list-item>                            
+                        </v-list-item-group>
+                    </v-list>                    
+            </v-card>
+        </v-dialog>
+    <v-dialog v-model="dialog3" width="500">
+        <template v-slot:activator="{ on, attrs }">
+            <v-btn text v-bind="attrs" v-on="on">Alt. Data</v-btn>
+        </template>
+
+        <v-card tile>
+            <v-card-title class="justify-center">
+            Alternative Data
+            </v-card-title>
+                    <v-list>
+                        <v-list-item-group>
+                            <v-list-item>       
+                                <v-list-item-content>
+                                    <v-list-item-title @click="getInsiders">Insider Transactions</v-list-item-title>
+                                </v-list-item-content>
+                            </v-list-item>
+                            <v-list-item>
+                                <v-list-item-content>
+                                    <v-list-item-title @click="showMA">Analyst Recommendations</v-list-item-title>
+                                </v-list-item-content>
+                            </v-list-item>
+                            <v-list-item>
+                                <v-list-item-content>
+                                    <v-list-item-title @click="getEPS">EPS Estimates</v-list-item-title>
+                                </v-list-item-content>
+                            </v-list-item>
+                            <v-list-item>
+                                <v-list-item-content>
+                                    <v-list-item-title @click="showMA">Patent Filings</v-list-item-title>
+                                </v-list-item-content>
+                            </v-list-item>
+                            <v-list-item>
+                                <v-list-item-content>
+                                    <v-list-item-title @click="showMA">Twitter Mentions</v-list-item-title>
+                                </v-list-item-content>
+                            </v-list-item>  
+                             <v-list-item>
+                                <v-list-item-content>
+                                    <v-list-item-title @click="showMA">Twitter Sentiment</v-list-item-title>
+                                </v-list-item-content>
+                            </v-list-item>
+                             <v-list-item>
+                                <v-list-item-content>
+                                    <v-list-item-title @click="showMA">Reddit Mentions</v-list-item-title>
+                                </v-list-item-content>
+                            </v-list-item>  
+                             <v-list-item>
+                                <v-list-item-content>
+                                    <v-list-item-title @click="showMA">Reddit Sentiment</v-list-item-title>
+                                </v-list-item-content>
+                            </v-list-item>                                  
+                        </v-list-item-group>
+                    </v-list>                    
+            </v-card>
+        </v-dialog>
+    <v-dialog v-model="dialog4" width="500">
+        <template v-slot:activator="{ on, attrs }">
+            <v-btn text v-bind="attrs" v-on="on">Compare</v-btn>
+        </template>
+
+        <v-card tile>
+            <v-card-title class="justify-center">
+            Make Comparisons
+            </v-card-title>
+                    <v-list>
+                        <v-list-item-group>
+                            <v-list-item>       
+                                <v-list-item-content>
+                                    <v-list-item-title @click="showMA">S&P 500</v-list-item-title>
+                                </v-list-item-content>
+                            </v-list-item>
+                            <v-list-item>
+                                <v-list-item-content>
+                                    <v-list-item-title @click="showMA">NASDAQ</v-list-item-title>
+                                </v-list-item-content>
+                            </v-list-item>                            
+                        </v-list-item-group>
+                    </v-list>                    
+            </v-card>
+        </v-dialog>
+
+           
+            <v-spacer></v-spacer>
+            <v-btn-toggle mandatory group dense>
+                    <v-btn plain>5D</v-btn>
+                    <v-btn plain>1M</v-btn>
+                    <v-btn plain>3M</v-btn>
+                    <v-btn plain>6M</v-btn>
+                    <v-btn plain>1Y</v-btn>
+                    <v-btn plain>3Y</v-btn>
+                    <v-btn plain>5Y</v-btn>
+                  </v-btn-toggle>
         </v-row>
     <v-row justify="center" align="center">
         <trading-vue 
@@ -11,7 +154,7 @@
         ref="tv"
         :legend-buttons="['remove', 'settings']"
         v-on:legend-button-click="on_button_click"
-        :toolbar="true">
+        :toolbar="false">
         </trading-vue> 
     </v-row>
     <v-row>
@@ -41,8 +184,12 @@ export default {
         return {
             chart: {},
             props: ['width', 'height'],
-            width: window.innerWidth - 100,
-            height: window.innerWidth - 200,
+            width: window.innerWidth - 300,
+            height: window.innerWidth - 800,
+            dialog1: false,
+            dialog2: false,
+            dialog3: false,
+            dialog4: false,
             ticker: '',
             candles: {
                 ohlcv: [],
@@ -69,7 +216,6 @@ export default {
 
     methods: {
         changeScale() {
-            
             const logScale = {
                 grid: {
                     logScale: true,
@@ -142,6 +288,7 @@ export default {
                 }
             });
             this.chart = new DataCube(this.candles);
+            this.dialog1 = false;
 
         },
         on_button_click(event) {
