@@ -325,6 +325,40 @@ const newInsiders = async(req, res) => {
 });
 }
 
+const grossMargin = async(req, res) => {
+    ticker = req.params.ticker;
+    pool.query(queries.grossMargin, [ticker], (error, results) => {
+        if (error) {
+            console.log(error.message);
+            throw error;
+        } 
+        res.status(200).json(results.rows);
+});
+}
+
+const socialMentions = async(req, res) => {
+    ticker = req.params.ticker;
+    source = req.params.source;
+    pool.query(queries.socialMentions, [ticker, source], (error, results) => {
+        if (error) {
+            console.log(error.message);
+            throw error;
+        } 
+        res.status(200).json(results.rows);
+});
+}
+
+const socialScore = async(req, res) => {
+    ticker = req.params.ticker;
+    source = req.params.source;
+    pool.query(queries.socialScore, [ticker, source], (error, results) => {
+        if (error) {
+            console.log(error.message);
+            throw error;
+        } 
+        res.status(200).json(results.rows);
+});
+}
 
 module.exports = {
     basicSearch,
@@ -360,5 +394,8 @@ module.exports = {
     betaCalc,
     otherDcfAss,
     candles,
-    newInsiders
+    newInsiders,
+    grossMargin,
+    socialMentions,
+    socialScore
 }

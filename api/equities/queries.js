@@ -134,6 +134,18 @@ const newInsiders = "with inside as (select distinct sum(change), transaction_da
 "equities.inside_transactions where ticker = $1 and transaction_price > 0 group by transaction_date order by transaction_date) " +
 `select inside.transaction_date as "date", (inside.max * inside.sum) as "amount" from inside order by date asc`
 
+// financials charting queris
+const grossMargin = "select distinct date,  max(case when (fsli = 'totalRevenue') then value else NULL end) as revenue, " +
+"max(case when (fsli = 'grossProfit') then value else NULL end) as gross_profit " +
+"from equities.normalized_financials where ticker = $1 group by date order by date asc"
+
+const socialMentions = "select distinct date, positive_mentions, negative_mentions from equities.social_sentiment " +
+"where ticker = $1 and source = $2 order by date desc";
+
+const socialScore = "select distinct date, positive_score, negative_score, total_score from equities.social_sentiment " +
+"where ticker = $1 and source = $2 order by date asc";
+
+
 module.exports = {
     topNews,
     getIpos,
@@ -169,5 +181,8 @@ module.exports = {
     otherDcfAss,
     newSearch,
     candles,
-    newInsiders
+    newInsiders,
+    grossMargin,
+    socialMentions,
+    socialScore
 }

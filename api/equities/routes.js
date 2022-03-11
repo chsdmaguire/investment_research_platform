@@ -78,4 +78,11 @@ router.get('/stocks/otherdcfassump/:ticker', controller.otherDcfAss)
 
 router.get('/stocks/insiders/:ticker', controller.newInsiders)
 
+router.get('/charting/financials/gm/:ticker', controller.grossMargin)
+
+router.get('/stocks/social/mentions/:ticker/:source', controller.socialMentions)
+
+router.get('/stocks/social/score/:ticker/:source', controller.socialScore)
+
+
 module.exports = router;
