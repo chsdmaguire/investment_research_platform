@@ -95,12 +95,12 @@
                             </v-list-item>
                              <v-list-item>
                                 <v-list-item-content>
-                                    <v-list-item-title @click="showMA">Reddit Mentions</v-list-item-title>
+                                    <v-list-item-title @click="redditMentions">Reddit Mentions</v-list-item-title>
                                 </v-list-item-content>
                             </v-list-item>  
                              <v-list-item>
                                 <v-list-item-content>
-                                    <v-list-item-title @click="showMA">Reddit Sentiment</v-list-item-title>
+                                    <v-list-item-title @click="redditScore">Reddit Sentiment</v-list-item-title>
                                 </v-list-item-content>
                             </v-list-item>                                  
                         </v-list-item-group>
@@ -545,7 +545,6 @@ export default {
                     const date = new Date(item.date).getTime();
                     this.twitPosMentions.push([date, Number(item.positive_mentions),  -Number(item.negative_mentions)])                
                 });
-            console.log(this.twitPosMentions)
                 this.candles.offchart.push({
                 name: 'Twitter Mentions',
                 type: "SocialMentions",
@@ -573,7 +572,42 @@ export default {
                 this.chart = new DataCube(this.candles)            
             });
             this.dialog3 = false;
-        }
+        },
+        redditMentions() {
+            const ticker = 'AAPL';
+            const source = 'reddit';
+            this.$axios.get(`/stocks/social/mentions/${ticker}/${source}`).then(res => {
+                res.data.forEach(item => {
+                    const date = new Date(item.date).getTime();
+                    this.twitPosMentions.push([date, Number(item.positive_mentions),  -Number(item.negative_mentions)])                
+                });
+                this.candles.offchart.push({
+                name: 'Reddit Mentions',
+                type: "SocialMentions",
+                data: this.twitPosMentions,
+                })
+                this.chart = new DataCube(this.candles)            
+            });
+            this.dialog3 = false;
+        },
+        redditScore() {
+            const ticker = 'AAPL';
+            const source = 'reddit';
+            this.$axios.get(`/stocks/social/score/${ticker}/${source}`).then(res => {
+                const scores = [];
+                res.data.forEach(item => {
+                    const date = new Date(item.date).getTime();
+                    scores.push([date, Number(item.positive_score),  Number(item.negative_score), Number(item.total_score)])                
+                });
+                this.candles.offchart.push({
+                name: 'Reddit Sentiment Score',
+                type: "SocialScore",
+                data: scores,
+                })
+                this.chart = new DataCube(this.candles)            
+            });
+            this.dialog3 = false;
+        },
     },
 
     mounted() {
