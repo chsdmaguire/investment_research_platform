@@ -14,14 +14,24 @@
                     <v-list-item-group>
                         <v-list-item>       
                             <v-list-item-content>
-                                <v-list-item-title @click="showMA">Moving Average</v-list-item-title>
+                                <v-list-item-title @click="sma5Day">5-Day Simple Moving Average</v-list-item-title>
                             </v-list-item-content>
                         </v-list-item>
                         <v-list-item>
                             <v-list-item-content>
-                                <v-list-item-title @click="showMA">Exponential Moving Average</v-list-item-title>
+                                <v-list-item-title @click="ema5Day">5-Day Exponential Moving Average</v-list-item-title>
                             </v-list-item-content>
-                        </v-list-item>                            
+                        </v-list-item> 
+                        <v-list-item>
+                            <v-list-item-content>
+                                <v-list-item-title @click="ichiKloud">Ichimoku Cloud</v-list-item-title>
+                            </v-list-item-content>
+                        </v-list-item> 
+                        <v-list-item>
+                            <v-list-item-content>
+                                <v-list-item-title @click="parSar">Parabolic SAR</v-list-item-title>
+                            </v-list-item-content>
+                        </v-list-item>                           
                     </v-list-item-group>
                 </v-list>                    
         </v-card>
@@ -45,7 +55,7 @@
                             </v-list-item>
                             <v-list-item>
                                 <v-list-item-content>
-                                    <v-list-item-title @click="showMA">Operating Margin</v-list-item-title>
+                                    <v-list-item-title @click="showGrossMargin">Operating Margin</v-list-item-title>
                                 </v-list-item-content>
                             </v-list-item>                            
                         </v-list-item-group>
@@ -191,7 +201,7 @@ import TradingVue from 'trading-vue-js';
 import { DataCube } from 'trading-vue-js';
 import TestOverlay from './TestOverlay.vue';
 import Overlays from 'tvjs-overlays'
-import simpleMovingAverage from './Technicals.js';
+import technicals from './Technicals.js';
 import calcGrossMargin from './Financials.js'
 import BubbleOverlay from './BubbleOverlay';
 import InsidersOverlay from './InsidersOverlay';
@@ -199,10 +209,10 @@ import PatentsOverlay from './PatentsOverlay';
 import RecsOverlay from './RecsOverlay';
 import SocialMentions from './SocialMentions';
 import SocialScore from './SocialScore';
-
+const technicalCalcs = require('technicalindicators')
 export default {
     components: { TradingVue },
-    mixins: [simpleMovingAverage, calcGrossMargin],
+    mixins: [calcGrossMargin],
     data() {
         return {
             chart: {},
@@ -223,7 +233,9 @@ export default {
             twitPosMentions: [],
             insideTransactions: [],
 
-            overlays: [TestOverlay, SocialScore, InsidersOverlay, SocialMentions, RecsOverlay, BubbleOverlay, PatentsOverlay, Overlays['MOM'], Overlays['Histogram'], Overlays['Area51']],
+            overlays: [TestOverlay, SocialScore, InsidersOverlay, SocialMentions, 
+            RecsOverlay, BubbleOverlay, PatentsOverlay, Overlays['MOM'], 
+            Overlays['Histogram'], Overlays['Area51'], Overlays['Ichimoku'], Overlays['PlotCross']],
             candleStickData: [],
             epsData: [],
             patentData: [],
@@ -474,11 +486,12 @@ export default {
                 });
                 this.dialog3 = false;
         },
-        showMA() {
+        sma5Day() {
             const prices = this.candles.chart.data;
-            const smas = this.simpleMovingAverage(prices);
+            const window = 5;
+            const smas = technicals.simpleMovingAverage(prices, window);
             this.candles.onchart.push({
-                name: 'Simple Moving Average',
+                name: '5-Day Simple Moving Average',
                 type: 'SMA',
                 data: smas,
                 settings: {
@@ -488,6 +501,56 @@ export default {
             this.chart = new DataCube(this.candles);
             this.dialog1 = false;
 
+        },
+        ema5Day(){
+            const prices = this.candles.chart.data;
+            const window = 5;
+            const emas = technicals.exponentialMovingAverage(prices, window);
+            this.candles.onchart.push({
+                name: '5-Day Exponential Moving Average',
+                type: 'SMA',
+                data: emas,
+                settings: {
+                    color: '#44b6eb'
+                }
+            });
+            this.chart = new DataCube(this.candles);
+            this.dialog1 = false;
+        },
+        ichiKloud() {
+            const prices = this.candles.chart.data;
+            const data = technicals.ichiMokuCloud(prices)
+            this.candles.onchart.push({
+                name: 'Ichimoku Cloud',
+                type: 'Ichimoku',
+                data: data,
+            });
+            this.chart = new DataCube(this.candles);
+            this.dialog1 = false;
+        },
+        parSar(){
+            const prices = this.candles.chart.data;
+            const highs = [];
+            const lows = [];
+            const dates = [];
+            prices.forEach(item => {
+                highs.push(item[2]);
+                lows.push(item[3]);
+                dates.push(item[0]);
+            });
+            const sarsArray = [];
+            const pSar = new technicalCalcs.PSAR.calculate({high: highs, low: lows, step: .02, max: .2});
+          
+            pSar.forEach((item, index) => {
+                sarsArray.push([dates[index], item])
+            });
+            this.candles.onchart.push({
+                name: 'Parabolic SAR',
+                type: 'PlotCross',
+                data: sarsArray
+            });
+            this.chart = new DataCube(this.candles);
+            this.dialog1 = false;
         },
         on_button_click(event) {
             if(event.button == 'remove') {
