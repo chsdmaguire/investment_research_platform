@@ -1,3 +1,5 @@
+const technicalCalcs = require('technicalindicators');
+
 export default {
         simpleMovingAverage(prices, window) {
             if (!prices || prices.length < window) {
@@ -68,5 +70,22 @@ export default {
                 ichiData.push([newDate, tenkanSenVal, kijunSenVal, senkoSpanA, senkoSpanB, chikouSPan])
             };
         return ichiData
+    },
+    parabolicSar(prices) {
+        const highs = [];
+            const lows = [];
+            const dates = [];
+            prices.forEach(item => {
+                highs.push(item[2]);
+                lows.push(item[3]);
+                dates.push(item[0]);
+            });
+            const sarsArray = [];
+            const pSar = new technicalCalcs.PSAR.calculate({high: highs, low: lows, step: .02, max: .2});
+          
+            pSar.forEach((item, index) => {
+                sarsArray.push([dates[index], item])
+            });
+        return sarsArray;
     }
 }

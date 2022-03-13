@@ -209,7 +209,7 @@ import PatentsOverlay from './PatentsOverlay';
 import RecsOverlay from './RecsOverlay';
 import SocialMentions from './SocialMentions';
 import SocialScore from './SocialScore';
-const technicalCalcs = require('technicalindicators')
+const technicalCalcs = require('technicalindicators');
 export default {
     components: { TradingVue },
     mixins: [calcGrossMargin],
@@ -530,24 +530,11 @@ export default {
         },
         parSar(){
             const prices = this.candles.chart.data;
-            const highs = [];
-            const lows = [];
-            const dates = [];
-            prices.forEach(item => {
-                highs.push(item[2]);
-                lows.push(item[3]);
-                dates.push(item[0]);
-            });
-            const sarsArray = [];
-            const pSar = new technicalCalcs.PSAR.calculate({high: highs, low: lows, step: .02, max: .2});
-          
-            pSar.forEach((item, index) => {
-                sarsArray.push([dates[index], item])
-            });
+            const data = technicals.parabolicSar(prices);
             this.candles.onchart.push({
                 name: 'Parabolic SAR',
                 type: 'PlotCross',
-                data: sarsArray
+                data: data
             });
             this.chart = new DataCube(this.candles);
             this.dialog1 = false;
