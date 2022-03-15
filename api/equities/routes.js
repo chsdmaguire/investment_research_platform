@@ -78,11 +78,19 @@ router.get('/stocks/otherdcfassump/:ticker', controller.otherDcfAss)
 
 router.get('/stocks/insiders/:ticker', controller.newInsiders)
 
-router.get('/charting/financials/gm/:ticker', controller.grossMargin)
+router.get('/charting/financials/margin/:ticker/:fsli', controller.margin)
+
+router.get('/charting/financials/asset/:ticker/:one/:two', controller.finChart1)
+router.get('/charting/financials/three/:ticker/:one/:two/:three', controller.finChart2)
 
 router.get('/stocks/social/mentions/:ticker/:source', controller.socialMentions)
 
 router.get('/stocks/social/score/:ticker/:source', controller.socialScore)
 
+router.get('/stocks/charting/bvshare/:ticker', controller.bvPerShare)
+
+router.get('/stocks/charting/marketmetrics/:ticker/:fsli', controller.marketMetrics)
+
+router.get('/stocks/charting/marketmetrics2/:ticker/:fsli', controller.marketMetrics2)
 
 module.exports = router;

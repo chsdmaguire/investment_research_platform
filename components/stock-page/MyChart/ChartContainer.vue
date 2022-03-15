@@ -1,15 +1,22 @@
 <template>
-<v-container class="mt-4 mb-12 mx-2" fluid>
-        <v-row justify="start" align="center">
-    <v-dialog v-model="dialog1" width="500">
+<v-container class="mt-4 mx-2" fluid>
+        <v-row justify="start" align="start" class="ml-">
+    <v-dialog v-model="dialog1" max-width="500">
       <template v-slot:activator="{ on, attrs }">
-        <v-btn text v-bind="attrs" v-on="on">Technicals</v-btn>
+        <v-btn text v-bind="attrs" v-on="on" class="font-weight-regular buttons">Technicals</v-btn>
       </template>
 
-      <v-card tile>
+      <v-card tile class="mx-auto">
         <v-card-title class="justify-center">
           Technical Indicators
         </v-card-title>
+        <v-card-text class="justify-center">
+            <v-tabs>
+            <v-tab>Trend</v-tab>
+            <v-tab>Momentum</v-tab>
+            <v-tab>Volatility</v-tab>
+            <v-tab>Volume</v-tab>
+            <v-tab-item>
                 <v-list>
                     <v-list-item-group>
                         <v-list-item>       
@@ -31,22 +38,133 @@
                             <v-list-item-content>
                                 <v-list-item-title @click="parSar">Parabolic SAR</v-list-item-title>
                             </v-list-item-content>
+                        </v-list-item> 
+                        <v-list-item>
+                            <v-list-item-content>
+                                <v-list-item-title @click="showCci">Commodity Channel Index</v-list-item-title>
+                            </v-list-item-content>
                         </v-list-item>                           
                     </v-list-item-group>
-                </v-list>                    
+                </v-list>                            
+            </v-tab-item>
+            <v-tab-item>
+                <v-list>
+                    <v-list-item-group>
+                        <v-list-item>
+                            <v-list-item-content>
+                                <v-list-item-title @click="showAdx">Directional Movement Index</v-list-item-title>
+                            </v-list-item-content>
+                        </v-list-item>
+                        <v-list-item>
+                            <v-list-item-content>
+                                <v-list-item-title @click="showMacd">MACD</v-list-item-title>
+                            </v-list-item-content>
+                        </v-list-item>
+                        <v-list-item>
+                            <v-list-item-content>
+                                <v-list-item-title @click="stochastic">Stochastic Oscillator</v-list-item-title>
+                            </v-list-item-content>
+                        </v-list-item>
+                        <v-list-item>
+                            <v-list-item-content>
+                                <v-list-item-title @click="williams">Williams %R</v-list-item-title>
+                            </v-list-item-content>
+                        </v-list-item>
+                        <v-list-item>
+                            <v-list-item-content>
+                                <v-list-item-title @click="mfi">Money Flow Index</v-list-item-title>
+                            </v-list-item-content>
+                        </v-list-item>
+                    </v-list-item-group>
+                </v-list>
+            </v-tab-item>
+            <v-tab-item>
+                <v-list>
+                    <v-list-item-group>
+                        <v-list-item>
+                            <v-list-item-content>
+                                <v-list-item-title @click="atr">Average True Range</v-list-item-title>
+                            </v-list-item-content>
+                        </v-list-item>
+                        <v-list-item>
+                            <v-list-item-content>
+                                <v-list-item-title @click="bb">Bollinger Bands</v-list-item-title>
+                            </v-list-item-content>
+                        </v-list-item>
+                        <v-list-item>
+                            <v-list-item-content>
+                                <v-list-item-title @click="bbWidth">Bollinger Bands Width</v-list-item-title>
+                            </v-list-item-content>
+                        </v-list-item>
+                        <v-list-item>
+                            <v-list-item-content>
+                                <v-list-item-title @click="keltner">Keltner Channel</v-list-item-title>
+                            </v-list-item-content>
+                        </v-list-item>
+                        <v-list-item>
+                            <v-list-item-content>
+                                <v-list-item-title @click="keltnerWidth">Keltner Channel Width</v-list-item-title>
+                            </v-list-item-content>
+                        </v-list-item>
+                        <v-list-item>
+                            <v-list-item-content>
+                                <v-list-item-title @click="stdDev">Standard Deviation</v-list-item-title>
+                            </v-list-item-content>
+                        </v-list-item>
+                    </v-list-item-group>
+                </v-list>
+            </v-tab-item>
+            <v-tab-item>
+                <v-list>
+                    <v-list-item-group>
+                        <v-list-item>
+                            <v-list-item-content>
+                                <v-list-item-title @click="adl">Acumulation/Distribution</v-list-item-title>
+                            </v-list-item-content>
+                        </v-list-item>
+                        <v-list-item>
+                            <v-list-item-content>
+                                <v-list-item-title @click="chaikin">Chaikin Money Flow</v-list-item-title>
+                            </v-list-item-content>
+                        </v-list-item>
+                        <v-list-item>
+                            <v-list-item-content>
+                                <v-list-item-title @click="obv">On-Balance Volume</v-list-item-title>
+                            </v-list-item-content>
+                        </v-list-item>
+                        <v-list-item>
+                            <v-list-item-content>
+                                <v-list-item-title @click="vwap">Volume Weighted Average Price</v-list-item-title>
+                            </v-list-item-content>
+                        </v-list-item>
+                    </v-list-item-group>
+                </v-list>
+            </v-tab-item>
+            </v-tabs>
+        </v-card-text>
+
+        
         </v-card>
     </v-dialog>
 
-    <v-dialog v-model="dialog2" width="500">
+    <v-dialog v-model="dialog2" max-width="500">
         <template v-slot:activator="{ on, attrs }">
             <v-btn text v-bind="attrs" v-on="on">Financials</v-btn>
         </template>
 
-        <v-card tile>
+        <v-card tile class="mx-auto">
             <v-card-title class="justify-center">
             Financial Metrics
             </v-card-title>
-                    <v-list>
+            <v-card-text class="justify-center">
+                <v-tabs>
+                    <v-tab>Profitability</v-tab>
+                    <v-tab>Efficiency</v-tab>
+                    <v-tab>Leverage</v-tab>
+                    <v-tab>Liquidity</v-tab>
+                    <v-tab>Valuation</v-tab>
+                    <v-tab-item>
+                        <v-list>
                         <v-list-item-group>
                             <v-list-item>       
                                 <v-list-item-content>
@@ -55,11 +173,104 @@
                             </v-list-item>
                             <v-list-item>
                                 <v-list-item-content>
-                                    <v-list-item-title @click="showGrossMargin">Operating Margin</v-list-item-title>
+                                    <v-list-item-title @click="showOM">Operating Margin</v-list-item-title>
                                 </v-list-item-content>
-                            </v-list-item>                            
+                            </v-list-item>
+                            <v-list-item>
+                                <v-list-item-content>
+                                    <v-list-item-title @click="ebitdaMargin">EBITDA Margin</v-list-item-title>
+                                </v-list-item-content>
+                            </v-list-item> 
+                            <v-list-item>
+                                <v-list-item-content>
+                                    <v-list-item-title @click="niMargin">Net Income Margin</v-list-item-title>
+                                </v-list-item-content>
+                            </v-list-item> 
+                            <v-list-item>
+                                <v-list-item-content>
+                                    <v-list-item-title @click="roa">Return on Assets</v-list-item-title>
+                                </v-list-item-content>
+                            </v-list-item> 
+                            <v-list-item>
+                                <v-list-item-content>
+                                    <v-list-item-title @click="roe">Return on Equity</v-list-item-title>
+                                </v-list-item-content>
+                            </v-list-item>                                                     
                         </v-list-item-group>
-                    </v-list>                    
+                        </v-list>   
+                    </v-tab-item>
+                    <v-tab-item>
+                        <v-list>
+                            <v-list-item-group :value="efficiencyModel">
+                                <v-list-item v-for="(i, idx) in efficiencyArr" :key="idx">
+                                    <v-list-item-content>
+                                        <v-list-item-title @click="turnover(idx)">{{ i.name }}</v-list-item-title>
+                                    </v-list-item-content>
+                                </v-list-item>
+                            </v-list-item-group>
+                        </v-list>
+                    </v-tab-item>
+                    <v-tab-item>
+                         <v-list>
+                            <v-list-item-group :value="leverageModel">
+                                <v-list-item v-for="(i, idx) in leverageArr" :key="idx">
+                                    <v-list-item-content>
+                                        <v-list-item-title @click="leverage(idx)">{{ i.name }}</v-list-item-title>
+                                    </v-list-item-content>
+                                </v-list-item>
+                            </v-list-item-group>
+                        </v-list>
+                    </v-tab-item>
+                    <v-tab-item>
+                        <v-list>
+                            <v-list-item-group>
+                                <v-list-item>
+                                    <v-list-item-content>
+                                        <v-list-item-title @click="cash">Cash Ratio</v-list-item-title>
+                                    </v-list-item-content>
+                                </v-list-item>
+                                <v-list-item>
+                                    <v-list-item-content>
+                                        <v-list-item-title @click="acidTest">Acid-Test Ratio</v-list-item-title>
+                                    </v-list-item-content>
+                                </v-list-item>
+                                <v-list-item>
+                                    <v-list-item-content>
+                                        <v-list-item-title @click="current">Current Ratio</v-list-item-title>
+                                    </v-list-item-content>
+                                </v-list-item>
+                                <v-list-item>
+                                    <v-list-item-content>
+                                        <v-list-item-title @click="ocf">Operating Cash Flow Ratio</v-list-item-title>
+                                    </v-list-item-content>
+                                </v-list-item>
+                            </v-list-item-group>
+                        </v-list>
+                    </v-tab-item>
+                    <v-tab-item>
+                        <v-list>
+                            <v-list-item-group>
+                                <v-list-item>
+                                    <v-list-item-content>
+                                        <v-list-item-title @click="bvShare">Book Value per Share</v-list-item-title>
+                                    </v-list-item-content>
+                                </v-list-item>
+                                <v-list-item>
+                                    <v-list-item-content>
+                                        <v-list-item-title @click="evEbit">EV to EBIT</v-list-item-title>
+                                    </v-list-item-content>
+                                </v-list-item>
+                                <v-list-item>
+                                    <v-list-item-content>
+                                        <v-list-item-title @click="priceSales">Price to Sales</v-list-item-title>
+                                    </v-list-item-content>
+                                </v-list-item>
+                            </v-list-item-group>
+                        </v-list>
+                    </v-tab-item>
+                </v-tabs>
+            </v-card-text>
+                                      
             </v-card>
         </v-dialog>
     <v-dialog v-model="dialog3" width="500">
@@ -180,17 +391,24 @@
                     <v-btn plain>5Y</v-btn>
                   </v-btn-toggle>
         </v-row>
+        
     <v-row justify="center" align="center">
-        <trading-vue 
-        :title-txt="ticker"
-        :data="chart"
-        :overlays="overlays"
-        :width="width" :height="height"
-        ref="tv"
-        :legend-buttons="['remove', 'settings']"
-        v-on:legend-button-click="on_button_click"
-        :toolbar="false">
-        </trading-vue> 
+         <multiselect :list="ext_names" @onstate="reset"/>
+
+            <trading-vue 
+            :title-txt="ticker"
+            :data="chart"
+            :overlays="overlays"
+            :width="this.width" :height="this.height"
+            ref="tv"
+            :legend-buttons="['remove', 'settings']"
+            :ext="extensions"
+            :resetkey="resetkey"
+            v-on:legend-button-click="on_button_click"
+            :toolbar="true"
+             :x-settings="xsett">
+            </trading-vue>            
+ 
     </v-row>       
 </v-container> 
 
@@ -202,23 +420,27 @@ import { DataCube } from 'trading-vue-js';
 import TestOverlay from './TestOverlay.vue';
 import Overlays from 'tvjs-overlays'
 import technicals from './Technicals.js';
-import calcGrossMargin from './Financials.js'
+import financials from './Financials.js'
 import BubbleOverlay from './BubbleOverlay';
+import DMIOverlay from './DMIOverlay';
 import InsidersOverlay from './InsidersOverlay';
 import PatentsOverlay from './PatentsOverlay';
 import RecsOverlay from './RecsOverlay';
+import MACDOverlay from './MACDOverlay';
+import StochOverlay from './StochOverlay';
 import SocialMentions from './SocialMentions';
 import SocialScore from './SocialScore';
-const technicalCalcs = require('technicalindicators');
+import xp from 'tvjs-xp';
+import Multiselect from './Multiselect';
+
 export default {
-    components: { TradingVue },
-    mixins: [calcGrossMargin],
+    components: { TradingVue, Multiselect },
     data() {
         return {
             chart: {},
             props: ['width', 'height'],
-            width: window.innerWidth - 300,
-            height: window.innerWidth - 500,
+            width: window.innerWidth ,
+            height: window.innerWidth,
             dialog1: false,
             dialog2: false,
             dialog3: false,
@@ -229,13 +451,21 @@ export default {
                 onchart: [],
                 offchart: [],
             },
-
+            extensions: Object.values(xp),
+             ext_names: Object.keys(xp),
+             resetkey: 0,
+             xsett: {
+                'grid-resize': { min_height: 30 }
+            },
             twitPosMentions: [],
             insideTransactions: [],
 
             overlays: [TestOverlay, SocialScore, InsidersOverlay, SocialMentions, 
             RecsOverlay, BubbleOverlay, PatentsOverlay, Overlays['MOM'], 
-            Overlays['Histogram'], Overlays['Area51'], Overlays['Ichimoku'], Overlays['PlotCross']],
+            Overlays['Histogram'], DMIOverlay, Overlays['CCI'], Overlays['Area51'], 
+            Overlays['Ichimoku'], Overlays['PlotCross'], MACDOverlay, Overlays['WilliamsR'], 
+            StochOverlay, Overlays['MFI'], Overlays['ATR'], Overlays['BB'],  Overlays['VWMA']
+            ],
             candleStickData: [],
             epsData: [],
             patentData: [],
@@ -305,6 +535,20 @@ export default {
                  {name: 'University of Michigan: Consumer Sentiment', value: 'UMCSENT', color: '#f87991'},
                 
             ],
+            efficiencyArr: [
+                {name: 'Asset Turnover', top: 'totalRevenue', bottom: 'totalAssets', color: '#f57e76'},
+                {name: 'Inventory Turnover', top: 'totalRevenue', bottom: 'inventory', color: '#6ac75a'},
+                {name: 'Receivables Turnover', top: 'totalRevenue', bottom: 'currentNetReceivables', color: '#6ac75a'},
+                {name: 'Payables Turnover', top: 'costofGoodsAndServicesSold', bottom: 'currentAccountsPayable', color: '#6ac75a'},
+            ],
+            leverageArr: [
+                {name: 'Leverage Ratio', top: 'totalLiabilities', bottom: 'totalAssets', color: '#f57e76'},
+                {name: 'Debt to Equity', top: 'totalLiabilities', bottom: 'totalShareholderEquity', color: '#6ac75a'},
+                {name: 'Interest Coverage', top: 'operatingIncome', bottom: 'currentNetReceivables', color: '#6ac75a'},
+                {name: 'Debt Service Coverage', top: 'operatingIncome', bottom: 'shortLongTermDebtTotal', color: '#6ac75a'},
+            ],
+            efficiencyModel: '',
+            leverageModel: '',
             compModel: '',
             yieldModel: '',
             econModel: '',
@@ -323,6 +567,12 @@ export default {
     },
 
     methods: {
+        reset(state) {
+            let sub = Object.keys(state).filter(x => state[x])
+            this.extensions = sub.map(x => xp[x])
+            this.resetkey++
+        },
+
         showEconData(idx) {
              const id = this.econMetrics[idx].value;
              const color = this.econMetrics[idx].color;
@@ -357,7 +607,6 @@ export default {
                      yieldData.push([date, Number(item.value)]);
                  });
              });
-             console.log(yieldData)
              this.candles.offchart.push({
                 name: this.yields[idx].name,
                 type: 'Area51',
@@ -398,15 +647,246 @@ export default {
         },
         showGrossMargin() {
             const ticker = 'AAPL';
-            this.$axios.get(`/charting/financials/gm/${ticker}`).then(res => {
-            const grossMargin = this.calcGrossMargin(res.data);    
+            const fsli = 'grossProfit';
+            this.$axios.get(`/charting/financials/margin/${ticker}/${fsli}`).then(res => {
+            const data = financials.calcMargin(res.data);    
                  this.candles.offchart.push({
                      name: 'Gross Margin',
                      type: 'Histogram',
-                     data: grossMargin,
+                     data: data,
                      settings: {
                          lineWidth: 100,
                          color: '#4287f5'
+                     }
+                 });
+                 this.chart = new DataCube(this.candles)
+            });
+            this.dialog2 = false;
+        },
+        showOM() {
+            const ticker = 'AAPL';
+            const fsli = 'operatingIncome';
+            this.$axios.get(`/charting/financials/margin/${ticker}/${fsli}`).then(res => {
+            const data = financials.calcMargin(res.data);    
+                 this.candles.offchart.push({
+                     name: 'Operating Margin',
+                     type: 'Histogram',
+                     data: data,
+                     settings: {
+                         lineWidth: 100,
+                         color: '#f57e76'
+                     }
+                 });
+                 this.chart = new DataCube(this.candles)
+            });
+            this.dialog2 = false;
+        },
+        ebitdaMargin() {
+            const ticker = 'AAPL';
+            const fsli = 'ebitda';
+            this.$axios.get(`/charting/financials/margin/${ticker}/${fsli}`).then(res => {
+            const data = financials.calcMargin(res.data);    
+                 this.candles.offchart.push({
+                     name: 'EBITDA Margin',
+                     type: 'Histogram',
+                     data: data,
+                     settings: {
+                         lineWidth: 100,
+                         color: '#a3d19b'
+                     }
+                 });
+                 this.chart = new DataCube(this.candles)
+            });
+            this.dialog2 = false;
+        },
+        niMargin() {
+            const ticker = 'AAPL';
+            const fsli = 'netIncome';
+            this.$axios.get(`/charting/financials/margin/${ticker}/${fsli}`).then(res => {
+            const data = financials.calcMargin(res.data);    
+                 this.candles.offchart.push({
+                     name: 'Net Income Margin',
+                     type: 'Histogram',
+                     data: data,
+                     settings: {
+                         lineWidth: 100,
+                         color: '#f57e76'
+                     }
+                 });
+                 this.chart = new DataCube(this.candles)
+            });
+            this.dialog2 = false;
+        },
+        assetTurn() {
+            const ticker = 'AAPL';
+            const top = 'totalRevenue';
+            const bottom = 'totalAssets';
+            this.$axios.get(`/charting/financials/asset/${ticker}/${top}/${bottom}`).then(res => {
+                const data = financials.calc1(res.data);
+                this.candles.offchart.push({
+                     name: 'Asset Turnover',
+                     type: 'Histogram',
+                     data: data,
+                     settings: {
+                         lineWidth: 100,
+                         color: '#f57e76'
+                     }
+                 });
+                 this.chart = new DataCube(this.candles)
+            });
+            this.dialog2 = false;
+        },
+        turnover(idx) {
+            const ticker = 'AAPL';
+            const top = this.efficiencyArr[idx].top;
+            const bottom = this.efficiencyArr[idx].bottom;
+            const color = this.efficiencyArr[idx].color;
+            const name = this.efficiencyArr[idx].name;
+            this.$axios.get(`/charting/financials/asset/${ticker}/${top}/${bottom}`).then(res => {
+                const data = financials.calc1(res.data);
+                this.candles.offchart.push({
+                     name: name,
+                     type: 'Histogram',
+                     data: data,
+                     settings: {
+                         lineWidth: 100,
+                         color: color
+                     }
+                 });
+                 this.chart = new DataCube(this.candles)
+            });
+            this.dialog2 = false;
+        },
+        leverage(idx) {
+            const ticker = 'AAPL';
+            const top = this.leverageArr[idx].top;
+            const bottom = this.leverageArr[idx].bottom;
+            const color = this.leverageArr[idx].color;
+            const name = this.leverageArr[idx].name;
+            this.$axios.get(`/charting/financials/asset/${ticker}/${top}/${bottom}`).then(res => {
+                const data = financials.calc1(res.data);
+                this.candles.offchart.push({
+                     name: name,
+                     type: 'Histogram',
+                     data: data,
+                     settings: {
+                         lineWidth: 100,
+                         color: color
+                     }
+                 });
+                 this.chart = new DataCube(this.candles)
+            });
+            this.dialog2 = false;
+        },
+        current() {
+            const ticker = 'AAPL';
+            const top = 'totalCurrentAssets'
+            const bottom = 'totalCurrentLiabilities';
+            this.$axios.get(`/charting/financials/asset/${ticker}/${top}/${bottom}`).then(res => {
+                const data = financials.calc1(res.data);
+                this.candles.offchart.push({
+                     name: 'Current Ratio',
+                     type: 'Histogram',
+                     data: data,
+                     settings: {
+                         lineWidth: 100,
+                         color:  '#f57e76'
+                     }
+                 });
+                 this.chart = new DataCube(this.candles)
+            });
+            this.dialog2 = false;
+        },
+        ocf() {
+            const ticker = 'AAPL';
+            const top = 'operatingCashflow'
+            const bottom = 'totalCurrentLiabilities';
+            this.$axios.get(`/charting/financials/asset/${ticker}/${top}/${bottom}`).then(res => {
+                const data = financials.calc1(res.data);
+                this.candles.offchart.push({
+                     name: 'OCF Ratio',
+                     type: 'Histogram',
+                     data: data,
+                     settings: {
+                         lineWidth: 100,
+                         color:  '#f57e76'
+                     }
+                 });
+                 this.chart = new DataCube(this.candles)
+            });
+            this.dialog2 = false;
+        },
+        cash() {
+            const ticker = 'AAPL';
+            const top = 'cashAndShortTermInvestments'
+            const bottom = 'totalCurrentLiabilities';
+            this.$axios.get(`/charting/financials/asset/${ticker}/${top}/${bottom}`).then(res => {
+                const data = financials.calc1(res.data);
+                this.candles.offchart.push({
+                     name: 'Cash Ratio',
+                     type: 'Histogram',
+                     data: data,
+                     settings: {
+                         lineWidth: 100,
+                         color:  '#f57e76'
+                     }
+                 });
+                 this.chart = new DataCube(this.candles)
+            });
+            this.dialog2 = false;
+        },
+        roa() {
+            const ticker = 'AAPL';
+            const top = 'netIncome'
+            const bottom = 'totalAssets';
+            this.$axios.get(`/charting/financials/asset/${ticker}/${top}/${bottom}`).then(res => {
+                const data = financials.calc1(res.data);
+                this.candles.offchart.push({
+                     name: 'ROA',
+                     type: 'Histogram',
+                     data: data,
+                     settings: {
+                         lineWidth: 100,
+                         color:  '#f57e76'
+                     }
+                 });
+                 this.chart = new DataCube(this.candles)
+            });
+            this.dialog2 = false;
+        },
+        roe() {
+            const ticker = 'AAPL';
+            const top = 'netIncome'
+            const bottom = 'totalShareholderEquity';
+            this.$axios.get(`/charting/financials/asset/${ticker}/${top}/${bottom}`).then(res => {
+                const data = financials.calc1(res.data);
+                this.candles.offchart.push({
+                     name: 'ROE',
+                     type: 'Histogram',
+                     data: data,
+                     settings: {
+                         lineWidth: 100,
+                         color:  '#f57e76'
+                     }
+                 });
+                 this.chart = new DataCube(this.candles)
+            });
+            this.dialog2 = false;
+        },
+        acidTest() {
+            const ticker = 'AAPL';
+            const topFirst = 'totalCurrentAssets';
+            const topSecond = 'inventory'
+            const bottom = 'totalCurrentLiabilities';
+            this.$axios.get(`/charting/financials/three/${ticker}/${topFirst}/${bottom}/${topSecond}`).then(res => {
+                const data = financials.calc2(res.data);
+                this.candles.offchart.push({
+                     name: 'Acid-Test Ratio',
+                     type: 'Histogram',
+                     data: data,
+                     settings: {
+                         lineWidth: 100,
+                         color:  '#f57e76'
                      }
                  });
                  this.chart = new DataCube(this.candles)
@@ -430,8 +910,71 @@ export default {
                     data: this.analystRecs,
                 });
                 this.chart = new DataCube(this.candles)
-
-
+        },
+        bvShare() {
+            const ticker = 'AAPL';
+            const arr = [];
+            this.$axios.get(`/stocks/charting/bvshare/${ticker}`).then(res => {
+                res.data.forEach(item => {
+                    const date = new Date(item.date).getTime();
+                    arr.push([date, item.bv_per_share])
+                });
+                this.candles.offchart.push({
+                     name: 'Book Value Per Share',
+                     type: 'Histogram',
+                     data: arr,
+                     settings: {
+                         lineWidth: 100,
+                         color:  '#f57e76'
+                     }
+                 });
+                 this.chart = new DataCube(this.candles)  
+            });
+            this.dialog2 = false;
+        },
+        evEbit() {
+            const ticker = 'AAPL';
+            const fsli = 'ebit';
+            const arr = [];
+            this.$axios.get(`/stocks/charting/marketmetrics/${ticker}/${fsli}`).then(res => {
+                res.data.forEach(item => {
+                    const date = new Date(item.date).getTime();
+                    arr.push([date, item.value])
+                });
+                this.candles.offchart.push({
+                     name: 'EV to EBIT',
+                     type: 'Histogram',
+                     data: arr,
+                     settings: {
+                         lineWidth: 100,
+                         color:  '#f57e76'
+                     }
+                 });
+                 this.chart = new DataCube(this.candles)  
+            });
+            this.dialog2 = false;
+        },
+        priceSales() {
+            const ticker = 'AAPL';
+            const fsli = 'netIncome';
+            const arr = [];
+            this.$axios.get(`/stocks/charting/marketmetrics2/${ticker}/${fsli}`).then(res => {
+                res.data.forEach(item => {
+                    const date = new Date(item.date).getTime();
+                    arr.push([date, item.value])
+                });
+                this.candles.offchart.push({
+                     name: 'P/E',
+                     type: 'Histogram',
+                     data: arr,
+                     settings: {
+                         lineWidth: 100,
+                         color:  '#f57e76'
+                     }
+                 });
+                 this.chart = new DataCube(this.candles)  
+            });
+            this.dialog2 = false;
         },
         changeScale() {
             const startDate = new Date()
@@ -456,7 +999,6 @@ export default {
                     }             
                 })
              });
-             console.log(this.patentData)
             this.candles.onchart.push({
         "name": "Data sections",
         "type": "Splitters",
@@ -539,6 +1081,17 @@ export default {
             this.chart = new DataCube(this.candles);
             this.dialog1 = false;
         },
+        showAdx() {
+            const prices = this.candles.chart.data;
+            const data = technicals.averageDirectIndex(prices);
+            this.candles.offchart.push({
+                name: 'Directional Movement Index',
+                type: 'DMIOverlay',
+                data: data
+            });
+            this.chart = new DataCube(this.candles);
+            this.dialog1 = false;
+        },
         on_button_click(event) {
             if(event.button == 'remove') {
                 if(event.type == 'offchart') {
@@ -554,7 +1107,206 @@ export default {
                 console.log('display', event)
             }
         },
+        showCci() {
+            const prices = this.candles.chart.data;
+            const data = technicals.commChannelIndex(prices);
+            this.candles.offchart.push({
+                name: 'Commodity Channel Index',
+                type: 'CCI',
+                data: data,
+                settings: {
+                    upper: 100,
+                    lower: -100,
+                }
+            });
+            this.chart = new DataCube(this.candles);
+            this.dialog1 = false;
+        },
+        showMacd() {
+             const prices = this.candles.chart.data;
+             const data = technicals.macdIndicator(prices);
+            this.candles.offchart.push({
+                name: 'MACD',
+                type: 'MACDOverlay',
+                data: data,
+            });
+            this.chart = new DataCube(this.candles);
+            this.dialog1 = false;
+        },
+        stochastic() {
+            const prices = this.candles.chart.data;
+            const data = technicals.stochOsc(prices);
+            this.candles.offchart.push({
+                name: 'Stochastic Oscillator',
+                type: 'StochOverlay',
+                data: data,
+            });
+            this.chart = new DataCube(this.candles);
+            this.dialog1 = false;
+        },
+        williams(){
+            const prices = this.candles.chart.data;
+            const data = technicals.williamR(prices);
+            this.candles.offchart.push({
+                name: 'Williams %R',
+                type: 'WilliamsR',
+                data: data,
+                settings: {
+                    upper: -20,
+                    lower: -80
+                }
+            });
+            this.chart = new DataCube(this.candles);
+            this.dialog1 = false;
+        },
+        mfi(){
+            const prices = this.candles.chart.data;
+            const data = technicals.mfi(prices);
+            this.candles.offchart.push({
+                name: 'Money Flow Index',
+                type: 'MFI',
+                data: data,
+                settings: {
+                    upper: 80,
+                    lower: 20,
+                    color: '#c4f22e'
 
+                }
+            });
+            this.chart = new DataCube(this.candles);
+            this.dialog1 = false;
+        },
+        atr(){
+            const prices = this.candles.chart.data;
+            const data = technicals.atr(prices);
+            this.candles.offchart.push({
+                name: 'Average True Range',
+                type: 'ATR',
+                data: data,
+                settings: {
+                    upper: 80,
+                    lower: 20,
+                    color: '#be5ee0'
+
+                }
+            });
+            this.chart = new DataCube(this.candles);
+            this.dialog1 = false;
+        },
+        bb(){
+            const prices = this.candles.chart.data;
+            const data = technicals.bb(prices);
+            this.candles.onchart.push({
+                name: 'Bollinger Bands',
+                type: 'BB',
+                data: data,
+            });
+            this.chart = new DataCube(this.candles);
+            this.dialog1 = false;
+        },
+        bbWidth(){
+            const prices = this.candles.chart.data;
+            const data = technicals.bbWidth(prices);
+            this.candles.offchart.push({
+                name: 'Bollinger Bands Width',
+                type: 'ATR',
+                data: data,
+            });
+            this.chart = new DataCube(this.candles);
+            this.dialog1 = false;
+        },
+        adl(){
+            const prices = this.candles.chart.data;
+            const data = technicals.adl(prices);
+            this.candles.offchart.push({
+                name: 'Accumulation Distribution Line',
+                type: 'ATR',
+                data: data,
+                settings: {
+                    color: '#d91e59'
+                }
+            });
+            this.chart = new DataCube(this.candles);
+            this.dialog1 = false;
+        },
+        obv(){
+            const prices = this.candles.chart.data;
+            const data = technicals.obv(prices);
+            this.candles.offchart.push({
+                name: 'On-Balance Volume',
+                type: 'Histogram',
+                data: data,
+                settings: {
+                    color: '#5691ce'
+                }
+            });
+            this.chart = new DataCube(this.candles);
+            this.dialog1 = false;
+        },
+        vwap(){
+            const prices = this.candles.chart.data;
+            const data = technicals.vwap(prices);
+            this.candles.onchart.push({
+                name: 'VWAP',
+                type: 'VWMA',
+                data: data,
+                settings: {
+                    color: '#ffcf70'
+                }
+            });
+            this.chart = new DataCube(this.candles);
+            this.dialog1 = false;
+        },
+        keltner(){
+            const prices = this.candles.chart.data;
+            const data = technicals.keltner(prices);
+            this.candles.onchart.push({
+                name: 'Keltner Channel',
+                type: 'BB',
+                data: data,
+                settings: {
+                    color: '#c048c2'
+                }
+            });
+            this.chart = new DataCube(this.candles);
+            this.dialog1 = false
+        },
+        keltnerWidth(){
+            const prices = this.candles.chart.data;
+            const data = technicals.keltnerWidth(prices);
+            this.candles.offchart.push({
+                name: 'Keltner Channel Width',
+                type: 'Area51',
+                data: data,
+            });
+            this.chart = new DataCube(this.candles);
+            this.dialog1 = false;
+        },
+        stdDev(){
+            const prices = this.candles.chart.data;
+            const data = technicals.stdDev(prices);
+            this.candles.offchart.push({
+                name: 'Standard Deviation',
+                type: 'Area51',
+                data: data,
+            });
+            this.chart = new DataCube(this.candles);
+            this.dialog1 = false;
+        },
+        chaikin() {   
+            const prices = this.candles.chart.data;
+            const data = technicals.chaikin(prices)
+            this.candles.offchart.push({
+                name: 'Chaikin Money Flow',
+                type: 'SMA',
+                data: data,
+                settings: {
+                    color: '#c49c5a'
+                }
+            });
+            this.chart = new DataCube(this.candles);
+            this.dialog1 = false;
+        },
         getInsiders() {
             const ticker = 'AAPL';
             this.$axios.get(`/stocks/insiders/${ticker}`).then(res => {
@@ -581,11 +1333,11 @@ export default {
                 this.candles.ohlcv.push([date, item.open, item.high, item.low, item.close, item.volume])
             });
             this.chart = new DataCube(this.candles);
-            console.log(Overlays)
+            console.log(xp)
         },
         onResize(event) {
             this.width = window.innerWidth - 100
-            // this.height = window.innerHeight - 100
+            this.height = window.innerHeight - 100
         },
          TwitterMentions() {
             const ticker = 'AAPL';
@@ -663,9 +1415,17 @@ export default {
     mounted() {
         this.getPriceData();
         window.addEventListener('resize', this.onResize)
-        this.onResize()
-        window.tv = this.$refs.tv
-    }
+        // this.onResize()
+        // window.tv = this.$refs.tv
+    },
+    beforeDestroy() {
+        window.removeEventListener('resize', this.onResize)
+    },
 }
 
 </script>
+<style scoped>
+.v-btn {
+    font-size: 12px;
+}
+</style>

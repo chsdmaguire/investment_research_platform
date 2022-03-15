@@ -325,9 +325,39 @@ const newInsiders = async(req, res) => {
 });
 }
 
-const grossMargin = async(req, res) => {
+const margin = async(req, res) => {
     ticker = req.params.ticker;
-    pool.query(queries.grossMargin, [ticker], (error, results) => {
+    fsli = req.params.fsli;
+    pool.query(queries.margin, [ticker, fsli], (error, results) => {
+        if (error) {
+            console.log(error.message);
+            throw error;
+        } 
+        res.status(200).json(results.rows);
+});
+}
+
+const finChart1 = async(req, res) => {
+    ticker = req.params.ticker;
+    fsli1 = req.params.one;
+    fsli2 = req.params.two;
+
+    pool.query(queries.finChart1, [ticker, fsli1, fsli2], (error, results) => {
+        if (error) {
+            console.log(error.message);
+            throw error;
+        } 
+        res.status(200).json(results.rows);
+});
+}
+
+const finChart2 = async(req, res) => {
+    ticker = req.params.ticker;
+    fsli1 = req.params.one;
+    fsli2 = req.params.two;
+    fsli3 = req.params.three;
+
+    pool.query(queries.finChart2, [ticker, fsli1, fsli2, fsli3], (error, results) => {
         if (error) {
             console.log(error.message);
             throw error;
@@ -352,6 +382,41 @@ const socialScore = async(req, res) => {
     ticker = req.params.ticker;
     source = req.params.source;
     pool.query(queries.socialScore, [ticker, source], (error, results) => {
+        if (error) {
+            console.log(error.message);
+            throw error;
+        } 
+        res.status(200).json(results.rows);
+});
+}
+
+const bvPerShare = async(req, res) => {
+    ticker = req.params.ticker;
+    pool.query(queries.bvPerShare, [ticker], (error, results) => {
+        if (error) {
+            console.log(error.message);
+            throw error;
+        } 
+        res.status(200).json(results.rows);
+});
+}
+
+const marketMetrics = async(req, res) => {
+    ticker = req.params.ticker;
+    fsli = req.params.fsli;
+    pool.query(queries.marketMetrics, [ticker, fsli], (error, results) => {
+        if (error) {
+            console.log(error.message);
+            throw error;
+        } 
+        res.status(200).json(results.rows);
+});
+}
+
+const marketMetrics2 = async(req, res) => {
+    ticker = req.params.ticker;
+    fsli = req.params.fsli;
+    pool.query(queries.marketMetrics2, [ticker, fsli], (error, results) => {
         if (error) {
             console.log(error.message);
             throw error;
@@ -395,7 +460,12 @@ module.exports = {
     otherDcfAss,
     candles,
     newInsiders,
-    grossMargin,
+    margin,
     socialMentions,
-    socialScore
+    socialScore,
+    finChart1,
+    finChart2,
+    bvPerShare,
+    marketMetrics,
+    marketMetrics2
 }

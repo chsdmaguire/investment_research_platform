@@ -25,7 +25,6 @@ export default {
       ctx.strokeStyle = this.color;
       const layout = this.$props.layout;
       this.$props.layout.$_hi = 100
-      console.log(layout)
       const base = layout.$2screen(0) + 0.5;
       const off = this.hist_width % 2 ? 0 : 0.5;
 
