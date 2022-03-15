@@ -19,20 +19,21 @@ export default {
         },
 
         exponentialMovingAverage(prices, window) {
-            if (!prices || prices.length < window) {
-                return []
-            }
-            const weight = 2 / (window + 1);
-
-            const expMovingAvgs = [];
-            prices.forEach((item, i) => {
-                const date = item[0];
-                const val = item[5];
-                const prevVal = prices[i -1][5];
-                const currEma = ((val - prevVal) * weight) + prevVal;
-                expMovingAvgs.push([date, currEma])
-            })
-            return expMovingAvgs;
+            const closes = [];
+            const dates = [];
+            prices.forEach((item) => {
+                dates.push(item[0]);
+                closes.push(item[4]);
+            });
+            const emas = new technicalCalcs.EMA.calculate({period: window, values: closes});
+            const diffLength = closes.length - emas.length;
+            const arr = [];
+            emas.forEach((item, index) => {
+                if(index > window) {
+                    arr.push([dates[index + diffLength], item])
+                }
+            });
+            return arr;
         },
 
     ichiMokuCloud(prices) {
@@ -442,8 +443,7 @@ export default {
                 const upper = mid + (2 * item);
                 const lower = mid - (2 * item)
                 arr.push([time, upper - lower])
-            }
-          
+            }   
         });
         
         return arr;
@@ -484,5 +484,6 @@ export default {
                   data.push([date, (sum/window)]);
             };
         return data
-    }
+    },
+    
 }

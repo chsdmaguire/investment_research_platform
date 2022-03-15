@@ -1,6 +1,190 @@
 <template>
 <v-container class="mt-4 mx-2" fluid>
         <v-row justify="center" align="center">
+        <v-dialog v-model="dialog5" max-width="500">
+        <template #activator="{ on: dialog}">
+                <v-tooltip left>
+                    <template #activator="{ on: tooltip}">
+                    <v-btn text outlined v-on="{...dialog, ...tooltip}">
+                    <v-icon dark>
+                        mdi-atom
+                    </v-icon> 
+                    </v-btn>
+                </template>
+                <span>Candlestick Pattern Recognitiion</span>
+            </v-tooltip>
+        </template>
+        <v-card tile class="mx-auto">
+            <v-card-title class="justify-center">
+                Candlestick Pattern Recognition
+                </v-card-title>
+                <v-card-text class="justify-center">
+                    <v-tabs center-active vertical>
+                        <v-tab>Bullish</v-tab>
+                        <v-tab>Bearish</v-tab>
+                        <v-tab>Reversal</v-tab>
+                    <v-tab-item>
+                        <v-list>
+                        <v-list-item-group>
+                            <v-list-item>
+                                <v-list-item-content>
+                                    <v-list-item-title @click="doji">Bullish Engulfing Pattern</v-list-item-title>
+                                </v-list-item-content>
+                            </v-list-item>
+                            <v-list-item>
+                                <v-list-item-content>
+                                    <v-list-item-title @click="bullHaram">Bullish Harami</v-list-item-title>
+                                </v-list-item-content>
+                            </v-list-item>
+                            <v-list-item>
+                                <v-list-item-content>
+                                    <v-list-item-title @click="bullHaramCross">Bullish Harami Cross</v-list-item-title>
+                                </v-list-item-content>
+                            </v-list-item>
+                            <v-list-item>
+                                <v-list-item-content>
+                                    <v-list-item-title @click="bullMarubozu">Bullish Marubozu</v-list-item-title>
+                                </v-list-item-content>
+                            </v-list-item>
+                            <v-list-item>
+                                <v-list-item-content>
+                                    <v-list-item-title @click="pierceLine">Piercing Line</v-list-item-title>
+                                </v-list-item-content>
+                            </v-list-item>
+                            <v-list-item>
+                                <v-list-item-content>
+                                    <v-list-item-title @click="bullSpinTop">Bullish Spinning Top</v-list-item-title>
+                                </v-list-item-content>
+                            </v-list-item>
+                            <v-list-item>
+                                <v-list-item-content>
+                                    <v-list-item-title @click="mornDojStar">Morning Doji Star</v-list-item-title>
+                                </v-list-item-content>
+                            </v-list-item>
+                            <v-list-item>
+                                <v-list-item-content>
+                                    <v-list-item-title @click="mornStar">Morning Star</v-list-item-title>
+                                </v-list-item-content>
+                            </v-list-item>
+                            <v-list-item>
+                                <v-list-item-content>
+                                    <v-list-item-title @click="whiteSoldiers">3 White Soldiers</v-list-item-title>
+                                </v-list-item-content>
+                            </v-list-item>
+                            <v-list-item>
+                                <v-list-item-content>
+                                    <v-list-item-title @click="bullHammer">Bullish Hammer</v-list-item-title>
+                                </v-list-item-content>
+                            </v-list-item>
+                            <v-list-item>
+                                <v-list-item-content>
+                                    <v-list-item-title @click="bep">Bullish Inverted Hammer</v-list-item-title>
+                                </v-list-item-content>
+                            </v-list-item>
+                            <v-list-item>
+                                <v-list-item-content>
+                                    <v-list-item-title @click="bep">Tweezer Bottom</v-list-item-title>
+                                </v-list-item-content>
+                            </v-list-item>
+                        </v-list-item-group>
+                        </v-list>  
+                    </v-tab-item>
+                    <v-tab-item>
+                        <v-list>
+                        <v-list-item-group>
+                            <v-list-item>
+                                <v-list-item-content>
+                                    <v-list-item-title @click="bep">Bearish Engulfing Pattern</v-list-item-title>
+                                </v-list-item-content>
+                            </v-list-item>
+                            <v-list-item>
+                                <v-list-item-content>
+                                    <v-list-item-title @click="darkCloud">Dark Cloud Cover</v-list-item-title>
+                                </v-list-item-content>
+                            </v-list-item>
+                            <v-list-item>
+                                <v-list-item-content>
+                                    <v-list-item-title @click="downTasuki">Downside Tasuki Gap</v-list-item-title>
+                                </v-list-item-content>
+                            </v-list-item>
+                            <v-list-item>
+                                <v-list-item-content>
+                                    <v-list-item-title @click="bearHaramCross">Bearish Harami Cross</v-list-item-title>
+                                </v-list-item-content>
+                            </v-list-item>
+                            <v-list-item>
+                                <v-list-item-content>
+                                    <v-list-item-title @click="bearMarubozu">Bearish Marubozu</v-list-item-title>
+                                </v-list-item-content>
+                            </v-list-item>
+                            <v-list-item>
+                                <v-list-item-content>
+                                    <v-list-item-title @click="evDojStar">Evening Doji Star</v-list-item-title>
+                                </v-list-item-content>
+                            </v-list-item>
+                            <v-list-item>
+                                <v-list-item-content>
+                                    <v-list-item-title @click="evStar">Evening Star</v-list-item-title>
+                                </v-list-item-content>
+                            </v-list-item>
+                            <v-list-item>
+                                <v-list-item-content>
+                                    <v-list-item-title @click="bearSpinTop">Bearish Spinning Top</v-list-item-title>
+                                </v-list-item-content>
+                            </v-list-item>
+                            <v-list-item>
+                                <v-list-item-content>
+                                    <v-list-item-title @click="blackCrows">3 Black Crows</v-list-item-title>
+                                </v-list-item-content>
+                            </v-list-item>
+                            <v-list-item>
+                                <v-list-item-content>
+                                    <v-list-item-title @click="bearHammer">Bearish Hammer</v-list-item-title>
+                                </v-list-item-content>
+                            </v-list-item>
+                            <v-list-item>
+                                <v-list-item-content>
+                                    <v-list-item-title @click="hangMan">Hanging Man</v-list-item-title>
+                                </v-list-item-content>
+                            </v-list-item>
+                            <v-list-item>
+                                <v-list-item-content>
+                                    <v-list-item-title @click="shootStar">Shooting Star</v-list-item-title>
+                                </v-list-item-content>
+                            </v-list-item>
+                            <v-list-item>
+                                <v-list-item-content>
+                                    <v-list-item-title @click="tweezTop">Tweezer Top</v-list-item-title>
+                                </v-list-item-content>
+                            </v-list-item>
+                        </v-list-item-group>
+                        </v-list>  
+                    </v-tab-item>
+                    <v-tab-item>
+                        <v-list>
+                        <v-list-item-group>
+                            <v-list-item>
+                                <v-list-item-content>
+                                    <v-list-item-title @click="doji">Doji</v-list-item-title>
+                                </v-list-item-content>
+                            </v-list-item>
+                            <v-list-item>
+                                <v-list-item-content>
+                                    <v-list-item-title @click="dragoDoj">Dragonfly Doji</v-list-item-title>
+                                </v-list-item-content>
+                            </v-list-item>
+                            <v-list-item>
+                                <v-list-item-content>
+                                    <v-list-item-title @click="graveDoj">Gravestone Doji</v-list-item-title>
+                                </v-list-item-content>
+                            </v-list-item>
+                        </v-list-item-group>
+                        </v-list>  
+                    </v-tab-item>
+            </v-tabs>
+                </v-card-text>
+        </v-card>
+    </v-dialog>
     <v-dialog v-model="dialog1" max-width="500">
       <template v-slot:activator="{ on, attrs }">
 
@@ -18,23 +202,37 @@
         </v-card-title>
         <v-card-text class="justify-center">
             <v-tabs center-active vertical>
+            <v-tab>SMAs</v-tab>
+            <v-tab>EMAs</v-tab>
             <v-tab>Trend</v-tab>
             <v-tab>Momentum</v-tab>
             <v-tab>Volatility</v-tab>
             <v-tab>Volume</v-tab>
             <v-tab-item>
                 <v-list>
+                <v-list-item-group :value="SimpMaModel">
+                    <v-list-item v-for="(i, idx) in SimpMovingAvgs" :key="idx">
+                        <v-list-item-content>
+                            <v-list-item-title @click="smas(idx)">{{ i.name }}</v-list-item-title>
+                        </v-list-item-content>
+                    </v-list-item>
+                </v-list-item-group>
+                </v-list>
+            </v-tab-item>
+            <v-tab-item>
+                <v-list>
+                <v-list-item-group :value="ExpMaModel">
+                    <v-list-item v-for="(i, idx) in ExpMovingAvgs" :key="idx">
+                        <v-list-item-content>
+                            <v-list-item-title @click="emas(idx)">{{ i.name }}</v-list-item-title>
+                        </v-list-item-content>
+                    </v-list-item>
+                </v-list-item-group>
+                </v-list>
+            </v-tab-item>
+            <v-tab-item>
+                <v-list>
                     <v-list-item-group>
-                        <v-list-item>       
-                            <v-list-item-content>
-                                <v-list-item-title @click="sma5Day">5-Day Simple Moving Average</v-list-item-title>
-                            </v-list-item-content>
-                        </v-list-item>
-                        <v-list-item>
-                            <v-list-item-content>
-                                <v-list-item-title @click="ema5Day">5-Day Exponential Moving Average</v-list-item-title>
-                            </v-list-item-content>
-                        </v-list-item> 
                         <v-list-item>
                             <v-list-item-content>
                                 <v-list-item-title @click="ichiKloud">Ichimoku Cloud</v-list-item-title>
@@ -277,8 +475,7 @@
                         </v-list>
                     </v-tab-item>
                 </v-tabs>
-            </v-card-text>
-                                      
+            </v-card-text>                                 
             </v-card>
         </v-dialog>
     <v-dialog v-model="dialog3" width="500">
@@ -321,17 +518,17 @@
                                     <v-list-item-title @click="TwitterMentions">Twitter Mentions</v-list-item-title>
                                 </v-list-item-content>
                             </v-list-item>  
-                             <v-list-item>
+                            <v-list-item>
                                 <v-list-item-content>
                                     <v-list-item-title @click="TwitterScore">Twitter Sentiment</v-list-item-title>
                                 </v-list-item-content>
                             </v-list-item>
-                             <v-list-item>
+                            <v-list-item>
                                 <v-list-item-content>
                                     <v-list-item-title @click="redditMentions">Reddit Mentions</v-list-item-title>
                                 </v-list-item-content>
                             </v-list-item>  
-                             <v-list-item>
+                            <v-list-item>
                                 <v-list-item-content>
                                     <v-list-item-title @click="redditScore">Reddit Sentiment</v-list-item-title>
                                 </v-list-item-content>
@@ -404,7 +601,6 @@
                     <v-btn plain>3Y</v-btn>
                     <v-btn plain>5Y</v-btn>
                   </v-btn-toggle>
-            <!-- </div> -->
         </v-row>
         
     <v-row justify="center" align="center">
@@ -434,7 +630,8 @@ import { DataCube } from 'trading-vue-js';
 import TestOverlay from './TestOverlay.vue';
 import Overlays from 'tvjs-overlays'
 import technicals from './Technicals.js';
-import financials from './Financials.js'
+import financials from './Financials.js';
+import CandlePatterns from './CandlePatterns.js';
 import BubbleOverlay from './BubbleOverlay';
 import DMIOverlay from './DMIOverlay';
 import InsidersOverlay from './InsidersOverlay';
@@ -442,9 +639,12 @@ import PatentsOverlay from './PatentsOverlay';
 import RecsOverlay from './RecsOverlay';
 import MACDOverlay from './MACDOverlay';
 import StochOverlay from './StochOverlay';
+import PatternsLabel from './PatternsLabel';
 import SocialMentions from './SocialMentions';
 import SocialScore from './SocialScore';
 import xp from 'tvjs-xp';
+
+const technicalCalcs = require('technicalindicators');
 
 export default {
     components: { TradingVue },
@@ -457,6 +657,7 @@ export default {
             dialog2: false,
             dialog3: false,
             dialog4: false,
+            dialog5: false,
             ticker: '',
             candles: {
                 ohlcv: [],
@@ -476,7 +677,8 @@ export default {
             RecsOverlay, BubbleOverlay, PatentsOverlay, Overlays['MOM'], 
             Overlays['Histogram'], DMIOverlay, Overlays['CCI'], Overlays['Area51'], 
             Overlays['Ichimoku'], Overlays['PlotCross'], MACDOverlay, Overlays['WilliamsR'], 
-            StochOverlay, Overlays['MFI'], Overlays['ATR'], Overlays['BB'],  Overlays['VWMA']
+            StochOverlay, Overlays['MFI'], Overlays['ATR'], Overlays['BB'],  Overlays['VWMA'],
+            PatternsLabel
             ],
             candleStickData: [],
             epsData: [],
@@ -559,13 +761,19 @@ export default {
                 {name: 'Interest Coverage', top: 'operatingIncome', bottom: 'currentNetReceivables', color: '#6ac75a'},
                 {name: 'Debt Service Coverage', top: 'operatingIncome', bottom: 'shortLongTermDebtTotal', color: '#6ac75a'},
             ],
+            SimpMovingAvgs: [
+                {name: '5-day Simple Moving Average', window: 5, color: '#44b6eb'},
+            ],
+            ExpMovingAvgs: [
+                {name: '5-day Exponential Moving Average', window: 5, color: '#44b6eb'},
+            ],
             efficiencyModel: '',
             leverageModel: '',
             compModel: '',
             yieldModel: '',
             econModel: '',
-
-
+            SimpMaModel: '',
+            ExpMaModel: '',
             
         }
     },
@@ -579,6 +787,283 @@ export default {
     },
 
     methods: {
+        dragoDoj() {
+            const prices = this.candles.chart.data;
+            const data = CandlePatterns.dragoDoj(prices);
+            this.candles.onchart.push({
+                     name: 'Dragonfly Doji',
+                     type: 'PatternsLabel',
+                     data: data,
+                 });
+                 this.chart = new DataCube(this.candles)
+            this.dialog5 = false;
+        },
+        graveDoj() {
+            const prices = this.candles.chart.data;
+            const data = CandlePatterns.graveDoj(prices);
+            this.candles.onchart.push({
+                     name: 'Gravestone Doji',
+                     type: 'PatternsLabel',
+                     data: data,
+                 });
+                 this.chart = new DataCube(this.candles)
+            this.dialog5 = false;
+        },
+        bullHaram() {
+            const prices = this.candles.chart.data;
+            const data = CandlePatterns.bullHaram(prices);
+            this.candles.onchart.push({
+                     name: 'Bullish Harami',
+                     type: 'PatternsLabel',
+                     data: data,
+                 });
+                 this.chart = new DataCube(this.candles)
+            this.dialog5 = false;
+        },
+        bullHaramCross() {
+            const prices = this.candles.chart.data;
+            const data = CandlePatterns.bullHaramCross(prices);
+            this.candles.onchart.push({
+                     name: 'Bullish Harami Cross',
+                     type: 'PatternsLabel',
+                     data: data,
+                 });
+                 this.chart = new DataCube(this.candles)
+            this.dialog5 = false;
+        },
+        bearHaramCross() {
+            const prices = this.candles.chart.data;
+            const data = CandlePatterns.bearHaramCross(prices);
+            this.candles.onchart.push({
+                     name: 'Bearish Harami Cross',
+                     type: 'PatternsLabel',
+                     data: data,
+                 });
+                 this.chart = new DataCube(this.candles)
+            this.dialog5 = false;
+        },
+        bullMarubozu() {
+            const prices = this.candles.chart.data;
+            const data = CandlePatterns.bullMarubozu(prices);
+            this.candles.onchart.push({
+                     name: 'Bullish Marubozu',
+                     type: 'PatternsLabel',
+                     data: data,
+                 });
+                 this.chart = new DataCube(this.candles)
+            this.dialog5 = false;
+        },
+        bearMarubozu() {
+            const prices = this.candles.chart.data;
+            const data = CandlePatterns.bearMarubozu(prices);
+            this.candles.onchart.push({
+                     name: 'Bearish Marubozu',
+                     type: 'PatternsLabel',
+                     data: data,
+                 });
+                 this.chart = new DataCube(this.candles)
+            this.dialog5 = false;
+        },
+        evDojStar() {
+            const prices = this.candles.chart.data;
+            const data = CandlePatterns.evDojStar(prices);
+            this.candles.onchart.push({
+                     name: 'Evening Doji Star',
+                     type: 'PatternsLabel',
+                     data: data,
+                 });
+                 this.chart = new DataCube(this.candles)
+            this.dialog5 = false;
+        },
+        evStar() {
+            const prices = this.candles.chart.data;
+            const data = CandlePatterns.evStar(prices);
+            this.candles.onchart.push({
+                     name: 'Evening Star',
+                     type: 'PatternsLabel',
+                     data: data,
+                 });
+                 this.chart = new DataCube(this.candles)
+            this.dialog5 = false;
+        },
+        pierceLine() {
+            const prices = this.candles.chart.data;
+            const data = CandlePatterns.pierceLine(prices);
+            this.candles.onchart.push({
+                     name: 'Pierce Line',
+                     type: 'PatternsLabel',
+                     data: data,
+                 });
+                 this.chart = new DataCube(this.candles)
+            this.dialog5 = false;
+        },
+        bullSpinTop() {
+            const prices = this.candles.chart.data;
+            const data = CandlePatterns.bullSpinTop(prices);
+            this.candles.onchart.push({
+                     name: 'Bullish Spinning Top',
+                     type: 'PatternsLabel',
+                     data: data,
+                 });
+                 this.chart = new DataCube(this.candles)
+            this.dialog5 = false;
+        },
+        bearSpinTop() {
+            const prices = this.candles.chart.data;
+            const data = CandlePatterns.bearSpinTop(prices);
+            this.candles.onchart.push({
+                     name: 'Bearish Spinning Top',
+                     type: 'PatternsLabel',
+                     data: data,
+                 });
+                 this.chart = new DataCube(this.candles)
+            this.dialog5 = false;
+        },
+        mornDojStar() {
+            const prices = this.candles.chart.data;
+            const data = CandlePatterns.mornDojStar(prices);
+            this.candles.onchart.push({
+                     name: 'Morning Doji Star',
+                     type: 'PatternsLabel',
+                     data: data,
+                 });
+                 this.chart = new DataCube(this.candles)
+            this.dialog5 = false;
+        },
+        mornStar() {
+            const prices = this.candles.chart.data;
+            const data = CandlePatterns.mornStar(prices);
+            this.candles.onchart.push({
+                     name: 'Morning Star',
+                     type: 'PatternsLabel',
+                     data: data,
+                 });
+                 this.chart = new DataCube(this.candles)
+            this.dialog5 = false;
+        },
+        blackCrows() {
+            const prices = this.candles.chart.data;
+            const data = CandlePatterns.blackCrows(prices);
+            this.candles.onchart.push({
+                     name: '3 Black Crows',
+                     type: 'PatternsLabel',
+                     data: data,
+                 });
+                 this.chart = new DataCube(this.candles)
+            this.dialog5 = false;
+        },
+        whiteSoldiers() {
+            const prices = this.candles.chart.data;
+            const data = CandlePatterns.whiteSoldiers(prices);
+            this.candles.onchart.push({
+                     name: '3 White Soldiers',
+                     type: 'PatternsLabel',
+                     data: data,
+                 });
+                 this.chart = new DataCube(this.candles)
+            this.dialog5 = false;
+        },
+        tweezTop() {
+            const prices = this.candles.chart.data;
+            const data = CandlePatterns.tweezTop(prices);
+            this.candles.onchart.push({
+                     name: 'Tweezer Top',
+                     type: 'PatternsLabel',
+                     data: data,
+                 });
+                 this.chart = new DataCube(this.candles)
+            this.dialog5 = false;
+        },
+        bullHammer() {
+            const prices = this.candles.chart.data;
+            const data = CandlePatterns.bullHammer(prices);
+            this.candles.onchart.push({
+                     name: 'Bullish Hammer',
+                     type: 'PatternsLabel',
+                     data: data,
+                 });
+                 this.chart = new DataCube(this.candles)
+            this.dialog5 = false;
+        },
+        bearHammer() {
+            const prices = this.candles.chart.data;
+            const data = CandlePatterns.bearHammer(prices);
+            this.candles.onchart.push({
+                     name: 'Bearish Hammer',
+                     type: 'PatternsLabel',
+                     data: data,
+                 });
+                 this.chart = new DataCube(this.candles)
+            this.dialog5 = false;
+        },
+        hangMan() {
+            const prices = this.candles.chart.data;
+            const data = CandlePatterns.hangMan(prices);
+            this.candles.onchart.push({
+                     name: 'Hanging Man',
+                     type: 'PatternsLabel',
+                     data: data,
+                 });
+                 this.chart = new DataCube(this.candles)
+            this.dialog5 = false;
+        },
+        shootStar() {
+            const prices = this.candles.chart.data;
+            const data = CandlePatterns.shootStar(prices);
+            this.candles.onchart.push({
+                     name: 'Shooting Star',
+                     type: 'PatternsLabel',
+                     data: data,
+                 });
+                 this.chart = new DataCube(this.candles)
+            this.dialog5 = false;
+        },
+
+        downTasuki() {
+            const prices = this.candles.chart.data;
+            const data = CandlePatterns.downTasuki(prices);
+            this.candles.onchart.push({
+                     name: 'Downside Tasuki Gap',
+                     type: 'PatternsLabel',
+                     data: data,
+                 });
+                 this.chart = new DataCube(this.candles)
+            this.dialog5 = false;
+        },
+        darkCloud() {
+            const prices = this.candles.chart.data;
+            const data = CandlePatterns.darkCloud(prices);
+            this.candles.onchart.push({
+                     name: 'Dark Cloud',
+                     type: 'PatternsLabel',
+                     data: data,
+                 });
+                 this.chart = new DataCube(this.candles)
+            this.dialog5 = false;
+        },
+        bep() {
+            const prices = this.candles.chart.data;
+            const data = CandlePatterns.bearEngulf(prices);
+            this.candles.onchart.push({
+                     name: 'Bearish Engulfing Pattern',
+                     type: 'PatternsLabel',
+                     data: data,
+                 });
+                 this.chart = new DataCube(this.candles)
+            this.dialog5 = false;
+        },
+        doji() {
+            const prices = this.candles.chart.data;
+            const data = CandlePatterns.doji(prices);
+            this.candles.onchart.push({
+                     name: 'Doji Recognition',
+                     type: 'PatternsLabel',
+                     data: data,
+                 });
+                 this.chart = new DataCube(this.candles)
+            this.dialog5 = false;
+
+        },
         reset(state) {
             let sub = Object.keys(state).filter(x => state[x])
             this.extensions = sub.map(x => xp[x])
@@ -631,7 +1116,6 @@ export default {
             this.dialog4= false;
         },
         showSp(idx) {
-            console.log(this.indices[idx])
             const startDate = new Date();
             startDate.setDate(startDate.getDate() - 1200);
             const start = startDate.toISOString();
@@ -1040,32 +1524,36 @@ export default {
                 });
                 this.dialog3 = false;
         },
-        sma5Day() {
+        smas(idx) {
             const prices = this.candles.chart.data;
-            const window = 5;
+            const window = this.SimpMovingAvgs[idx].window;
+            const color = this.SimpMovingAvgs[idx].color;
+            const name = this.SimpMovingAvgs[idx].name;
             const smas = technicals.simpleMovingAverage(prices, window);
             this.candles.onchart.push({
-                name: '5-Day Simple Moving Average',
+                name: name,
                 type: 'SMA',
                 data: smas,
                 settings: {
-                    color: '#44b6eb'
+                    color: color
                 }
             });
             this.chart = new DataCube(this.candles);
             this.dialog1 = false;
 
         },
-        ema5Day(){
+        emas(idx){
             const prices = this.candles.chart.data;
-            const window = 5;
+            const window = this.ExpMovingAvgs[idx].window;
+            const color = this.ExpMovingAvgs[idx].color;
+            const name = this.ExpMovingAvgs[idx].name;
             const emas = technicals.exponentialMovingAverage(prices, window);
             this.candles.onchart.push({
-                name: '5-Day Exponential Moving Average',
+                name: name,
                 type: 'SMA',
                 data: emas,
                 settings: {
-                    color: '#44b6eb'
+                    color: color
                 }
             });
             this.chart = new DataCube(this.candles);
@@ -1345,7 +1833,8 @@ export default {
                 this.candles.ohlcv.push([date, item.open, item.high, item.low, item.close, item.volume])
             });
             this.chart = new DataCube(this.candles);
-            console.log(xp)
+            this.$refs.tv.t2i(time)
+            console.log(this.chart)
         },
         onResize(event) {
             this.width = window.innerWidth - 100
