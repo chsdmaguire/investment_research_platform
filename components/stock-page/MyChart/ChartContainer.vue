@@ -1,17 +1,23 @@
 <template>
 <v-container class="mt-4 mx-2" fluid>
-        <v-row justify="start" align="start" class="ml-">
+        <v-row justify="center" align="center">
     <v-dialog v-model="dialog1" max-width="500">
       <template v-slot:activator="{ on, attrs }">
-        <v-btn text v-bind="attrs" v-on="on" class="font-weight-regular buttons">Technicals</v-btn>
+
+        <v-btn text v-bind="attrs" outlined v-on="on">
+        <v-icon dark>
+            mdi-chart-waterfall
+        </v-icon> Technicals
+        </v-btn>
       </template>
+
 
       <v-card tile class="mx-auto">
         <v-card-title class="justify-center">
           Technical Indicators
         </v-card-title>
         <v-card-text class="justify-center">
-            <v-tabs>
+            <v-tabs center-active vertical>
             <v-tab>Trend</v-tab>
             <v-tab>Momentum</v-tab>
             <v-tab>Volatility</v-tab>
@@ -141,15 +147,17 @@
                 </v-list>
             </v-tab-item>
             </v-tabs>
-        </v-card-text>
-
-        
+        </v-card-text>       
         </v-card>
     </v-dialog>
 
     <v-dialog v-model="dialog2" max-width="500">
         <template v-slot:activator="{ on, attrs }">
-            <v-btn text v-bind="attrs" v-on="on">Financials</v-btn>
+            <v-btn text v-bind="attrs" outlined v-on="on">
+                <v-icon dark>
+                    mdi-finance
+                </v-icon>
+                Financials</v-btn>
         </template>
 
         <v-card tile class="mx-auto">
@@ -157,7 +165,7 @@
             Financial Metrics
             </v-card-title>
             <v-card-text class="justify-center">
-                <v-tabs>
+                <v-tabs center-active vertical show-arrows>
                     <v-tab>Profitability</v-tab>
                     <v-tab>Efficiency</v-tab>
                     <v-tab>Leverage</v-tab>
@@ -275,7 +283,11 @@
         </v-dialog>
     <v-dialog v-model="dialog3" width="500">
         <template v-slot:activator="{ on, attrs }">
-            <v-btn text v-bind="attrs" v-on="on">Alt. Data</v-btn>
+            <v-btn text v-bind="attrs" outlined v-on="on">
+                <v-icon dark>
+                    mdi-blur-linear
+                </v-icon>
+                Alt. Data</v-btn>
         </template>
 
         <v-card tile>
@@ -328,16 +340,20 @@
                     </v-list>                    
             </v-card>
         </v-dialog>
-    <v-dialog v-model="dialog4" width="500">
+    <v-dialog v-model="dialog4" width="700">
         <template v-slot:activator="{ on, attrs }">
-            <v-btn text v-bind="attrs" v-on="on">Compare</v-btn>
+            <v-btn text v-bind="attrs" outlined v-on="on">
+                <v-icon dark>
+                    mdi-rocket-launch
+                </v-icon>
+                Compare</v-btn>
         </template>
 
         <v-card tile>
             <v-card-title class="justify-center">
             Make Comparisons
             </v-card-title>
-            <v-tabs>
+            <v-tabs center-active vertical>
                 <v-tab>Indices</v-tab>
                 <v-tab>Bond Yields</v-tab>
                 <v-tab>Economic Data</v-tab>
@@ -379,8 +395,6 @@
             </v-card>
         </v-dialog>
 
-           
-            <v-spacer></v-spacer>
             <v-btn-toggle mandatory group dense>
                     <v-btn plain>5D</v-btn>
                     <v-btn plain>1M</v-btn>
@@ -390,25 +404,25 @@
                     <v-btn plain>3Y</v-btn>
                     <v-btn plain>5Y</v-btn>
                   </v-btn-toggle>
+            <!-- </div> -->
         </v-row>
         
     <v-row justify="center" align="center">
-         <multiselect :list="ext_names" @onstate="reset"/>
 
             <trading-vue 
             :title-txt="ticker"
             :data="chart"
             :overlays="overlays"
+            color-back="#121212"
             :width="this.width" :height="this.height"
             ref="tv"
             :legend-buttons="['remove', 'settings']"
             :ext="extensions"
             :resetkey="resetkey"
             v-on:legend-button-click="on_button_click"
-            :toolbar="true"
+            :toolbar="false"
              :x-settings="xsett">
-            </trading-vue>            
- 
+          </trading-vue>                          
     </v-row>       
 </v-container> 
 
@@ -431,16 +445,14 @@ import StochOverlay from './StochOverlay';
 import SocialMentions from './SocialMentions';
 import SocialScore from './SocialScore';
 import xp from 'tvjs-xp';
-import Multiselect from './Multiselect';
 
 export default {
-    components: { TradingVue, Multiselect },
+    components: { TradingVue },
     data() {
         return {
             chart: {},
-            props: ['width', 'height'],
-            width: window.innerWidth ,
-            height: window.innerWidth,
+            width: window.innerWidth -100,
+            height: window.innerHeight -100,
             dialog1: false,
             dialog2: false,
             dialog3: false,
@@ -563,7 +575,7 @@ export default {
         },
         listSelection() {
         return this.value
-        }
+        },
     },
 
     methods: {
