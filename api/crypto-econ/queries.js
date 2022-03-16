@@ -7,7 +7,7 @@ const cryptoList = "SELECT DISTINCT symbol, name, cmc_rank from crypto.latest_li
 
 // ECON
 const econData = 'SELECT distinct value, date FROM econ.timeseries_data where ' +
- 'series_id = $1 and value is not null order by date asc limit 8000';
+ 'series_id = $1 and value is not null order by date desc limit 5000';
 
 const econMetricList =  'SELECT distinct series_id, name FROM econ.metrics_info ORDER BY name asc';
 

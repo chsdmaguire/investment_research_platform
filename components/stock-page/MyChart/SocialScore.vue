@@ -74,9 +74,9 @@ export default {
         return x.toFixed(Math.abs(x) > 0.001 ? 4 : 8);
       });
       return [
-        { value: "Positive Score: " + Math.abs(xs[0]), color: this.pos_color },
-        { value: "Negative Score: " + xs[1], color: this.neg_color },
-        { value: "Total Score: " + xs[2], color: this.total_color },
+        { value: "Positive Score: " + Math.abs(xs[0]), color: '#ffffff' },
+        { value: "Negative Score: " + xs[1], color: '#ffffff' },
+        { value: "Total Score: " + xs[2], color: '#ffffff'},
       ];
     },
   },

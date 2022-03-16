@@ -1,55 +1,78 @@
 <script>
-
-import { Overlay } from 'trading-vue-js'
-
+// Data section splitters (with labels)
+import { Overlay } from "trading-vue-js";
 export default {
     name: 'PatentsOverlay',
     mixins: [Overlay],
     methods: {
         meta_info() {
-            return { author: 'Flibyrd', version: '1.0.0' }
+            return { author: 'Flibyrd', version: '1.0.1' }
         },
-
         draw(ctx) {
-          	// Map the coordinates
-          	let x = this.layout.t2screen(this.sett.t)
-            let y = this.layout.$2screen(this.sett.$)
-            ctx.strokeStyle = this.color
-            ctx.beginPath()
-            ctx.fillStyle = this.back
-  			ctx.rect(x, y, 150, 150)
-          	ctx.fillRect(x, y, 150, 150)
-          	ctx.stroke()
-          	ctx.fillStyle = this.color
-          	ctx.font = "16px Arial";
-
- 			// Helper labels
-          	ctx.fillText(
-              "z-index: " + this.sett['z-index'],
-              x + 10, y + 20
-            )
-          	if ('legend' in this.sett) {
-            	ctx.fillText(
-                  "legend: " + this.sett.legend,
-                  x + 10, y + 40
-                )
-            }
+            let layout = this.$props.layout
+            ctx.lineWidth = this.line_width
+            ctx.strokeStyle = this.line_color
+            ctx.zIndex = 200;
+            this.$props.data.forEach((p, i) => {
+                ctx.beginPath()
+                let x = layout.t2screen(p[0]) // x - Mapping
+                ctx.setLineDash([10, 10])
+                ctx.moveTo(x, 0)
+                ctx.lineTo(x, this.layout.height)
+                ctx.stroke()
+                if (p[1]) this.draw_label(ctx, x, p)
+            })
         },
-      	// TVJS applies the overlay by this type:
-        use_for() { return ['PatentsOverlay'] },
-        data_colors() { return [this.color] }
+        draw_label(ctx, x, p) {
+            let side = p[2] ? 1 : -1
+            x += 2.5 * side
+            ctx.font = this.new_font
+            let pos = p[4] || this.y_position
+            let w = ctx.measureText(p[1]).width + 10
+            let y = this.layout.height * (1.0 - pos)
+            y = Math.floor(y)
+            ctx.fillStyle = p[3] || this.flag_color
+            ctx.beginPath()
+            ctx.moveTo(x, y)
+            ctx.lineTo(x + 10 * side, y - 10 * side)
+            ctx.lineTo(x + (w + 10) * side, y - 10 * side)
+            ctx.lineTo(x + (w + 10) * side, y + 10 * side)
+            ctx.lineTo(x + 10 * side, y + 10 * side)
+            ctx.closePath()
+            ctx.fill()
+            ctx.fillStyle = this.label_color
+            ctx.textAlign = side < 0 ? 'right' : 'left'
+            ctx.fillText(p[1], x + 15 * side, y + 4)
+        },
+        use_for() { return ['PatentsOverlay'] }
     },
-    // Helper refs to the setting object here
+    // Define internal setting & constants here
     computed: {
         sett() {
             return this.$props.settings
         },
-      	back() {
-          	return this.$props.colors.colorBack
+        new_font() {
+            return this.sett.font ||
+            '12px ' + this.$props.font.split('px').pop()
         },
-        color() {
-            return this.sett.color
+        flag_color() {
+            return this.sett.flagColor || '#4285f4'
+        },
+        label_color() {
+            return this.sett.labelColor || '#fff'
+        },
+        line_color() {
+            return this.sett.lineColor || '#4285f4'
+        },
+        line_width() {
+            return this.sett.lineWidth || 1.0
+        },
+        y_position() {
+            return this.sett.yPosition || 0.9
         }
+    },
+    data() {
+        return {}
     }
 }
 </script>

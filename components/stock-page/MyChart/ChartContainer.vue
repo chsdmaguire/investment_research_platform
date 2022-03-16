@@ -195,7 +195,6 @@
         </v-btn>
       </template>
 
-
       <v-card tile class="mx-auto">
         <v-card-title class="justify-center">
           Technical Indicators
@@ -592,8 +591,8 @@
             </v-card>
         </v-dialog>
 
-            <v-btn-toggle mandatory group dense>
-                    <v-btn plain>5D</v-btn>
+            <v-btn-toggle mandatory group dense v-model="timeFrame" v-on:change="changeRange">
+                    <v-btn plain>1W</v-btn>
                     <v-btn plain>1M</v-btn>
                     <v-btn plain>3M</v-btn>
                     <v-btn plain>6M</v-btn>
@@ -609,10 +608,12 @@
             :title-txt="ticker"
             :data="chart"
             :overlays="overlays"
+            :chart-config="config"
+            :indexBased="iB"
             color-back="#121212"
             :width="this.width" :height="this.height"
             ref="tv"
-            :legend-buttons="['remove', 'settings']"
+            :legend-buttons="['remove']"
             :ext="extensions"
             :resetkey="resetkey"
             v-on:legend-button-click="on_button_click"
@@ -638,6 +639,7 @@ import InsidersOverlay from './InsidersOverlay';
 import PatentsOverlay from './PatentsOverlay';
 import RecsOverlay from './RecsOverlay';
 import MACDOverlay from './MACDOverlay';
+import IchiCloudOverlay from './IchiCloudOverlay';
 import StochOverlay from './StochOverlay';
 import PatternsLabel from './PatternsLabel';
 import SocialMentions from './SocialMentions';
@@ -653,6 +655,14 @@ export default {
             chart: {},
             width: window.innerWidth -100,
             height: window.innerHeight -100,
+            config: {
+                DEFAULT_LEN: 400, 
+                TB_BORDER: 5,
+                CANDLEW: 0.9,
+               // GRIDX: 200,
+                VOLSCALE: 0.06
+            },
+            iB: false,
             dialog1: false,
             dialog2: false,
             dialog3: false,
@@ -676,7 +686,7 @@ export default {
             overlays: [TestOverlay, SocialScore, InsidersOverlay, SocialMentions, 
             RecsOverlay, BubbleOverlay, PatentsOverlay, Overlays['MOM'], 
             Overlays['Histogram'], DMIOverlay, Overlays['CCI'], Overlays['Area51'], 
-            Overlays['Ichimoku'], Overlays['PlotCross'], MACDOverlay, Overlays['WilliamsR'], 
+            Overlays['Ichimoku'], IchiCloudOverlay, Overlays['PlotCross'], MACDOverlay, Overlays['WilliamsR'], 
             StochOverlay, Overlays['MFI'], Overlays['ATR'], Overlays['BB'],  Overlays['VWMA'],
             PatternsLabel
             ],
@@ -752,20 +762,34 @@ export default {
             efficiencyArr: [
                 {name: 'Asset Turnover', top: 'totalRevenue', bottom: 'totalAssets', color: '#f57e76'},
                 {name: 'Inventory Turnover', top: 'totalRevenue', bottom: 'inventory', color: '#6ac75a'},
-                {name: 'Receivables Turnover', top: 'totalRevenue', bottom: 'currentNetReceivables', color: '#6ac75a'},
-                {name: 'Payables Turnover', top: 'costofGoodsAndServicesSold', bottom: 'currentAccountsPayable', color: '#6ac75a'},
+                {name: 'Receivables Turnover', top: 'totalRevenue', bottom: 'currentNetReceivables', color: '#b4b85a'},
+                {name: 'Payables Turnover', top: 'costofGoodsAndServicesSold', bottom: 'currentAccountsPayable', color: '#7bc756'},
             ],
             leverageArr: [
-                {name: 'Leverage Ratio', top: 'totalLiabilities', bottom: 'totalAssets', color: '#f57e76'},
-                {name: 'Debt to Equity', top: 'totalLiabilities', bottom: 'totalShareholderEquity', color: '#6ac75a'},
-                {name: 'Interest Coverage', top: 'operatingIncome', bottom: 'currentNetReceivables', color: '#6ac75a'},
-                {name: 'Debt Service Coverage', top: 'operatingIncome', bottom: 'shortLongTermDebtTotal', color: '#6ac75a'},
+                {name: 'Leverage Ratio', top: 'totalLiabilities', bottom: 'totalAssets', color: '#66b3a7'},
+                {name: 'Debt to Equity', top: 'totalLiabilities', bottom: 'totalShareholderEquity', color: '#65889c'},
+                {name: 'Interest Coverage', top: 'operatingIncome', bottom: 'currentNetReceivables', color: '#322e66'},
+                {name: 'Debt Service Coverage', top: 'operatingIncome', bottom: 'shortLongTermDebtTotal', color: '#c73eb7'},
             ],
             SimpMovingAvgs: [
                 {name: '5-day Simple Moving Average', window: 5, color: '#44b6eb'},
+                {name: '10-day Simple Moving Average', window: 10, color: '#ed897b'},
+                {name: '15-day Simple Moving Average', window: 15, color: '#75382f'},
+                {name: '20-day Simple Moving Average', window: 20, color: '#bf6b47'},
+                {name: '30-day Simple Moving Average', window: 30, color: '#e39c4b'},
+                {name: '50-day Simple Moving Average', window: 50, color: '#9bdb84'},
+                {name: '100-day Simple Moving Average', window: 100, color: '#4d754e'},
+                {name: '200-day Simple Moving Average', window: 200, color: '#61d4c4'},
             ],
             ExpMovingAvgs: [
-                {name: '5-day Exponential Moving Average', window: 5, color: '#44b6eb'},
+                {name: '5-day Exponential Moving Average', window: 5, color: '#7d9ac7'},
+                {name: '10-day Exponential Moving Average', window: 10, color: '#453d91'},
+                {name: '15-day Exponential Moving Average', window: 15, color: '#271e82'},
+                {name: '20-day Exponential Moving Average', window: 20, color: '#7d48a3'},
+                {name: '30-day Exponential Moving Average', window: 30, color: '#823841'},
+                {name: '50-day Exponential Moving Average', window: 50, color: '#3c7021'},
+                {name: '100-day Exponential Moving Average', window: 100, color: '#73bd4d'},
+                {name: '200-day Exponential Moving Average', window: 200, color: '#a39846'},
             ],
             efficiencyModel: '',
             leverageModel: '',
@@ -774,6 +798,7 @@ export default {
             econModel: '',
             SimpMaModel: '',
             ExpMaModel: '',
+            timeFrame: 2,
             
         }
     },
@@ -1083,11 +1108,10 @@ export default {
              });
              this.candles.offchart.push({
                 name: this.econMetrics[idx].name,
-                type: 'Histogram',
+                type: 'Area51',
                 data: econData,
                 settings: {
                     color: color,
-                    lineWidth: 100,
                 }
             });
             this.chart = new DataCube(this.candles);
@@ -1098,6 +1122,7 @@ export default {
              const color = this.yields[idx].color;
              const yieldData = [];
              this.$axios.get(`/econ/graph/metric/${id}`).then(res => {
+                 console.log(res.data);
                  const arr = res.data.sort((a, b) => (a.date > b.date) ?  1: -1);
                  arr.forEach(item => {
                      const date = new Date(item.date).getTime();
@@ -1170,7 +1195,7 @@ export default {
                      data: data,
                      settings: {
                          lineWidth: 100,
-                         color: '#f57e76'
+                         color: '#f5574e'
                      }
                  });
                  this.chart = new DataCube(this.candles)
@@ -1286,7 +1311,7 @@ export default {
                      data: data,
                      settings: {
                          lineWidth: 100,
-                         color:  '#f57e76'
+                         color:  '#6be86d'
                      }
                  });
                  this.chart = new DataCube(this.candles)
@@ -1305,7 +1330,7 @@ export default {
                      data: data,
                      settings: {
                          lineWidth: 100,
-                         color:  '#f57e76'
+                         color:  '#1d611e'
                      }
                  });
                  this.chart = new DataCube(this.candles)
@@ -1343,7 +1368,7 @@ export default {
                      data: data,
                      settings: {
                          lineWidth: 100,
-                         color:  '#f57e76'
+                         color:  '#66946d'
                      }
                  });
                  this.chart = new DataCube(this.candles)
@@ -1362,7 +1387,7 @@ export default {
                      data: data,
                      settings: {
                          lineWidth: 100,
-                         color:  '#f57e76'
+                         color:  '#834ea6'
                      }
                  });
                  this.chart = new DataCube(this.candles)
@@ -1382,7 +1407,7 @@ export default {
                      data: data,
                      settings: {
                          lineWidth: 100,
-                         color:  '#f57e76'
+                         color:  '#7bdbda'
                      }
                  });
                  this.chart = new DataCube(this.candles)
@@ -1421,7 +1446,7 @@ export default {
                      data: arr,
                      settings: {
                          lineWidth: 100,
-                         color:  '#f57e76'
+                         color:  '#c47c99'
                      }
                  });
                  this.chart = new DataCube(this.candles)  
@@ -1442,8 +1467,8 @@ export default {
                      type: 'Histogram',
                      data: arr,
                      settings: {
-                         lineWidth: 100,
-                         color:  '#f57e76'
+                         lineWidth: 50,
+                         color:  '#6e183b'
                      }
                  });
                  this.chart = new DataCube(this.candles)  
@@ -1465,7 +1490,7 @@ export default {
                      data: arr,
                      settings: {
                          lineWidth: 100,
-                         color:  '#f57e76'
+                         color:  '#424a78'
                      }
                  });
                  this.chart = new DataCube(this.candles)  
@@ -1481,29 +1506,27 @@ export default {
         },
         showPatents() {
             const ticker = 'AAPL';
+            const patentData = [];
              this.$axios.get(`/stocks/patents/${ticker}`).then(res => {
-                
                 const arr = res.data.sort((a, b) => (a.publication_date > b.publication_date) ? 1: -1);
                 var incrementer = 0;
                 arr.forEach(item => {
                     const date = new Date(item.publication_date).getTime();
-                      this.patentData.push([date, item.description, 0, null, incrementer])
+                      patentData.push([date, item.description, 0, null, incrementer])
                       incrementer += 0.1;
-                      console.log(incrementer)
-                    if(incrementer >= 1) {
+                    if(incrementer >= .9) {
                       incrementer = 0
                     }             
-                })
-             });
+                });
+              });  
             this.candles.onchart.push({
-        "name": "Data sections",
-        "type": "Splitters",
-        "data": this.patentData,
-        "settings": {
-            "legend": false
-        }
-    });
-             this.chart = new DataCube(this.candles);
+                name: "Patents",
+                type: "PatentsOverlay",
+                data: patentData,
+             });
+             this.chart = new DataCube(this.candles);                
+             
+
         },
         getEPS() {
             const ticker = 'AAPL';
@@ -1564,7 +1587,7 @@ export default {
             const data = technicals.ichiMokuCloud(prices)
             this.candles.onchart.push({
                 name: 'Ichimoku Cloud',
-                type: 'Ichimoku',
+                type: 'IchiCloudOverlay',
                 data: data,
             });
             this.chart = new DataCube(this.candles);
@@ -1751,7 +1774,7 @@ export default {
                 type: 'VWMA',
                 data: data,
                 settings: {
-                    color: '#ffcf70'
+                    color: '#834ea6'
                 }
             });
             this.chart = new DataCube(this.candles);
@@ -1785,6 +1808,7 @@ export default {
         stdDev(){
             const prices = this.candles.chart.data;
             const data = technicals.stdDev(prices);
+            console.log(data)
             this.candles.offchart.push({
                 name: 'Standard Deviation',
                 type: 'Area51',
@@ -1833,8 +1857,46 @@ export default {
                 this.candles.ohlcv.push([date, item.open, item.high, item.low, item.close, item.volume])
             });
             this.chart = new DataCube(this.candles);
-            this.$refs.tv.t2i(time)
-            console.log(this.chart)
+            const endDate = new Date()
+            const startDate = new Date();
+            startDate.setDate(startDate.getDate() - 90);
+            const t1 = startDate.getTime();
+            const t2 = endDate.getTime();
+            this.$nextTick(() =>
+            this.$refs.tv.setRange(t1, t2)
+        );
+        console.log(this.$refs.tv.$props)
+        },
+        async changeRange() {
+            const startDate = new Date();
+            startDate.setDate(startDate.getDate());
+            switch(this.timeFrame) {
+                case 0:
+                    startDate.setDate(startDate.getDate() - 7);
+                    break;
+                case 1:
+                    startDate.setDate(startDate.getDate() - 30);
+                    break;
+                case 2:
+                    startDate.setDate(startDate.getDate() - 90);
+                    break;
+                case 3:
+                     startDate.setDate(startDate.getDate() - 180);
+                    break;
+                case 4: 
+                    startDate.setDate(startDate.getDate() - 365);
+                    break;
+                case 5:
+                     startDate.setDate(startDate.getDate() - 1095);
+                     break;
+                case 6:
+                    startDate.setDate(startDate.getDate() -1825);
+                    break
+            };
+            const endDate = new Date().getTime()
+            this.$nextTick(() =>
+                this.$refs.tv.setRange(startDate, endDate)
+            )
         },
         onResize(event) {
             this.width = window.innerWidth - 100
@@ -1915,6 +1977,7 @@ export default {
 
     mounted() {
         this.getPriceData();
+        this.changeRange();
         window.addEventListener('resize', this.onResize)
         // this.onResize()
         // window.tv = this.$refs.tv

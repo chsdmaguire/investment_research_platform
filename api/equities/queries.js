@@ -27,7 +27,7 @@ const insideTransactions = 'select distinct * from equities.inside_transactions 
 const earningsSurprise = 'select DISTINCT * from equities.earnings_estimate where ticker = $1 ORDER BY period desc limit 40';
 
 // STOCK CANDLESTICK CHART API
-const candles = "select distinct * from equities.candlestick_data where ticker = $1 and frequency = 'D'  order by date desc limit 150"
+const candles = "select distinct * from equities.candlestick_data where ticker = $1 and frequency = 'D'  order by date desc"
 const stockCandleStick = "select distinct date, open from equities.candlestick_data where ticker = $1 and date > $2 and frequency = $3 order by date desc limit 1200";
 
 // STOCK BASIC INFO API

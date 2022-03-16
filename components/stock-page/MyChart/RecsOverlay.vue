@@ -16,7 +16,7 @@ export default {
             histWidth: 30,
             thresholdSize: 0,
             StrongBuyColor: "#34a853",
-            height: 100,
+            height: 200,
             BuyColor: "#46bdc6",
             HoldColor: "#fbb104",
             SellColor: "#ff6d01",
@@ -30,7 +30,6 @@ export default {
       ctx.strokeStyle = this.color;
       const layout = this.$props.layout;
       this.$props.layout.$_hi = 100
-      console.log(layout)
       const base = layout.$2screen(0) + 0.5;
       const off = this.hist_width % 2 ? 0 : 0.5;
 
@@ -109,11 +108,11 @@ export default {
         return x.toFixed(Math.abs(x) > 0.001 ? 4 : 8);
       });
       return [
-        { value: "Strong Buy: " + xs[0], color: this.strong_buy_color},
-        { value: "Buy: " + xs[1], color: this.buy_color },
-        { value: "Hold: " + xs[2], color: this.hold_color },
-        { value: "Sell: " + xs[3], color: this.sell_color },
-        { value: "Strong Sell: " +xs[4], color: this.strong_sell_color },
+        { value: "Strong Buy: " + xs[0], color:'#ffffff'},
+        { value: "Buy: " + xs[1], color: '#ffffff' },
+        { value: "Hold: " + xs[2], color: '#ffffff' },
+        { value: "Sell: " + xs[3], color: '#ffffff' },
+        { value: "Strong Sell: " +xs[4], color: '#ffffff' },
       ];
     },
   },

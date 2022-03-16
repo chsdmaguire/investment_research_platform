@@ -457,16 +457,13 @@ export default {
             closes.push(item[4]);
         });
 
-        const smas = new technicalCalcs.SMA.calculate({period: period, 
+        const smas = new technicalCalcs.SD.calculate({period: period, 
         values: closes});
         const diffLength = closes.length - smas.length;
         const arr = [];
         smas.forEach((item, index) => {
-            if(index >= period) {
-                const stdDev = ((((item - closes[index -1]) + (item - closes[index -2]) + (item - closes[index -3]) +
-                (item - closes[index -4]) + (item - closes[index -5]) + (item - closes[index -6]) + 
-                (item - closes[index -7]) + (item - closes[index -8]) ) ** 2) / period) ** (1/2)
-                arr.push(dates[index + diffLength], stdDev)
+            if(index > period) {
+                arr.push([dates[index + diffLength], item])
             }
         });
         return arr;
