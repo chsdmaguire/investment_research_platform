@@ -628,7 +628,6 @@
 <script>
 import TradingVue from 'trading-vue-js';
 import { DataCube } from 'trading-vue-js';
-import TestOverlay from './TestOverlay.vue';
 import Overlays from 'tvjs-overlays'
 import technicals from './Technicals.js';
 import financials from './Financials.js';
@@ -646,20 +645,18 @@ import SocialMentions from './SocialMentions';
 import SocialScore from './SocialScore';
 import xp from 'tvjs-xp';
 
-const technicalCalcs = require('technicalindicators');
-
 export default {
     components: { TradingVue },
     data() {
         return {
             chart: {},
             width: window.innerWidth -100,
-            height: window.innerHeight -100,
+            height: window.innerHeight -200,
             config: {
                 DEFAULT_LEN: 400, 
                 TB_BORDER: 5,
                 CANDLEW: 0.9,
-               // GRIDX: 200,
+               GRIDX: 200,
                 VOLSCALE: 0.06
             },
             iB: false,
@@ -680,10 +677,8 @@ export default {
              xsett: {
                 'grid-resize': { min_height: 30 }
             },
-            twitPosMentions: [],
-            insideTransactions: [],
 
-            overlays: [TestOverlay, SocialScore, InsidersOverlay, SocialMentions, 
+            overlays: [SocialScore, InsidersOverlay, SocialMentions, 
             RecsOverlay, BubbleOverlay, PatentsOverlay, Overlays['MOM'], 
             Overlays['Histogram'], DMIOverlay, Overlays['CCI'], Overlays['Area51'], 
             Overlays['Ichimoku'], IchiCloudOverlay, Overlays['PlotCross'], MACDOverlay, Overlays['WilliamsR'], 
@@ -691,9 +686,6 @@ export default {
             PatternsLabel
             ],
             candleStickData: [],
-            epsData: [],
-            patentData: [],
-            analystRecs: [],
             indices: [
                 {name: 'S&P 500', id: 'SP500', color: '#2fd68f'},
                 {name: 'NASDAQ', id: 'NASDAQCOM', color: '#f87991'},
@@ -1122,7 +1114,6 @@ export default {
              const color = this.yields[idx].color;
              const yieldData = [];
              this.$axios.get(`/econ/graph/metric/${id}`).then(res => {
-                 console.log(res.data);
                  const arr = res.data.sort((a, b) => (a.date > b.date) ?  1: -1);
                  arr.forEach(item => {
                      const date = new Date(item.date).getTime();
@@ -1167,7 +1158,7 @@ export default {
             this.dialog4= false;
         },
         showGrossMargin() {
-            const ticker = 'AAPL';
+            const ticker = this.$route.params.ticker.toUpperCase();
             const fsli = 'grossProfit';
             this.$axios.get(`/charting/financials/margin/${ticker}/${fsli}`).then(res => {
             const data = financials.calcMargin(res.data);    
@@ -1185,7 +1176,7 @@ export default {
             this.dialog2 = false;
         },
         showOM() {
-            const ticker = 'AAPL';
+            const ticker = this.$route.params.ticker.toUpperCase();
             const fsli = 'operatingIncome';
             this.$axios.get(`/charting/financials/margin/${ticker}/${fsli}`).then(res => {
             const data = financials.calcMargin(res.data);    
@@ -1203,7 +1194,7 @@ export default {
             this.dialog2 = false;
         },
         ebitdaMargin() {
-            const ticker = 'AAPL';
+            const ticker = this.$route.params.ticker.toUpperCase();;
             const fsli = 'ebitda';
             this.$axios.get(`/charting/financials/margin/${ticker}/${fsli}`).then(res => {
             const data = financials.calcMargin(res.data);    
@@ -1221,7 +1212,7 @@ export default {
             this.dialog2 = false;
         },
         niMargin() {
-            const ticker = 'AAPL';
+            const ticker = this.$route.params.ticker.toUpperCase();
             const fsli = 'netIncome';
             this.$axios.get(`/charting/financials/margin/${ticker}/${fsli}`).then(res => {
             const data = financials.calcMargin(res.data);    
@@ -1239,7 +1230,7 @@ export default {
             this.dialog2 = false;
         },
         assetTurn() {
-            const ticker = 'AAPL';
+            const ticker = this.$route.params.ticker.toUpperCase();
             const top = 'totalRevenue';
             const bottom = 'totalAssets';
             this.$axios.get(`/charting/financials/asset/${ticker}/${top}/${bottom}`).then(res => {
@@ -1258,7 +1249,7 @@ export default {
             this.dialog2 = false;
         },
         turnover(idx) {
-            const ticker = 'AAPL';
+            const ticker = this.$route.params.ticker.toUpperCase();
             const top = this.efficiencyArr[idx].top;
             const bottom = this.efficiencyArr[idx].bottom;
             const color = this.efficiencyArr[idx].color;
@@ -1279,7 +1270,7 @@ export default {
             this.dialog2 = false;
         },
         leverage(idx) {
-            const ticker = 'AAPL';
+            const ticker = this.$route.params.ticker.toUpperCase();
             const top = this.leverageArr[idx].top;
             const bottom = this.leverageArr[idx].bottom;
             const color = this.leverageArr[idx].color;
@@ -1300,7 +1291,7 @@ export default {
             this.dialog2 = false;
         },
         current() {
-            const ticker = 'AAPL';
+            const ticker = this.$route.params.ticker.toUpperCase();
             const top = 'totalCurrentAssets'
             const bottom = 'totalCurrentLiabilities';
             this.$axios.get(`/charting/financials/asset/${ticker}/${top}/${bottom}`).then(res => {
@@ -1319,7 +1310,7 @@ export default {
             this.dialog2 = false;
         },
         ocf() {
-            const ticker = 'AAPL';
+            const ticker = this.$route.params.ticker.toUpperCase();
             const top = 'operatingCashflow'
             const bottom = 'totalCurrentLiabilities';
             this.$axios.get(`/charting/financials/asset/${ticker}/${top}/${bottom}`).then(res => {
@@ -1338,7 +1329,7 @@ export default {
             this.dialog2 = false;
         },
         cash() {
-            const ticker = 'AAPL';
+            const ticker = this.$route.params.ticker.toUpperCase();;
             const top = 'cashAndShortTermInvestments'
             const bottom = 'totalCurrentLiabilities';
             this.$axios.get(`/charting/financials/asset/${ticker}/${top}/${bottom}`).then(res => {
@@ -1357,7 +1348,7 @@ export default {
             this.dialog2 = false;
         },
         roa() {
-            const ticker = 'AAPL';
+            const ticker = this.$route.params.ticker.toUpperCase();
             const top = 'netIncome'
             const bottom = 'totalAssets';
             this.$axios.get(`/charting/financials/asset/${ticker}/${top}/${bottom}`).then(res => {
@@ -1376,7 +1367,7 @@ export default {
             this.dialog2 = false;
         },
         roe() {
-            const ticker = 'AAPL';
+            const ticker = this.$route.params.ticker.toUpperCase();
             const top = 'netIncome'
             const bottom = 'totalShareholderEquity';
             this.$axios.get(`/charting/financials/asset/${ticker}/${top}/${bottom}`).then(res => {
@@ -1395,7 +1386,7 @@ export default {
             this.dialog2 = false;
         },
         acidTest() {
-            const ticker = 'AAPL';
+            const ticker = this.$route.params.ticker.toUpperCase();
             const topFirst = 'totalCurrentAssets';
             const topSecond = 'inventory'
             const bottom = 'totalCurrentLiabilities';
@@ -1415,25 +1406,26 @@ export default {
             this.dialog2 = false;
         },
         getAnalystRecs() {
-            const ticker = 'AAPL';
+            const ticker = this.$route.params.ticker.toUpperCase();
+            const recs = [];
             this.$axios.get(`/analyst/recs/${ticker}`).then(res => {
                  const arr = res.data.sort((a, b) => (a.period > b.period) ? 1: -1);
                  arr.forEach(i => {
                      const date = new Date(i.period).getTime();
                      const total = (i.strong_buy + i.buy + i.hold + i.sell + i.strong_sell)
-                     this.analystRecs.push([date, i.strong_buy, i.buy, i.hold, i.sell, i.strong_sell, total])
+                     recs.push([date, i.strong_buy, i.buy, i.hold, i.sell, i.strong_sell, total])
                  });
             });
             this.dialog3 = false;
             this.candles.offchart.push({
                     name: 'Analyst Recs',
                     type: "RecsOverlay",
-                    data: this.analystRecs,
+                    data: recs,
                 });
                 this.chart = new DataCube(this.candles)
         },
         bvShare() {
-            const ticker = 'AAPL';
+            const ticker = this.$route.params.ticker.toUpperCase();
             const arr = [];
             this.$axios.get(`/stocks/charting/bvshare/${ticker}`).then(res => {
                 res.data.forEach(item => {
@@ -1454,7 +1446,7 @@ export default {
             this.dialog2 = false;
         },
         evEbit() {
-            const ticker = 'AAPL';
+            const ticker = this.$route.params.ticker.toUpperCase();
             const fsli = 'ebit';
             const arr = [];
             this.$axios.get(`/stocks/charting/marketmetrics/${ticker}/${fsli}`).then(res => {
@@ -1476,7 +1468,7 @@ export default {
             this.dialog2 = false;
         },
         priceSales() {
-            const ticker = 'AAPL';
+            const ticker = this.$route.params.ticker.toUpperCase();
             const fsli = 'netIncome';
             const arr = [];
             this.$axios.get(`/stocks/charting/marketmetrics2/${ticker}/${fsli}`).then(res => {
@@ -1502,10 +1494,9 @@ export default {
             startDate.setDate(startDate.getDate() - 7);
             const endDate = new Date().getTime();
             this.$refs.tv.setRange(startDate.getTime(), endDate)
-            console.log(startDate.getTime(), endDate)
         },
         showPatents() {
-            const ticker = 'AAPL';
+            const ticker = this.$route.params.ticker.toUpperCase();
             const patentData = [];
              this.$axios.get(`/stocks/patents/${ticker}`).then(res => {
                 const arr = res.data.sort((a, b) => (a.publication_date > b.publication_date) ? 1: -1);
@@ -1529,19 +1520,18 @@ export default {
 
         },
         getEPS() {
-            const ticker = 'AAPL';
+            const ticker = this.$route.params.ticker.toUpperCase();
+            const epsData = [];
             this.$axios.get(`/earnings/surpises/${ticker}`).then(res => {
                 const arr = res.data.sort((a, b) => (a.period > b.period) ? 1: -1)
                 arr.forEach(item => {
                     const date = new Date(item.period).getTime();
-                    this.epsData.push([date, Number(item.actual), Number(item.estimate)]);
-                    // this.epsData.push([date, Number(item.estimate)]);
+                    epsData.push([date, Number(item.actual), Number(item.estimate)]);
                 });
-                console.log(this.epsData)
                  this.candles.offchart.push({
                     name: 'EPS Data',
                     type: "BubbleOverlay",
-                    data: this.epsData,
+                    data: epsData,
                 });
                 this.chart = new DataCube(this.candles)                
                 });
@@ -1627,7 +1617,6 @@ export default {
                     this.chart = new DataCube(this.candles)
                 }
             } else if(event.button == 'display') {
-                console.log('display', event)
             }
         },
         showCci() {
@@ -1808,7 +1797,6 @@ export default {
         stdDev(){
             const prices = this.candles.chart.data;
             const data = technicals.stdDev(prices);
-            console.log(data)
             this.candles.offchart.push({
                 name: 'Standard Deviation',
                 type: 'Area51',
@@ -1832,23 +1820,24 @@ export default {
             this.dialog1 = false;
         },
         getInsiders() {
-            const ticker = 'AAPL';
+            const ticker = this.$route.params.ticker.toUpperCase();
+            const arr = [];
             this.$axios.get(`/stocks/insiders/${ticker}`).then(res => {
                 res.data.forEach(c => {
                     const date = new Date(c.date).getTime();
-                    this.insideTransactions.push([date, Math.abs(Number(c.amount))])
+                    arr.push([date, Math.abs(Number(c.amount))])
                 })
             });
             this.candles.offchart.push({
             name: 'Insider Transactions',
             type: "InsidersOverlay",
-            data: this.insideTransactions,
+            data: arr,
             })
             this.chart = new DataCube(this.candles)
         },
         
         async getPriceData() {
-            const ticker = 'AAPL';
+            const ticker = this.$route.params.ticker.toUpperCase();
             this.ticker = ticker;
             const res = await this.$axios.get(`/stock/candles/${ticker}`);
             const arr = res.data.sort((a, b) => (a.date > b.date) ? 1: -1)
@@ -1865,7 +1854,6 @@ export default {
             this.$nextTick(() =>
             this.$refs.tv.setRange(t1, t2)
         );
-        console.log(this.$refs.tv.$props)
         },
         async changeRange() {
             const startDate = new Date();
@@ -1900,27 +1888,28 @@ export default {
         },
         onResize(event) {
             this.width = window.innerWidth - 100
-            this.height = window.innerHeight - 100
+            this.height = window.innerHeight - 200
         },
          TwitterMentions() {
-            const ticker = 'AAPL';
+            const ticker = this.$route.params.ticker.toUpperCase();
             const source = 'twitter';
+            const mentions = [];
             this.$axios.get(`/stocks/social/mentions/${ticker}/${source}`).then(res => {
                 res.data.forEach(item => {
                     const date = new Date(item.date).getTime();
-                    this.twitPosMentions.push([date, Number(item.positive_mentions),  -Number(item.negative_mentions)])                
+                    mentions.push([date, Number(item.positive_mentions),  -Number(item.negative_mentions)])                
                 });
                 this.candles.offchart.push({
                 name: 'Twitter Mentions',
                 type: "SocialMentions",
-                data: this.twitPosMentions,
+                data: mentions,
                 })
                 this.chart = new DataCube(this.candles)            
             });
             this.dialog3 = false;
         },
         TwitterScore() {
-            const ticker = 'AAPL';
+            const ticker = this.$route.params.ticker.toUpperCase();
             const source = 'twitter';
             this.$axios.get(`/stocks/social/score/${ticker}/${source}`).then(res => {
                 const scores = [];
@@ -1928,7 +1917,6 @@ export default {
                     const date = new Date(item.date).getTime();
                     scores.push([date, Number(item.positive_score),  Number(item.negative_score), Number(item.total_score)])                
                 });
-                console.log(scores)
                 this.candles.offchart.push({
                 name: 'Twitter Sentiment Score',
                 type: "SocialScore",
@@ -1939,24 +1927,25 @@ export default {
             this.dialog3 = false;
         },
         redditMentions() {
-            const ticker = 'AAPL';
+            const ticker = this.$route.params.ticker.toUpperCase();
             const source = 'reddit';
+            const mentions = [];
             this.$axios.get(`/stocks/social/mentions/${ticker}/${source}`).then(res => {
                 res.data.forEach(item => {
                     const date = new Date(item.date).getTime();
-                    this.twitPosMentions.push([date, Number(item.positive_mentions),  -Number(item.negative_mentions)])                
+                    mentions.push([date, Number(item.positive_mentions),  -Number(item.negative_mentions)])                
                 });
                 this.candles.offchart.push({
                 name: 'Reddit Mentions',
                 type: "SocialMentions",
-                data: this.twitPosMentions,
+                data: mentions,
                 })
                 this.chart = new DataCube(this.candles)            
             });
             this.dialog3 = false;
         },
         redditScore() {
-            const ticker = 'AAPL';
+            const ticker = this.$route.params.ticker.toUpperCase();
             const source = 'reddit';
             this.$axios.get(`/stocks/social/score/${ticker}/${source}`).then(res => {
                 const scores = [];

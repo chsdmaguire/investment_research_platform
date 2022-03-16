@@ -23,9 +23,6 @@ export default {
     link: [
       { rel: 'icon', type: 'image/x-icon', href: 'icon.png' },
     ],
-    script: [
-      { src: '/datafeeds/udf/dist/bundle.js' }
-    ]
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
@@ -33,11 +30,6 @@ export default {
 
   ],
   plugins: [
-    // { src: '~/plugins/TVChart.js', mode: 'client' },
-    {
-      src: '~/plugins/lightweightcharts.js',
-      ssr: false
-    },
   ],
 
 

@@ -65,8 +65,7 @@
                       </v-card>
                     </v-dialog>
                   </div>
-                </v-col>
-                  
+                </v-col>                 
               </v-row>
         
             <v-data-table
@@ -112,12 +111,9 @@
             </v-data-table>
           </v-card>
         </v-flex>
-        <!-- <v-flex lg5 class="my-6">
-          <InsideTransBase :chart-data="chartData" :options="chartOptions" />
-        </v-flex> -->
       </v-layout>
     </v-container>
-  <!-- </v-app> -->
+
 </template>
 
 <script>
