@@ -85,7 +85,7 @@ export default {
             dataLayer.push(arguments);
           }
           gtag('js', new Date());
-          gtag('config', 'G-6TR511TP58');
+          gtag('config', 'G-6TR511TP58', {cookie_flags: 'SameSite=None;Secure'});
         }
       }
     ]

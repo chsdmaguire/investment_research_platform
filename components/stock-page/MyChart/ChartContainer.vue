@@ -604,7 +604,7 @@
         
     <v-row justify="center" align="center">
 
-            <trading-vue 
+            <TradingVue
             :title-txt="ticker"
             :data="chart"
             :overlays="overlays"
@@ -614,12 +614,10 @@
             :width="this.width" :height="this.height"
             ref="tv"
             :legend-buttons="['remove']"
-            :ext="extensions"
-            :resetkey="resetkey"
             v-on:legend-button-click="on_button_click"
             :toolbar="false"
              :x-settings="xsett">
-          </trading-vue>                          
+          </TradingVue>                          
     </v-row>       
 </v-container> 
 
@@ -643,7 +641,6 @@ import StochOverlay from './StochOverlay';
 import PatternsLabel from './PatternsLabel';
 import SocialMentions from './SocialMentions';
 import SocialScore from './SocialScore';
-import xp from 'tvjs-xp';
 
 export default {
     components: { TradingVue },
@@ -671,8 +668,6 @@ export default {
                 onchart: [],
                 offchart: [],
             },
-            extensions: Object.values(xp),
-             ext_names: Object.keys(xp),
              resetkey: 0,
              xsett: {
                 'grid-resize': { min_height: 30 }
@@ -1080,11 +1075,6 @@ export default {
                  this.chart = new DataCube(this.candles)
             this.dialog5 = false;
 
-        },
-        reset(state) {
-            let sub = Object.keys(state).filter(x => state[x])
-            this.extensions = sub.map(x => xp[x])
-            this.resetkey++
         },
 
         showEconData(idx) {
