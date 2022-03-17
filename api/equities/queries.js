@@ -27,9 +27,7 @@ const insideTransactions = 'select distinct * from equities.inside_transactions 
 const earningsSurprise = 'select DISTINCT * from equities.earnings_estimate where ticker = $1 ORDER BY period desc limit 40';
 
 // STOCK CANDLESTICK CHART API
-// const stockCandleStick = 'select distinct * from equities.candlestick_data where ticker = $1 ' + 
-// 'and date in (select date from (select ticker, date, count(*) from equities.candlestick_data where ticker = $1 ' +
-// 'and date > $2 group by ticker, date having count(*) = 1) as foo) ORDER BY date desc limit 1200';
+const candles = "select distinct * from equities.candlestick_data where ticker = $1 and frequency = 'D'  order by date desc"
 const stockCandleStick = "select distinct date, open from equities.candlestick_data where ticker = $1 and date > $2 and frequency = $3 order by date desc limit 1200";
 
 // STOCK BASIC INFO API
@@ -132,6 +130,53 @@ const newSearch = "with name as (select distinct ticker, name, sector from equit
 "  group by ticker, name, sector order by ticker asc) select " +
 `name.ticker as "ticker",  concat(name.name, ' ', '(', name.ticker, ')') as "name", name.sector as "industry" from name`
 
+const newInsiders = "with inside as (select distinct sum(change), transaction_date, max(transaction_price) from " +
+"equities.inside_transactions where ticker = $1 and transaction_price > 0 group by transaction_date order by transaction_date) " +
+`select inside.transaction_date as "date", (inside.max * inside.sum) as "amount" from inside order by date asc`
+
+// financials charting queries
+const margin = "select distinct date,  max(case when (fsli = 'totalRevenue') then value else NULL end) as revenue, " +
+"max(case when (fsli = $2) then value else NULL end) as fsli " +
+"from equities.normalized_financials where ticker = $1 group by date order by date asc"
+
+const finChart1 = "select distinct date,  max(case when (fsli = $3) then value else NULL end) as bottom, " +
+"max(case when (fsli = $2) then value else NULL end) as top " +
+"from equities.normalized_financials where ticker = $1 group by date order by date asc"
+
+const finChart2 = "select distinct date,  max(case when (fsli = $3) then value else NULL end) as bottom, " +
+"max(case when (fsli = $2) then value else NULL end) as top_first, max(case when (fsli = $4) then value else NULL end) as top_second " +
+"from equities.normalized_financials where ticker = $1 group by date order by date asc"
+
+const socialMentions = "select distinct date, positive_mentions, negative_mentions from equities.social_sentiment " +
+"where ticker = $1 and source = $2 order by date desc";
+
+const socialScore = "select distinct date, positive_score, negative_score, total_score from equities.social_sentiment " +
+"where ticker = $1 and source = $2 order by date asc";
+
+const bvPerShare = "with shares as (select distinct shares_outstanding from equities.basic_info where ticker = $1), " + 
+"fin as (select distinct date, fsli, value from equities.normalized_financials where fp = 'quarter' " +
+"and ticker = $1 and (fsli = 'totalAssets' or fsli = 'totalLiabilities') group by date, fsli, value) " +
+"select distinct date, (max(case when (fsli = 'totalAssets') then value else null end) -  max(case when (fsli = 'totalLiabilities') " +
+'then value else null end)) / (max(shares.shares_outstanding) * 1000000) as "bv_per_share" from shares, fin group by date order by date'
+
+const marketMetrics = "with shares as (select distinct shares_outstanding from equities.basic_info where ticker = $1), " + 
+"fin as (select distinct date, fsli, value from equities.normalized_financials where fp = 'quarter' " + 
+"and ticker = $1 and (fsli = $2 or fsli = 'shortLongTermDebtTotal' or fsli = 'cashAndShortTermInvestments') " +
+"group by ticker, date, fsli, value), " + 
+"price as (select distinct date, close from equities.candlestick_data where ticker = $1 group by " +
+"date, close) select distinct fin.date, (((max(shares.shares_outstanding) * 1000000) * price.close) " +
+"+ max(case when (fsli = 'shortLongTermDebtTotal') then value else null end) -  max(case when (fsli = 'cashAndShortTermInvestments') " +
+`then value else null end)) / max(case when (fsli = $2) then value else null end) as "value" from shares, fin, price ` +
+"where fin.date = price.date group by fin.date, price.close order by fin.date"
+
+const marketMetrics2 = "with shares as (select distinct shares_outstanding from equities.basic_info where ticker = $1), " + 
+"fin as (select distinct date, fsli, value from equities.normalized_financials where fp = 'quarter' " + 
+"and ticker = $1 and fsli = $2  group by ticker, date, fsli, value), " +
+"price as (select distinct date, close from equities.candlestick_data where ticker = $1 group by " +
+"date, close) select distinct fin.date, ((max(shares.shares_outstanding) * 1000000) * price.close) " +
+`/ max(case when (fsli = $2) then value else null end) as "value" from shares, fin, price ` +
+"where fin.date = price.date group by fin.date, price.close order by fin.date"
+
 module.exports = {
     topNews,
     getIpos,
@@ -165,5 +210,15 @@ module.exports = {
     dcf,
     betaCalc,
     otherDcfAss,
-    newSearch
+    newSearch,
+    candles,
+    newInsiders,
+    margin,
+    socialMentions,
+    socialScore,
+    finChart1,
+    finChart2,
+    bvPerShare,
+    marketMetrics,
+    marketMetrics2
 }

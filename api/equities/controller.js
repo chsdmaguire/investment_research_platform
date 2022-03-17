@@ -101,6 +101,15 @@ const stockCandleStick = async (req, res) => {
         })
 }
 
+const candles = async (req, res) => {
+    ticker = req.params.ticker;
+    date = req.params.date;
+    pool.query(queries.candles, [ticker],  (error, results) => {
+        if(error) throw error;
+        return res.status(200).json(results.rows);
+        })
+}
+
 // STOCK BASIC INFO
 const basicInfo = async (req, res) => {
     ticker = req.params.ticker;
@@ -305,7 +314,116 @@ const otherDcfAss = async(req, res) => {
 });
 }
 
+const newInsiders = async(req, res) => {
+    ticker = req.params.ticker;
+    pool.query(queries.newInsiders, [ticker], (error, results) => {
+        if (error) {
+            console.log(error.message);
+            throw error;
+        } 
+        res.status(200).json(results.rows);
+});
+}
 
+const margin = async(req, res) => {
+    ticker = req.params.ticker;
+    fsli = req.params.fsli;
+    pool.query(queries.margin, [ticker, fsli], (error, results) => {
+        if (error) {
+            console.log(error.message);
+            throw error;
+        } 
+        res.status(200).json(results.rows);
+});
+}
+
+const finChart1 = async(req, res) => {
+    ticker = req.params.ticker;
+    fsli1 = req.params.one;
+    fsli2 = req.params.two;
+
+    pool.query(queries.finChart1, [ticker, fsli1, fsli2], (error, results) => {
+        if (error) {
+            console.log(error.message);
+            throw error;
+        } 
+        res.status(200).json(results.rows);
+});
+}
+
+const finChart2 = async(req, res) => {
+    ticker = req.params.ticker;
+    fsli1 = req.params.one;
+    fsli2 = req.params.two;
+    fsli3 = req.params.three;
+
+    pool.query(queries.finChart2, [ticker, fsli1, fsli2, fsli3], (error, results) => {
+        if (error) {
+            console.log(error.message);
+            throw error;
+        } 
+        res.status(200).json(results.rows);
+});
+}
+
+const socialMentions = async(req, res) => {
+    ticker = req.params.ticker;
+    source = req.params.source;
+    pool.query(queries.socialMentions, [ticker, source], (error, results) => {
+        if (error) {
+            console.log(error.message);
+            throw error;
+        } 
+        res.status(200).json(results.rows);
+});
+}
+
+const socialScore = async(req, res) => {
+    ticker = req.params.ticker;
+    source = req.params.source;
+    pool.query(queries.socialScore, [ticker, source], (error, results) => {
+        if (error) {
+            console.log(error.message);
+            throw error;
+        } 
+        res.status(200).json(results.rows);
+});
+}
+
+const bvPerShare = async(req, res) => {
+    ticker = req.params.ticker;
+    pool.query(queries.bvPerShare, [ticker], (error, results) => {
+        if (error) {
+            console.log(error.message);
+            throw error;
+        } 
+        res.status(200).json(results.rows);
+});
+}
+
+const marketMetrics = async(req, res) => {
+    ticker = req.params.ticker;
+    fsli = req.params.fsli;
+    pool.query(queries.marketMetrics, [ticker, fsli], (error, results) => {
+        if (error) {
+            console.log(error.message);
+            throw error;
+        } 
+        res.status(200).json(results.rows);
+});
+}
+
+const marketMetrics2 = async(req, res) => {
+    ticker = req.params.ticker;
+    fsli = req.params.fsli;
+    pool.query(queries.marketMetrics2, [ticker, fsli], (error, results) => {
+        if (error) {
+            console.log(error.message);
+            throw error;
+        } 
+        res.status(200).json(results.rows);
+});
+}
 
 module.exports = {
     basicSearch,
@@ -339,5 +457,15 @@ module.exports = {
     comp,
     dcf,
     betaCalc,
-    otherDcfAss
+    otherDcfAss,
+    candles,
+    newInsiders,
+    margin,
+    socialMentions,
+    socialScore,
+    finChart1,
+    finChart2,
+    bvPerShare,
+    marketMetrics,
+    marketMetrics2
 }

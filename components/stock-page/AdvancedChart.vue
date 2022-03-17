@@ -5,64 +5,6 @@
         </v-skeleton-loader>         
       </template>
       <template v-else>
-          <!-- <v-row align="center" justify="center">
-              <v-col cols="3">
-                  <v-dialog v-model="ratioDialog" width="600">
-                      <template v-slot:activator="{ on, attrs }">
-                          <v-btn color="red lighten-2" dark
-                            v-bind="attrs" v-on="on"> Financial Ratios</v-btn>
-                      </template>
-                      <v-card class="mx-auto justify-center">
-                          <v-tabs>
-                              <v-tab>Profitability</v-tab>
-                              <v-tab>Efficiency</v-tab>
-                              <v-tab>Leverage</v-tab>
-                              <v-tab>Solvency</v-tab>
-                              <v-tab>Valuation</v-tab>
-                          </v-tabs>
-                      </v-card>
-                  </v-dialog>
-              </v-col>
-              <v-col cols="3">
-                  <v-dialog v-model="altDialog" width="500">
-                      <template v-slot:activator="{ on, attrs }">
-                          <v-btn color="red lighten-2" dark
-                            v-bind="attrs" v-on="on"> Alternative Data</v-btn>
-                      </template>
-                      <v-card class="mx-auto justify-center">
-                          <v-list>
-                              <v-list-item-group v-model="altDataModel" multiple>
-                                  <template v-for="(item, i) in altDataList">
-                                      <v-divider v-if="!item" :key="`divider-${i}`"></v-divider>
-                                      <v-list-item  v-else :key="`item-${i}`" :value="item.value" active-class="deep-purple--text text--accent-4">
-                                        <template v-slot:default="{ active }">
-                                            <v-list-item-content>
-                                                <v-list-item-title v-text="item.text"></v-list-item-title>
-                                            </v-list-item-content>
-
-                                            <v-list-item-action>
-                                                <v-checkbox
-                                                :input-value="active"
-                                                color="deep-purple accent-4 text-white"
-                                                ></v-checkbox>
-                                            </v-list-item-action>
-                                        </template>
-                                      </v-list-item>
-                                  </template>
-                              </v-list-item-group>
-                          </v-list>
-                      </v-card>
-                  </v-dialog>
-              </v-col>
-          <v-col cols="3">
-                  <v-dialog v-model="compareDialog" width="500">
-                      <template>
-                      </template>
-                      <v-btn>
-                      </v-btn>
-                  </v-dialog>
-              </v-col>
-          </v-row> -->
           <v-row align="center" justify="center">             
               <v-col cols="12">
                   <IndiceChartBase :chart-data="chartData" :chart-options="chartOptions"  v-on:change="render()" id="indice-chart"/>
@@ -99,7 +41,7 @@ export default {
     data() {
         return {
             loading: true,
-            timeFrame: 0,
+            timeFrame: 2,
             scaler: 0,
             candlesY: [],
             candlesX: [],

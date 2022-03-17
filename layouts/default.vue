@@ -23,7 +23,7 @@
           <v-card-title>
           <div class="copyright copyright-content d-sm-flex justify-content-between">
               <p class="text" style=" width: 100%; text-align: center">
-                © {{ new Date().getFullYear() }} — <strong>Flibyrd LLC</strong>
+                © {{ new Date().getFullYear() }} — <strong>Fli<span>&beta;</span>yrd LLC</strong>
               </p>
             </div>
         </v-card-title>
@@ -38,9 +38,9 @@
 
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
 
-      <v-toolbar-title v-text="title" />   
+      <v-toolbar-title><strong>Fli<span>&beta;</span>yrd</strong></v-toolbar-title>   
       <router-link to="/">      
-      <v-img src="icon.png" max-width="35px" class="ml-4" link="/"></v-img>
+      <v-img src="/icon.png" max-width="35px" class="ml-4" link="/"></v-img>
       </router-link>
 
     <v-col md="6" class="ml-12 pl-12">
@@ -134,6 +134,12 @@ export default {
   .user-btn-text {
     font-size: 90%;
   } 
+}
+.v-navigation-drawer {
+z-index: 999999 !important;
+}
+.v-app-bar {
+z-index: 999999 !important;
 }
 /* @import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
 .primary-text {

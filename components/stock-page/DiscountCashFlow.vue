@@ -324,7 +324,7 @@
                                             <div class='child float-left-child'>
                                                 <v-text-field
                                                     v-model="price"
-                                                    step=".01"
+                                                    step="1"
                                                     class="mx-0 my-0 px-0 py-0"
                                                     dense
                                                     hide-details
@@ -353,7 +353,7 @@
                                             <div class='child float-left-child'>
                                                 <v-text-field
                                                     v-model="sharesOuts"
-                                                    step=".01"
+                                                    step="1000"
                                                     class="mx-0 my-0 px-0 py-0"
                                                     dense
                                                     hide-details
@@ -397,7 +397,7 @@
                                             <div class='child float-left-child'>
                                                 <v-text-field
                                                     v-model="totalDebt"
-                                                    step=".01"
+                                                    step="1000000"
                                                     class="mx-0 my-0 px-0 py-0"
                                                     dense
                                                     hide-details
@@ -426,7 +426,7 @@
                                             <div class='child float-left-child'>
                                                 <v-text-field
                                                     v-model="totalCash"
-                                                    step=".01"
+                                                    step="1000000"
                                                     class="mx-0 my-0 px-0 py-0"
                                                     dense
                                                     hide-details
@@ -533,7 +533,7 @@
                                             <div class='child float-left-child'>
                                                 <v-text-field
                                                     v-model="beta"
-                                                    step=".01"
+                                                    step=".1"
                                                     class="mx-0 my-0 px-0 py-0"
                                                     dense
                                                     hide-details
@@ -2461,6 +2461,7 @@ export default {
                 const variance = calculateMean(squareDiffs);
                 return variance;
             };
+            this.beta = 1;
             const stats = new Statistics(dayChange, betaVars);
             const covariance = stats.covariance('stock', 'spy');
             const spyVariance = calculateVariance(spyArr);
@@ -2470,6 +2471,7 @@ export default {
         async getOtherDcf() {
             const ticker = this.$route.params.ticker.toUpperCase();
             const res = await this.$axios.get(`/stocks/otherdcfassump/${ticker}`);
+            console.log(res)
             const response = res.data[0];
             this.price += response.price;
             this.sharesOuts += response.shares_outs;

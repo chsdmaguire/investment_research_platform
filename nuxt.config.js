@@ -22,13 +22,16 @@ export default {
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: 'icon.png' },
-    ]
+    ],
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
 
   ],
+  plugins: [
+  ],
+
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
 
@@ -82,7 +85,7 @@ export default {
             dataLayer.push(arguments);
           }
           gtag('js', new Date());
-          gtag('config', 'G-6TR511TP58');
+          gtag('config', 'G-6TR511TP58', {cookie_flags: 'SameSite=None;Secure'});
         }
       }
     ]

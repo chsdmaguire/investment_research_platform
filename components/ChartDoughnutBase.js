@@ -12,11 +12,20 @@ export default {
           display: true,
           align: 'center',
           position: 'bottom',
+          fontColor: '#edeae8',
+          labels: {
+            fontColor: '#c2c2c2',
+            font: {
+              
+            }
+          },
+          
 
         },
         title: {
           display: true,
-          text: 'Current Analyst Recommendations'
+          text: 'Current Analyst Recommendations',
+          fontColor: '#c2c2c2',
       },
         events: ['mousemove', 'mouseout', 'touchstart', 'touchmove'],
         interaction: {
