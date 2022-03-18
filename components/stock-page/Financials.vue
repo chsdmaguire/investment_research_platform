@@ -552,6 +552,7 @@ export default {
            
             const annualFinancials = await this.$axios.get(`/financials/values/${ticker}`);
             this.allFinancials = annualFinancials.data
+            console.log(this.allFinancials)
             if (this.allFinancials.length > 0) {
             this.allFinancials.forEach(line => {
                 const date = line.date.split('T')[0];

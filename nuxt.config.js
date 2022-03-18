@@ -58,13 +58,16 @@ export default {
   modules: [
     '@nuxtjs/axios',
     '@nuxtjs/robots',
-    'nuxt-cookie-control',
+    ['nuxt-cookie-control', {
+      controlButton: false,
+      barPosition: 'top-full',
+    }],
     '@nuxtjs/sitemap' // must be last item in modules!!!
     
   ],
 
+
   cookies: {
-    controlButton: false,
     necessary:[
       {
       name: 'Default Cookies',

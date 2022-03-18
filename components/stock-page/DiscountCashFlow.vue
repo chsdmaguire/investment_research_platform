@@ -5,11 +5,11 @@
                   <h4>Discounted Cash Flow Valuation </h4>
               </v-row>
           <v-container fluid>
-            <template v-if="loading">
+            <!-- <template v-if="loading">
                 <v-skeleton-loader dark type="date-picker">
                 </v-skeleton-loader>         
-            </template>
-            <template v-else>
+            </template> -->
+            <template>
           <v-row>
               <v-col cols="3">
                   <v-row  justify="center" align="center">
@@ -2402,22 +2402,28 @@ export default {
 
             const operAssCalc = []
             this.operAsset.forEach((num1, index) => {
+                if(index <= this.rev.length -1) {
                 var num2 = this.rev[index].value;
-                operAssCalc.push( (num1.value) / num2);
+                operAssCalc.push((num1.value) / num2);
+                }              
             });
             this.OpAssetRate += ((operAssCalc.reduce((a, b) => a + b) / operAssCalc.length) * 100).toFixed(1);
 
             const operLiabCalc = []
             this.operLiab.forEach((num1, index) => {
+                if(index <= this.rev.length -1) {
                 var num2 = this.rev[index].value;
                 operLiabCalc.push( (num1.value) / num2);
+                }
             });
             this.OpLiabRate += ((operLiabCalc.reduce((a, b) => a + b) / operLiabCalc.length) * 100).toFixed(1);
 
             const capexCalc = []
             this.capex.forEach((num1, index) => {
+                if(index <= this.rev.length -1) {
                 var num2 = this.rev[index].value;
                 capexCalc.push( (num1.value) / num2);
+                }
             });
             this.CapexRate += ((capexCalc.reduce((a, b) => a + b) / capexCalc.length) * 100).toFixed(1);
 
@@ -2471,7 +2477,6 @@ export default {
         async getOtherDcf() {
             const ticker = this.$route.params.ticker.toUpperCase();
             const res = await this.$axios.get(`/stocks/otherdcfassump/${ticker}`);
-            console.log(res)
             const response = res.data[0];
             this.price += response.price;
             this.sharesOuts += response.shares_outs;

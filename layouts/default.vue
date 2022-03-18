@@ -86,7 +86,7 @@
       <!-- </v-container> -->
     </v-main>
     <BackToTopButton />
-    <!-- <CookieControl /> -->
+    <CookieControl />
   </v-app>
   </div>
 </template>

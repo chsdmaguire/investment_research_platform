@@ -102,7 +102,7 @@ const comp = "with fin as (select distinct ticker, fsli, date, value from equiti
  "fp = 'annual' and (fsli = 'totalRevenue' or fsli = 'costofGoodsAndServicesSold' or fsli = 'researchAndDevelopment' " +
  "or fsli = 'sellingGeneralAndAdministrative' or fsli = 'depreciationAndAmortization' or fsli = 'incomeBeforeTax' or " + 
  "fsli = 'incomeTaxExpense' or fsli = 'changeInOperatingAssets' or fsli = 'changeInOperatingLiabilities' " +
- "or fsli = 'capitalExpenditures' or fsli = 'dividendPayoutCommonStock') order by date desc"
+ "or fsli = 'capitalExpenditures' or fsli = 'dividendPayoutCommonStock') and value is not null order by date desc"
 
  const betaCalc = "with stock as (select distinct ticker, date, close from equities.candlestick_data where " +
  "ticker = $1 and frequency = 'D' group by ticker, date, close order by date desc limit 300), " +
