@@ -51,7 +51,17 @@
 
     watch: {
       model (val) {
-        if (val != null) this.tab = this.$router.push(`companies/${this.model}`)
+        if (val != null) {
+          if(Object.keys(this.$route.params).length == 0) {
+            //console.log(this.$route.params)
+            this.tab = this.$router.push(`/${this.model}`)
+          } else {
+            console.log(this.$route.params)
+            this.tab = this.$router.push(`/${this.model}`)
+
+          }
+          
+        } 
         else this.tab = null
       },
       search (val) {
