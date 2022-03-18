@@ -60,7 +60,7 @@ export default {
     '@nuxtjs/robots',
     ['nuxt-cookie-control', {
       controlButton: false,
-      barPosition: 'top-full',
+      barPosition: 'bottom-full',
     }],
     '@nuxtjs/sitemap' // must be last item in modules!!!
     
