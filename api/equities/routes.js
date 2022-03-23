@@ -93,4 +93,6 @@ router.get('/stocks/charting/marketmetrics/:ticker/:fsli', controller.marketMetr
 
 router.get('/stocks/charting/marketmetrics2/:ticker/:fsli', controller.marketMetrics2)
 
+router.get('/stocks/screener', controller.screener)
+
 module.exports = router;

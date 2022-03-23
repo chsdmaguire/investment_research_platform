@@ -52,11 +52,11 @@
     </template>
 
     <template v-slot:[`item.price`]="{ item }">
-        <span>{{ priceChange(item.price) }}</span>
+        <span>{{ abbreviate(item.price) }}</span>
     </template>
 
      <template v-slot:[`item.market_cap`]="{ item }">
-        <span>${{ abbreviate(item.market_cap) }}</span>
+        <span>{{ abbreviate(item.market_cap) }}</span>
     </template>
 
     <template v-slot:[`item.total_supply`]="{ item }">
@@ -74,10 +74,13 @@
         <span>{{ percentify(item.mark_cap_dominance) }}</span>
     </template>
 
+    <template v-slot:[`item.cmc_rank`]="{ item }">
+        <span>{{ rank(item.cmc_rank) }}</span>
+    </template>
+
     <template v-slot:[`item.date_added`]="{ item }">
-        <span>{{  new Date(item.date_added).getFullYear() + '-'
-           + (new Date(item.date_added).getMonth() + 1) + '-' + 
-           new Date(item.date_added).getDate() }}</span>
+        <span>{{   (new Date(item.date_added).getMonth() + 1)  + '-'
+           +  new Date(item.date_added).getDate() + '-' +new Date(item.date_added).getFullYear()}}</span>
     </template>
     </v-data-table>
 
@@ -134,6 +137,9 @@ export default {
 
     priceChange(num) {
       return numeral(num).format('0,0.00')
+    },
+    rank(num) {
+      return numeral(num).format('0o')
     }
   },
 

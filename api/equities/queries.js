@@ -177,6 +177,23 @@ const marketMetrics2 = "with shares as (select distinct shares_outstanding from 
 `/ max(case when (fsli = $2) then value else null end) as "value" from shares, fin, price ` +
 "where fin.date = price.date group by fin.date, price.close order by fin.date"
 
+const screener = "with today as (select case (extract(isodow from current_date)::integer) % 7 " +
+"when 1 then current_date - 3 when 0 then current_date - 2 else current_date -1 end as business_day), " +
+"yesterday as (select case (extract(isodow from current_date)::integer) % 7 " +
+"when 1 then current_date - 4 when 0 then current_date - 3 else current_date -2 end as prev_business_day), " +
+"price as (select distinct ticker, date, close, volume from equities.candlestick_data, today, yesterday where " +
+"date = today.business_day or date = yesterday.prev_business_day group by ticker, date, close, volume), " +
+"recs_period as (select distinct period from equities.analyst_recs order by period desc limit 1), " +
+"recs as (select distinct * from equities.analyst_recs a, recs_period  where a.period = recs_period.period), " +
+"basic as (select distinct ticker, name, sector, market_cap, shares_outstanding from equities.basic_info), " +
+"metrics as (select distinct * from equities.key_metrics where metric = 'peExclLowTTM' or metric = 'psAnnual') " +
+"select basic.ticker, name, sector, max(case when (date = today.business_day) then close else null end) " +
+'as "today", max(case when (date = yesterday.prev_business_day) then close else null end) as "yesterday", max(volume), ' +
+`market_cap, shares_outstanding, strong_buy, buy, hold, sell, strong_sell, max(case when (metric = 'peExclLowTTM') ` +
+`then value else null end) as "p_e", max(case when (metric = 'psAnnual') then value else null end) as "p_s" ` +
+"from today, yesterday, price, recs, basic, metrics where price.ticker = recs.ticker and price.ticker = basic.ticker " +
+"and price.ticker = metrics.ticker group by basic.ticker, name, sector, market_cap, shares_outstanding, strong_buy, buy, hold, sell, strong_sell"
+
 module.exports = {
     topNews,
     getIpos,
@@ -220,5 +237,6 @@ module.exports = {
     finChart2,
     bvPerShare,
     marketMetrics,
-    marketMetrics2
+    marketMetrics2,
+    screener
 }

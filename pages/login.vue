@@ -20,13 +20,14 @@
                     </v-col>
                 </v-row>
                 <v-row justify="space-between">
-                    <v-col class="d-flex" md="6" sm="3" xsm="12">
-                        <v-btn x-large block :disabled="loading" color="success" 
+                    <v-col class="d-flex" md="5" sm="3" xsm="12">
+                        <v-btn :disabled="loading" color="success" 
                        :loading="loading" @click="localLogin()"> Login </v-btn>
                     </v-col> 
-                    <v-col class="d-flex" md="6" sm="3" xsm="12">
-                    <v-btn x-large block color="secondary" 
-                       @click="googleLogIn()"> Login with Google </v-btn>
+                    <v-col md="7" sm="7" xsm="12">
+                        <a href="/register" class="register-button d-flex flex-row-reverse">Don't have an account? Click here</a>
+                    <!-- <v-btn x-large block color="secondary" 
+                       @click="googleLogIn()"> Login with Google </v-btn> -->
                     </v-col> 
                 </v-row>
             </v-form>
@@ -89,16 +90,15 @@ export default {
                 });
             }
         },
-       async googleLogIn() {
-           this.$auth.loginWith('google');
-        }
+    //    async googleLogIn() {
+    //        this.$auth.loginWith('google');
+    //     }
 
     },
-    mounted() {
-    const {email, given_name, family_name, picture, email_verified} = this.$auth.user;
-      const user = {email, given_name, family_name, picture, email_verified};
-      console.log(user);
-    }
+    // mounted() {
+    // const {email, given_name, family_name, picture, email_verified} = this.$auth.user;
+    //   const user = {email, given_name, family_name, picture, email_verified};
+    // }
 }
 </script>
 

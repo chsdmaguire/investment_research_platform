@@ -1,7 +1,7 @@
 
 // CRYPTO
 const cryptoListings = " SELECT DISTINCT * from crypto.latest_listings order by cmc_rank";
-const cryptoCandleStick = 'select distinct * from crypto.crypto_candlesticks where ticker = $1 and date in (select date from (select ticker, date, count(*) from crypto.crypto_candlesticks where ticker = $1 and date > $2 group by ticker, date having count(*) = 1) as foo) ORDER BY date desc limit 1200';
+const cryptoCandleStick = 'select distinct * from crypto.crypto_candlesticks where ticker = $1';
 const cryptoList = "SELECT DISTINCT symbol, name, cmc_rank from crypto.latest_listings order by cmc_rank";
 
 

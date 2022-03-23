@@ -23,13 +23,11 @@ export default {
 
 
 h1 {
-  font-size: 50px;
-  font-size: 5vw;
+  font-size: 3vw;
 }
 
 p {
-  font-size: 25px;
-  font-size: 3vw;
+  font-size: 1vw;
 } 
 
 

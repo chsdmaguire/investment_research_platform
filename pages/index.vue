@@ -1,18 +1,12 @@
 <template>
     <v-container fluid align-items="center" >
-           <!-- <v-row justify="start" align="center">
-                    <h1 class="name">Flibyrd</h1>
-                </v-row>
-                <v-row justify="start" align="center">
-                    <h1 class="name">Automated Solutions</h1>
-                </v-row>
-                <v-row justify="start" align="center">
-                <h1 class="name">For Personal Wealth Management</h1>
-                <v-row justify="start" align="center">
-                <span> <div class="changer">
-                    <h1 v-html="paper"></h1></div></span>
-                </v-row>
-                </v-row> -->
+      <div class="alert">
+        <v-alert
+        type="info"
+        dismissible
+        > Not sure where to start? Try <span> <a href="/stockfilter">here</a> </span> for inspiration
+        </v-alert>
+      </div>
     <v-parallax dark :src="require('~/assets/bgHero.jpg')" height="350" class="mx-n16 mt-n16">
       <v-row align="center" justify="center">
         <v-col cols="10">
@@ -315,10 +309,27 @@ div {
         font-size: 8px;
     }
 }
-
-
-
 .colored-text {
     color: #1f6aed
 }
+
+.alert {
+  z-index: 50;
+  position:absolute;
+  right: 5%;
+  width: 500;
+  opacity:0;
+  animation: fadeInAnimation linear 1s;
+            animation-delay: 1.5s;
+            animation-iteration-count: 1;
+            animation-fill-mode: forwards;
+}
+@keyframes fadeInAnimation {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
 </style>

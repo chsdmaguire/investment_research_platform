@@ -425,6 +425,16 @@ const marketMetrics2 = async(req, res) => {
 });
 }
 
+const screener = async(req, res) => {
+    pool.query(queries.screener, (error, results) => {
+        if (error) {
+            console.log(error.message);
+            throw error;
+        } 
+        res.status(200).json(results.rows);
+});
+}
+
 module.exports = {
     basicSearch,
     topNews,
@@ -467,5 +477,6 @@ module.exports = {
     finChart2,
     bvPerShare,
     marketMetrics,
-    marketMetrics2
+    marketMetrics2,
+    screener
 }
