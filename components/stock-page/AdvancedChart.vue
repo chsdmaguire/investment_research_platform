@@ -127,6 +127,24 @@ export default {
                         radius: 0,
                     }
                 },
+                interaction: {
+                    intersect: false,
+                    mode: 'index',
+                },
+                // plugins: {
+                //     tooltip: {
+                //         callbacks: {
+                //             footer: (tooltipItems) => {
+                //     let sum = 0;
+
+                //     tooltipItems.forEach(function(tooltipItem) {
+                //         sum += tooltipItem.parsed.y;
+                //     });
+                //     return 'Sum: ' + sum;
+                //     },
+                //         }
+                //     }
+                // },
                 scales: {
                     yAxes: [{
                         position: 'right',
@@ -177,6 +195,10 @@ export default {
                                 radius: 0,
                             }
                         },
+                        interaction: {
+                            intersect: false,
+                            mode: 'index',
+                            },
                         scales: {
                             yAxes: [{
                                 position: 'right',
@@ -239,6 +261,10 @@ export default {
                                 radius: 0,
                             }
                         },
+                        interaction: {
+                            intersect: false,
+                            mode: 'index',
+                            },
                         scales: {
                             yAxes: [{
                                 position: 'left',
@@ -303,6 +329,10 @@ export default {
                                 radius: 0,
                             }
                         },
+                        interaction: {
+                    intersect: false,
+                    mode: 'index',
+                },
                         scales: {
                             yAxes: [{
                                 position: 'left',
