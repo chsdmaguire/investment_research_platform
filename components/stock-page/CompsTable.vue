@@ -107,7 +107,12 @@
                             </thead>
                             <tbody>
                                 <tr v-for="(stock, idx) in compsTable" :key="idx">
-                                    <td>{{ stock.ticker }}</td>
+                                    <td>
+                                      <span> <a style="text-decoration: none;font-weight: bold;" :href="`/${stock.ticker}`">
+                                    {{ stock.ticker }}</a>
+                                    </span>  
+                                    </td>
+                                    
                                     <td>{{ stock.name }}</td>
                                     <td>{{ formatPrice(stock.price) }} </td>
                                     <td>{{ bigNumber((stock.market_cap * 1000000) / stock.price) }} </td>
@@ -177,7 +182,11 @@
                             </thead>
                             <tbody>
                                 <tr v-for="(stock, idx) in compsTable" :key="idx">
-                                    <td>{{ stock.ticker }}</td>
+                                    <td>
+                                      <span> <a style="text-decoration: none;font-weight: bold;" :href="`/${stock.ticker}`">
+                                    {{ stock.ticker }}</a>
+                                    </span>  
+                                    </td>
                                     <td>{{ bigNumber(stock.revenue) }}</td>
                                     <td>{{ bigNumber(stock.bookvalue) }} </td>
                                     <td>{{ bigNumber(stock.netincome) }}</td>
@@ -248,7 +257,11 @@
                             </thead>
                             <tbody>
                                 <tr v-for="(stock, idx) in compsTable" :key="idx">
-                                    <td>{{ stock.ticker }}</td>
+                                    <td>
+                                      <span> <a style="text-decoration: none;font-weight: bold;" :href="`/${stock.ticker}`">
+                                    {{ stock.ticker }}</a>
+                                    </span>  
+                                    </td>
                                     <td class="multiples">{{ metricFormat((stock.market_cap * 1000000) / stock.revenue) }}</td>
                                     <td class="multiples"> {{ metricFormat(((stock.market_cap * 1000000) + stock.debt) / stock.ebit) }} </td>
                                     <td class="multiples">{{ metricFormat(((stock.market_cap * 1000000) + stock.debt) / stock.ebitda) }}</td>
@@ -346,7 +359,7 @@
                                         <span v-if="((this.thisCompany[0].market_cap * 1000000) / this.thisCompany[0].revenue) > this.PsalesAvg" style="color:red">
                                         {{ formatPercent((((this.thisCompany[0].revenue * this.PsalesAvg) / ((this.thisCompany[0].market_cap * 1000000) / this.thisCompany[0].price)) 
                                         - this.thisCompany[0].price) / this.thisCompany[0].price)  }}</span>
-                                        <span v-else style="color:green"> {{ formatPrice((((this.thisCompany[0].revenue * this.PsalesAvg) / ((this.thisCompany[0].market_cap * 1000000) / this.thisCompany[0].price)) 
+                                        <span v-else style="color:green"> {{ formatPercent((((this.thisCompany[0].revenue * this.PsalesAvg) / ((this.thisCompany[0].market_cap * 1000000) / this.thisCompany[0].price)) 
                                         - this.thisCompany[0].price) / this.thisCompany[0].price)  }}</span>
                                     </td>
                                     <td>
@@ -354,7 +367,7 @@
                                         {{ formatPercent(((((this.thisCompany[0].ebit * this.EVtoEBITavg) - this.thisCompany[0].debt) / ((this.thisCompany[0].market_cap * 1000000) / this.thisCompany[0].price)) 
                                         - this.thisCompany[0].price) / this.thisCompany[0].price) }}
                                         </span>
-                                        <span v-else style="color:green"> {{ formatPrice(((((this.thisCompany[0].ebit * this.EVtoEBITavg) - this.thisCompany[0].debt) / ((this.thisCompany[0].market_cap * 1000000) / this.thisCompany[0].price)) 
+                                        <span v-else style="color:green"> {{ formatPercent(((((this.thisCompany[0].ebit * this.EVtoEBITavg) - this.thisCompany[0].debt) / ((this.thisCompany[0].market_cap * 1000000) / this.thisCompany[0].price)) 
                                         - this.thisCompany[0].price) / this.thisCompany[0].price) }}</span>
                                     </td>
                                     <td>
@@ -362,21 +375,21 @@
                                         {{ formatPercent(((((this.thisCompany[0].ebitda * this.EVEBITDAavg) - this.thisCompany[0].debt) / ((this.thisCompany[0].market_cap * 1000000) / this.thisCompany[0].price)) 
                                         - this.thisCompany[0].price) / this.thisCompany[0].price) }}
                                         </span>
-                                        <span v-else style="color:green"> {{ formatPrice(((((this.thisCompany[0].ebitda * this.EVEBITDAavg) - this.thisCompany[0].debt) / ((this.thisCompany[0].market_cap * 1000000) / this.thisCompany[0].price)) 
+                                        <span v-else style="color:green"> {{ formatPercent(((((this.thisCompany[0].ebitda * this.EVEBITDAavg) - this.thisCompany[0].debt) / ((this.thisCompany[0].market_cap * 1000000) / this.thisCompany[0].price)) 
                                         - this.thisCompany[0].price) / this.thisCompany[0].price) }}</span>
                                     </td>
                                     <td>
                                         <span v-if="((this.thisCompany[0].market_cap * 1000000) / this.thisCompany[0].netincome) > this.PEavg" style="color:red">
                                         {{ formatPercent((((this.thisCompany[0].netincome * this.PEavg) / ((this.thisCompany[0].market_cap * 1000000) / this.thisCompany[0].price)) 
                                         - this.thisCompany[0].price) / this.thisCompany[0].price)  }}</span>
-                                        <span v-else style="color:green"> {{ formatPrice((((this.thisCompany[0].netincome * this.PEavg) / ((this.thisCompany[0].market_cap * 1000000) / this.thisCompany[0].price)) 
+                                        <span v-else style="color:green"> {{ formatPercent((((this.thisCompany[0].netincome * this.PEavg) / ((this.thisCompany[0].market_cap * 1000000) / this.thisCompany[0].price)) 
                                         - this.thisCompany[0].price) / this.thisCompany[0].price)  }}</span>
                                     </td>
                                      <td>
                                         <span v-if="((this.thisCompany[0].market_cap * 1000000) / this.thisCompany[0].bookvalue) > this.PBavg" style="color:red">
                                         {{ formatPercent((((this.thisCompany[0].bookvalue * this.PBavg) / ((this.thisCompany[0].market_cap * 1000000) / this.thisCompany[0].price)) 
                                         - this.thisCompany[0].price) / this.thisCompany[0].price)  }}</span>
-                                        <span v-else style="color:green"> {{ formatPrice((((this.thisCompany[0].bookvalue * this.PBavg) / ((this.thisCompany[0].market_cap * 1000000) / this.thisCompany[0].price)) 
+                                        <span v-else style="color:green"> {{ formatPercent((((this.thisCompany[0].bookvalue * this.PBavg) / ((this.thisCompany[0].market_cap * 1000000) / this.thisCompany[0].price)) 
                                         - this.thisCompany[0].price) / this.thisCompany[0].price)  }}</span>
                                     </td>
                                     <td>
@@ -568,7 +581,7 @@ export default {
                 if (item.peers === e.ticker) {
                         this.compsTable.push(e);
                         if (e.netincome > 0) { this.PEratio.push((e.market_cap * 1000000) / e.netincome) };
-                         if (e.ebitda > 0) { this.EVebitda.push((e.market_cap + e.debt) / e.ebitda) };
+                         if (e.ebitda > 0) { this.EVebitda.push(((e.market_cap * 1000000) + e.debt) / e.ebitda) };
                           this.Psales.push((e.market_cap * 1000000) / e.revenue);
                         if (e.bookvalue > 0 )this.PBratio.push((e.market_cap * 1000000) / e.bookvalue);
                          if (e.ebit > 0) { this.EVtoEBIT.push(((e.market_cap * 1000000) + e.debt) / e.ebit) };
@@ -585,6 +598,7 @@ export default {
 
         calcmetrics() {
             this.PEavg = this.PEratio.reduce((a, b) => a + b) / this.PEratio.length;
+            console.log(this.EVebitda);
             this.EVEBITDAavg = this.EVebitda.reduce((a, b) => a + b) / this.EVebitda.length;
             this.PsalesAvg = this.Psales.reduce((a, b) => a + b) / this.Psales.length;
             this.PBavg = this.PBratio.reduce((a, b) => a + b) / this.PBratio.length;
@@ -641,7 +655,7 @@ export default {
                     this.initialCompetitors.push(e.title)
                     this.compsTable.push(e)
                     if (e.netincome > 0) { this.PEratio.push((e.market_cap * 1000000) / e.netincome) };
-                    if (e.ebitda > 0) { this.EVebitda.push((e.market_cap + e.debt) / e.ebitda) };
+                    if (e.ebitda > 0) { this.EVebitda.push(((e.market_cap * 1000000) + e.debt) / e.ebitda) };
                     this.Psales.push((e.market_cap * 1000000) / e.revenue);
                 this.PBratio.push((e.market_cap * 1000000) / e.bookvalue);
                     if (e.ebit > 0) { this.EVtoEBIT.push(((e.market_cap * 1000000) + e.debt) / e.ebit) };
