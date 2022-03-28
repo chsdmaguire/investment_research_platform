@@ -6,16 +6,6 @@
     <v-row justify="center" align="center" class="mb-4">
         <h4>Our Answers to Your Questions</h4>
     </v-row>
-    <!-- <v-row justify="space-between" align="center">
-        <v-col :cols="numCols" v-for="(item, idx) in cardAssets" :key="idx">
-            <v-card class="mx-auto jump ma-3 text-center justify-center align-center" :href="item.link" max-height="400" max-width="400">
-            <v-img :src="item.img" aspect-ratio="1" width="100" class=" mx-auto text-center justify-center align-center"></v-img>
-            <v-card-title class="my-2 justify-center" primary-title>
-               {{ item.title }}
-            </v-card-title>
-            </v-card>
-        </v-col>
-    </v-row> -->
     <v-row justify="start" v-for="(item, idx) in cardAssets" :key="idx" class="ml-12">
       <v-container class="mb-4">
         <v-card :href="item.link" class="jump" dark color="rgba(255, 0, 0, 0.0)" flat>

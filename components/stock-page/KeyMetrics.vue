@@ -4,7 +4,7 @@
         <tbody>
             <tr v-for="(item, idx) in keyMetrics" :key="idx">
                 <td class="data">{{ item.name }}</td>
-                <td  class="data">{{ formatChange(item.value) }}</td>
+                <td  class="data">{{ formatChange(item) }}</td>
             </tr>
         </tbody>
 
@@ -36,10 +36,10 @@ export default {
             });
         },
         formatChange(val) {
-            if(val < 1 && val > 0) {
-                return numeral(val).format('0.0%')
+            if(val.name.includes('Margin') || val.name.includes('Growth')) {
+                return numeral(val.value).format('0.0%')
             } else {
-                return numeral(val).format('0.0')
+                return numeral(val.value).format('0.0')
             }
                 
             },

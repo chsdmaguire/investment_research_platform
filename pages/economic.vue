@@ -16,6 +16,15 @@ export default {
         return {
             
         }
+    },
+    head() {
+        return {
+            title: 'US Economy',
+            meta: [
+                {name: 'description', content: 'latest economic news and trends chart'},
+                {name: 'keywords', content: ['us economy news', 'us economic trends', 'us economic metrics']}
+            ]
+        }
     }
 }
 </script>

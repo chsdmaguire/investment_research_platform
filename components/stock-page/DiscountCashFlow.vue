@@ -45,7 +45,7 @@
                                             <div class='child float-left-child'>
                                                 <v-text-field
                                                     v-model="RevRate"
-                                                    step=".01"
+                                                    step=".1"
                                                     class="mx-0 my-0 px-0 py-0"
                                                     dense
                                                     hide-details
@@ -353,7 +353,7 @@
                                             <div class='child float-left-child'>
                                                 <v-text-field
                                                     v-model="sharesOuts"
-                                                    step="1000"
+                                                    step="100000"
                                                     class="mx-0 my-0 px-0 py-0"
                                                     dense
                                                     hide-details
@@ -1840,7 +1840,7 @@
                                             <div class='child float-left-child'>
                                                 <v-text-field
                                                     v-model="evEbitda"
-                                                    step=".01"
+                                                    step=".5"
                                                     class="mx-0 my-0 px-0 py-0"
                                                     dense
                                                     hide-details
@@ -2331,84 +2331,87 @@ export default {
             this.operAsset, this.operLiab, this.capex, this.divPay]
 
             arrArray.forEach(arr => {
-                arr.sort((a, b) => (a.date > b.date) ? 1 : -1);
+                    arr.sort((a, b) => (a.date > b.date) ? 1 : -1);
             })
 
             // push most recent value to actual values
-            var lastItem = this.rev[this.rev.length -1];
-            this.revenue += lastItem.value;
-
+            if(this.rev.length > 0) {
+                var lastItem = this.rev[this.rev.length -1];
+                this.revenue += lastItem.value;
+                 this.RevRate += Number((((this.rev[this.rev.length -1].value / this.rev[0].value) ** (1 / this.rev.length)) - 1) * 100).toFixed(2);
+            }
+           
+           if(this.costRev.length > 0) {
             var lastItem = this.costRev[this.costRev.length -1];
             this.costOfGoods += lastItem.value;
-
-            var lastItem = this.research[this.research.length -1];
-            this.RandDexpense += lastItem.value;
-
-            var lastItem = this.salesGeneral[this.salesGeneral.length -1];
-            this.salesGenExpense += lastItem.value;
-
-            var lastItem = this.Depreciation[this.Depreciation.length -1];
-            this.deprExpense += lastItem.value;
-
-            var lastItem = this.tax[this.tax.length -1];
-            this.taxExpense += lastItem.value;
-
-            var lastItem = this.operAsset[this.operAsset.length -1];
-            this.changeOperAssets += lastItem.value;
-
-            var lastItem = this.operLiab[this.operLiab.length -1];
-            this.changeOperLiab += lastItem.value;
-
-            var lastItem = this.capex[this.capex.length -1];
-            this.capitalExp += lastItem.value;
-
-            // calc assumptions
-            this.RevRate += Number((((this.rev[this.rev.length -1].value / this.rev[0].value) ** (1 / this.rev.length)) - 1) * 100).toFixed(2);
-
             const grossProfitRateCalc = []
             this.costRev.forEach((num1, index) => {
                 var num2 = this.rev[index].value;
                 grossProfitRateCalc.push( (num2 - num1.value) / num2);
             });
             this.grossProfitRate += ((grossProfitRateCalc.reduce((a, b) => a + b) / grossProfitRateCalc.length) * 100).toFixed(1);
+           }
 
-            const rdCalc = []
+           if(this.research.length > 0) {
+            var lastItem = this.research[this.research.length -1];
+            this.RandDexpense += lastItem.value;
+             const rdCalc = []
             this.research.forEach((num1, index) => {
                 var num2 = this.rev[index].value;
                 rdCalc.push( (num1.value) / num2);
             });
             this.RdRate += ((rdCalc.reduce((a, b) => a + b) / rdCalc.length) * 100).toFixed(1);
+           }
 
+           if(this.salesGeneral.length > 0) {
+            var lastItem = this.salesGeneral[this.salesGeneral.length -1];
+            this.salesGenExpense += lastItem.value;
             const sgCalc = []
             this.salesGeneral.forEach((num1, index) => {
                 var num2 = this.rev[index].value;
                 sgCalc.push( (num1.value) / num2);
             });
             this.SgaRate += ((sgCalc.reduce((a, b) => a + b) / sgCalc.length) * 100).toFixed(1);
+           }
 
+           if(this.Depreciation.length > 0) {
+            var lastItem = this.Depreciation[this.Depreciation.length -1];
+            this.deprExpense += lastItem.value;      
             const deprCalc = []
             this.Depreciation.forEach((num1, index) => {
                 var num2 = this.rev[index].value;
                 deprCalc.push( (num1.value) / num2);
             });
             this.DeprRate += ((deprCalc.reduce((a, b) => a + b) / deprCalc.length) * 100).toFixed(1);
+           }
 
+           if(this.tax.length > 0){
+            var lastItem = this.tax[this.tax.length -1];
+            this.taxExpense += lastItem.value;   
             const taxCalc = []
             this.tax.forEach((num1, index) => {
                 var num2 = this.incBeforeTax[index].value;
                 taxCalc.push( (num1.value) / num2);
             });
-            this.TaxRate += ((taxCalc.reduce((a, b) => a + b) / taxCalc.length) * 100).toFixed(1);
+            this.TaxRate += ((taxCalc.reduce((a, b) => a + b) / taxCalc.length) * 100).toFixed(1);            
+           }
 
-            const operAssCalc = []
+            if(this.operAsset.length > 0){
+            var lastItem = this.operAsset[this.operAsset.length -1];
+            this.changeOperAssets += lastItem.value;
+             const operAssCalc = []
             this.operAsset.forEach((num1, index) => {
                 if(index <= this.rev.length -1) {
                 var num2 = this.rev[index].value;
                 operAssCalc.push((num1.value) / num2);
                 }              
             });
-            this.OpAssetRate += ((operAssCalc.reduce((a, b) => a + b) / operAssCalc.length) * 100).toFixed(1);
+            this.OpAssetRate += ((operAssCalc.reduce((a, b) => a + b) / operAssCalc.length) * 100).toFixed(1);                
+            }
 
+            if(this.operLiab.length > 0) {
+            var lastItem = this.operLiab[this.operLiab.length -1];
+            this.changeOperLiab += lastItem.value; 
             const operLiabCalc = []
             this.operLiab.forEach((num1, index) => {
                 if(index <= this.rev.length -1) {
@@ -2416,8 +2419,13 @@ export default {
                 operLiabCalc.push( (num1.value) / num2);
                 }
             });
-            this.OpLiabRate += ((operLiabCalc.reduce((a, b) => a + b) / operLiabCalc.length) * 100).toFixed(1);
+            this.OpLiabRate += ((operLiabCalc.reduce((a, b) => a + b) / operLiabCalc.length) * 100).toFixed(1);               
+            }
 
+
+            if(this.capex.length > 0) {
+            var lastItem = this.capex[this.capex.length -1];
+            this.capitalExp += lastItem.value;
             const capexCalc = []
             this.capex.forEach((num1, index) => {
                 if(index <= this.rev.length -1) {
@@ -2425,7 +2433,8 @@ export default {
                 capexCalc.push( (num1.value) / num2);
                 }
             });
-            this.CapexRate += ((capexCalc.reduce((a, b) => a + b) / capexCalc.length) * 100).toFixed(1);
+            this.CapexRate += ((capexCalc.reduce((a, b) => a + b) / capexCalc.length) * 100).toFixed(1);                
+            }
 
             this.loading = false;
         },

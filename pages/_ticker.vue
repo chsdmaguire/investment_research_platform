@@ -155,10 +155,10 @@ const numeral = require('numeral');
 export default {
   head() {
     return {
-      title: this.head.ticker,
+      title: this.head.ticker + "stock",
       meta: [
-          {name: 'description', content: this.head.description},
-          {name: 'keywords', content: this.head.name},
+          {name: 'description', content: 'Latest news, price, financials, and valuations for ' + this.head.ticker},
+          {name: 'keywords', content: this.head.ticker + "stock"},
       ]
     }
   },

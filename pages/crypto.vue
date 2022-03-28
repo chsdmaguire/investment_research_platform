@@ -25,7 +25,16 @@ import CryptoGraph from '~/components/cryptoecon/CryptoGraph';
 import News from '~/components/cryptoecon/News';
 
 export default {
-    components: {CryptoTable, CryptoGraph, News}
+    components: {CryptoTable, CryptoGraph, News},
+    head() {
+        return {
+            title: 'Cryptocurrency',
+            meta: [
+                {name: 'description', content: 'Latest news and prices on cryptocurrencies'},
+                {name: 'keywords', content: ['Cryptocurrencies', 'crypto prices', 'cryptocurency list']}
+            ]
+        }
+    }
 }
 </script>
 
