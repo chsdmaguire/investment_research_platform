@@ -36,17 +36,17 @@
                 <Client ref="client" />
                 <v-btn
                 color="primary"
-                @click="showName"
+                @click="commitClient"
                 >
                 Continue
                 </v-btn>
 
-                <v-btn text @click="moveUp">
+                <v-btn text @click="moveDown">
                 Back
                 </v-btn>
               </v-stepper-content>
             <v-stepper-content step="2">
-               <Bday />
+               <Bday ref="bday"/>
 
                 <v-btn
                 color="primary"
@@ -59,7 +59,7 @@
                 </v-btn>
             </v-stepper-content>
             <v-stepper-content step="3">
-             <MaritalStatus />
+             <MaritalStatus ref="maritalStatus"/>
               <v-btn
                 color="primary"
                 @click="moveUp"
@@ -72,7 +72,7 @@
                 </v-btn>
             </v-stepper-content>
             <v-stepper-content step="4">
-            <Dependents />
+            <Dependents ref="dependents"/>
               <v-btn
                 color="primary"
                 @click="moveUp"
@@ -85,7 +85,7 @@
                 </v-btn>
             </v-stepper-content>
             <v-stepper-content step="5">
-              <Residence />
+              <Residence ref="residence"/>
               <v-btn
                 color="primary"
                 @click="moveUp"
@@ -98,7 +98,7 @@
                 </v-btn>
             </v-stepper-content>
             <v-stepper-content step="6">
-              <Goals />
+              <Goals ref="goals"/>
               <v-btn
                 color="primary"
                 @click="moveUp"
@@ -142,8 +142,26 @@ export default {
                 this.e1 -= 1
             }
         },
-        showName() {
-          console.log(this.$refs.client.firstName)
+        commitClient() {
+          this.$store.commit('fpTool/clientTitle', this.$refs.client.title);
+          this.$store.commit('fpTool/clientFirstName', this.$refs.client.firstName);
+          this.$store.commit('fpTool/clientLastName', this.$refs.client.lastName);
+          this.e1 += 1
+        },
+        commitBday() {
+
+        },
+        commitMarStatus() {
+
+        },
+        commitDeps() {
+
+        },
+        commitResidence() {
+
+        },
+        commitGoals() {
+          
         }
     }
 }
