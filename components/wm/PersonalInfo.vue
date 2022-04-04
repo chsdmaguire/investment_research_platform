@@ -50,7 +50,7 @@
 
                 <v-btn
                 color="primary"
-                @click="moveUp"
+                @click="commitBday"
                 >
                 Continue
                 </v-btn>
@@ -149,10 +149,11 @@ export default {
           this.e1 += 1
         },
         commitBday() {
-
+          this.$store.commit('fpTool/clientBirthday', this.$refs.bday.pickerDate);
+          this.e1 += 1
         },
         commitMarStatus() {
-
+          this.$store.commit('fpTool/clientMaritalDate', this.$refs.maritalStatus.maritalStatus);
         },
         commitDeps() {
 
