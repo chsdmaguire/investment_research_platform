@@ -180,36 +180,7 @@
                         </v-col>                       
                     </v-row>
                 </v-carousel-item>
-                <v-carousel-item>
-                    <v-row justify="center" align="center" class="mt-12">
-                        Do you receive stock options?
-                    </v-row>
-                     <v-row justify="center" align="center">
-                         <v-col cols="3">
-                            <v-card class="mx-auto rounded-circle" 
-                                width="170" height="170" color="indigo" @click.stop="upCarousel">
-                                <v-row justify="center" align="center">
-                                <h3 class="mt-16">Yes</h3>
-                                </v-row>
-                                </v-card>
-                            </v-col>
-                            <v-col cols="3">
-                            <v-card class="mx-auto rounded-circle" @click.stop="skipCarousel"
-                                width="170" height="170" color="indigo">
-                                <v-row justify="center" align="center">
-                                <h3 class="mt-16">No</h3>
-                                </v-row>
-                                </v-card>
-                            </v-col>
-                     </v-row>
-                     <v-row justify="center" align="center">
-                        <v-col cols="1">
-                            <v-btn class="secondary" @click="backCarousel">
-                            Back
-                            </v-btn>
-                        </v-col>
-                      </v-row>
-                 </v-carousel-item>
+                
             </v-carousel>
         </v-container>
     </v-card>
