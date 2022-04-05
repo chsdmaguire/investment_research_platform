@@ -74,12 +74,12 @@
                         </v-col>                       
                     </v-row>
                 </v-carousel-item>
-                 <v-carousel-item>
+                <v-carousel-item>
                     <v-row justify="center" align="center" class="mt-12">
                         Do you usually receive a bonus?
                     </v-row>
-                     <v-row justify="center" align="center">
-                         <v-col cols="3">
+                    <v-row justify="center" align="center">
+                        <v-col cols="3">
                             <v-card class="mx-auto rounded-circle" 
                                 width="170" height="170" color="indigo" @click.stop="upCarousel">
                                 <v-row justify="center" align="center">
@@ -95,15 +95,15 @@
                                 </v-row>
                                 </v-card>
                             </v-col>
-                     </v-row>
-                      <v-row justify="center" align="center">
+                    </v-row>
+                    <v-row justify="center" align="center">
                         <v-col cols="1">
                             <v-btn class="secondary" @click="backCarousel">
                             Back
                             </v-btn>
                         </v-col>
-                      </v-row>
-                 </v-carousel-item>
+                    </v-row>
+                </v-carousel-item>
                 <v-carousel-item>
                     <v-row justify="center" align="center" class="mt-12">
                         How much do you receive in bonuses each year on average?
@@ -127,12 +127,12 @@
                         </v-col>                       
                     </v-row>
                 </v-carousel-item>
-                 <v-carousel-item>
+                <v-carousel-item>
                     <v-row justify="center" align="center" class="mt-12">
                         Do you receive commissions?
                     </v-row>
-                     <v-row justify="center" align="center">
-                         <v-col cols="3">
+                    <v-row justify="center" align="center">
+                        <v-col cols="3">
                             <v-card class="mx-auto rounded-circle" 
                                 width="170" height="170" color="indigo" @click.stop="upCarousel">
                                 <v-row justify="center" align="center">

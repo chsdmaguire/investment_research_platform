@@ -17,7 +17,6 @@
                     :close-on-content-click="false"
                     transition="scale-transition"
                     offset-y
-                    full-width
                   >
                     <template v-slot:activator="{ on }">
                       <v-text-field
@@ -31,7 +30,6 @@
                       <v-col cols="6">
                     <v-date-picker
                       ref="picker"
-                      full-width
                       v-model="date"
                       :day-format="date => new Date(date).getDate()"
                       :max="new Date().toISOString().substr(0, 10)"
@@ -65,13 +63,14 @@ export default {
         this.pickerDate = null
       ))
     },
+    },
     methods: {
         save (date) {
         this.$refs.menu.save(date)
         this.pickerDate = date;
         },
     }
-  },
+  
 }
 </script>
 

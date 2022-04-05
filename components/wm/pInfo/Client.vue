@@ -1,5 +1,5 @@
 <template>
-  <v-cotainer>
+  <v-container>
       <v-card
         color="#121212"
         height="200px"
@@ -29,7 +29,7 @@
         </v-row>
         <!-- GET FULL NAME AND TITLE -->
         </v-card>
-  </v-cotainer>
+  </v-container>
 </template>
 
 <script>

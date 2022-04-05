@@ -19,7 +19,12 @@
 <script>
 import PrimIncome from "./budg/PrimIncome.vue";
 export default {
-    components: { PrimIncome }
+    components: { PrimIncome },
+    data() {
+        return {
+            e2: 1,
+        }
+    }
 }
 </script>
 

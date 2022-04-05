@@ -140,6 +140,10 @@ export default {
         },
         noKids() {
             this.kids = 'no'
+        },
+        wantsKids() {
+            this.wantsMoreKids = true;
+            this.$store.commit('fpTool/clientWantsKids')
         }
     }
 

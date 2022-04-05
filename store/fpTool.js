@@ -7,7 +7,7 @@ export const state = () => ({
     dependents: [],
     wantsKids: false,
     kidsExpected: null,
-    goals: [],
+    goals: null,
     maritalStatus: null,
     maritalDate: null,
     spouseBirthday: null,
@@ -37,8 +37,8 @@ export const mutations = {
     clientKidsExpected(state, value) {
         state.kidsExpected = value
     },
-    clientGoals(state, value) {
-        state.goals.push(value)
+    clntGls(state, value) {
+        state.goals = value
     },
     spouseBirthday(state, value) {
         state.spouseBirthday = value
@@ -48,6 +48,9 @@ export const mutations = {
     },
     clientMaritalDate(state, value) {
         state.maritalDate = value
+    },
+    clientStatus(state, value) {
+        state.maritalStatus = value
     },
     clientResState(state, value) {
         state.residenceState = value

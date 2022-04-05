@@ -14,27 +14,13 @@
             <h1 v-html="paper"></h1></div></span>
         </v-row>
         <v-row>
-        <!-- <v-btn
-          class="primary"
-          dark
-          elevation="2"
-          x-large
-          href="wealth/planner"
-        >
-          Get Started
-        </v-btn> -->
-         
       </v-row> 
         
       </v-container>
 </template>
 
 <script>
-
-import Intro from '~/components/wm/Intro';
-import Main from '~/components/wm/Main';
 export default {
-    components: {Intro, Main},
     data() {
       return {
         plan: null,

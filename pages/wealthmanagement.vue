@@ -15,8 +15,14 @@
         </v-row>
       </template>
       <template v-if="started">
+          <v-row>
+              <PersonalInfo />
+          </v-row>
+          <v-row>
+              <Budget />
+          </v-row>
           <!-- <PersonalInfo /> -->
-          <Budget />
+      
           <!-- 2. work/income (also habe to ask about spouse, 
           show expected tax rate at end based on residency as well to ask if correct)
         3. house, ask if rent or own. ask if more than one property & get mortgage details

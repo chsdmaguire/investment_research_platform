@@ -42,10 +42,8 @@ export default {
     addGoal(val) {
       if(!this.clientGoals.includes(val)) {
         this.clientGoals.push(val);
-        console.log(this.clientGoals)
       } else {
         this.clientGoals.splice(val, 1);
-        console.log(this.clientGoals)
       }
 
     }
