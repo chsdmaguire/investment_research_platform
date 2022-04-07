@@ -325,24 +325,6 @@
         <v-row justify="center" align="center" class="mt-12">
           <h2>Do you have any of the following employer-sponsored retirement plans?</h2>
         </v-row>
-        <v-row justify="center" align="center">
-          <v-col cols="3">
-            <v-card class="mx-auto rounded-circle" 
-                width="170" height="170" color="indigo" @click.stop="upOne">
-                <v-row justify="center" align="center">
-                <h3 class="mt-16">Yes</h3>
-                </v-row>
-            </v-card>
-            </v-col>
-            <v-col cols="3">
-            <v-card class="mx-auto rounded-circle" @click.stop="skipTwo"
-                width="170" height="170" color="indigo">
-                <v-row justify="center" align="center">
-                <h3 class="mt-16">No</h3>
-                </v-row>
-            </v-card>
-            </v-col>
-        </v-row>
       </v-sheet>
     </v-carousel-item>
   </v-carousel>
@@ -374,13 +356,15 @@ export default {
       esops: [],
       bonds: [],
       otherAssets: [],
-      listOfIras: ['Roth IRA', 'Traditional IRA', 'SIMPLE IRA', 'SEP IRA', 'Spousal IRA', 'Inherited IRA', 'Group IRA', 
+      listOfIras: ['Roth IRA', 'Traditional IRA', 'Spousal IRA', 'Inherited IRA', 'Group IRA', 
       'Rollover IRA'],
       iraModel: [],
       listOfCds: ['Traditional CD', 'Bump-up CD', 'Step-up CD', 'Liquid CD', 'Zero-coupon CD', 
       'Callable CD', 'Brokered CD', 'High-yield CD', 'Jumbo CD', 'IRA CD', 'Add-on CD', 'Foreign Currency CD'],
       cdModel: [],
       cdTerms: [],
+      listOfRtrmentActs: ['401K', 'Roth 401K', '403B Plan', 'SIMPLE IRA', 'SEP IRA', 'SARSEP Plan', 'Profit Sharing Plan', 'Defined Benefit Plan', 
+      '457 Plan', 'Profit Sharing Plan', '']
     }
   },
   methods: {
