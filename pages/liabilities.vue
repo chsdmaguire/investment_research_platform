@@ -272,6 +272,11 @@ export default {
                 }
             ],
             propertiesNumber: 1,
+            //Property Liabilities/income
+            mortgages: [],
+            hels: [],
+            helcs: [],
+            incomes: [],
 
         };
         
@@ -314,23 +319,19 @@ export default {
             this.houseCarousel += 1;
         },
         updateProperties() {
-            const mortgages = [];
-            const hels = [];
-            const helcs = [];
-            const incomes = [];
             this.$store.commit('fpTool/')
             this.properties.forEach(item => {
                 if (item.has_mortage) {
-                    mortgages.push(item.id)
+                    this.mortgages.push(item.id)
                 }
                 if(item.has_hel) {
-                    hels.push(item.id)
+                    this.hels.push(item.id)
                 }
                 if(item.has_helc) {
-                    helcs.push(item.id)
+                    this.helcs.push(item.id)
                 }
                 if(item.generates_income) {
-                    incomes.push(item.id)
+                    this.incomes.push(item.id)
                 }
             });
 
