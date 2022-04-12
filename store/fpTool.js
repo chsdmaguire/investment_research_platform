@@ -14,6 +14,7 @@ export const state = () => ({
     residenceState: null,
     residenceZipCode: null,
     properties: null,
+    
     checkings: null,
     savings: null,
     cds: null,
@@ -23,17 +24,26 @@ export const state = () => ({
     companyRetirem: null,
     five29s: null,
     Gifts: null,
-    arts: null,
+    valuables: null,
     vehicles: null,
     businesses: null,
     cash: null,
     esops: null,
     bonds: null,
     otherAssets: null,
+    crypto: null,
+    nfts: null,
+    
 
 })
 
 export const mutations = {
+    clientCrypto(state, value) {
+        state.crypto = value
+    },
+    clientNfts(state, value) {
+        state.nfts = value
+    },
     clientProperties(state, value) {
         state.properties = value
     },
@@ -64,8 +74,8 @@ export const mutations = {
     clientGifts(state, value) {
         state.Gifts = value
     },
-    clientArt(state, value) {
-        state.arts = value
+    clientValuables(state, value) {
+        state.valuables = value
     },
     clientVehicles(state, value) {
         state.vehicles = value

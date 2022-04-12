@@ -54,8 +54,6 @@
                         <v-btn @click="removeRow(i)"><v-icon>mdi-minus</v-icon></v-btn>
                     </v-col>
                 </v-row>
-               
-                <!-- need a thing to ask if they intend on having any more kids in the near future -->
             </v-row>
              <v-row justify="center" align="center">
                     <v-btn block @click="addRow"><v-icon>mdi-plus</v-icon></v-btn>

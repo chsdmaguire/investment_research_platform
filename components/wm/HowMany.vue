@@ -2,7 +2,7 @@
   <v-container>
     <v-card class="mx-auto mt-10" color="#121212">
       <v-row justify="center" align="center">
-        <h1 class="question">how many checkings accounts do you have?</h1>
+        <h1 class="question">{{ question }}</h1>
       </v-row>
       <v-row justify="center" align="center">
           <v-col cols="2">
@@ -23,6 +23,9 @@
 
 <script>
 export default {
+  props:{
+    question: String
+  },
   data() {
     return {
         num: 0,
