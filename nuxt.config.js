@@ -79,7 +79,7 @@ export default {
       {
         name: 'Google Analytics',
         description: "Google Analytics is a web analytics service offered by Google that tracks and reports website traffic.",
-        src: 'https://www.googletagmanager.com/gtag/js?id=G-6TR511TP58',
+        src: process.env.GOOGLE_ANALYTICS_SRC,
         async: true,
         cookies: ['_ga', '_gid', '_gat_gtag_G-6TR511TP58', '_gac_', 'AMP_TOKEN'],
         accepted: () => {
@@ -88,7 +88,7 @@ export default {
             dataLayer.push(arguments);
           }
           gtag('js', new Date());
-          gtag('config', 'G-6TR511TP58', {cookie_flags: 'SameSite=None;Secure'});
+          gtag('config',  process.env.GOOGLE_ANALYTICS_ID, {cookie_flags: 'SameSite=None;Secure'});
         }
       }
     ]

@@ -199,8 +199,8 @@ const deleteUser = async (req, res) => {
 }
 
 const googleConfig = {
-    clientId: '465940272449-kthr32rjfonjm3bbp86s2erjg7o1g35f.apps.googleusercontent.com',
-    clientSecret: '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',
+    clientId: process.env.GOOGLE_CLIENT_ID,
+    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     redirect: 'http://localhost:3000/login'
   }
 function createConnection() {

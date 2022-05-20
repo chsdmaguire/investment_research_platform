@@ -62,3 +62,10 @@ sql/*.cer
 
 .nuxt/
 dist/
+
+#PRIVATE FILES
+.env
+ads.txt
+app.html
+deploy.sh
+sellers.json
